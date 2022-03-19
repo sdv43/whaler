@@ -1,0 +1,161 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the com.github.sdv43.whaler package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: com.github.sdv43.whaler\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-03-20 11:38+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: data/app.desktop:3 data/app.desktop:4 data/app.metainfo.xml:4
+msgid "Whaler"
+msgstr ""
+
+#: data/app.desktop:5 data/app.metainfo.xml:5
+msgid "Docker Container Management"
+msgstr ""
+
+#: data/app.desktop:8
+msgid "com.github.sdv43.whaler"
+msgstr ""
+
+#: data/app.desktop:10
+msgid "Docker;Virtualizaton"
+msgstr ""
+
+#: data/app.metainfo.xml:9
+msgid ""
+"Whaler provides basic functionality for managing Docker containers. The app "
+"can start and stop both standalone containers and docker-compose "
+"applications. Also, it supports viewing container logs."
+msgstr ""
+
+#: data/app.metainfo.xml:14
+msgid ""
+"The solution is perfect for those who are looking for a simple tool to "
+"perform some basic actions. For the app to run correctly, make sure that "
+"Docker and docker-compose are installed on your system."
+msgstr ""
+
+#: src/Utils/Sorting/SortingName.vala:12
+msgid "Name"
+msgstr ""
+
+#: src/Utils/Sorting/SortingType.vala:12
+msgid "Type"
+msgstr ""
+
+#: src/State/Root.vala:40
+msgid "Cannot get list of docker containers"
+msgstr ""
+
+#: src/Widgets/HeaderBar.vala:12
+msgid "Back"
+msgstr ""
+
+#: src/Widgets/HeaderBar.vala:37
+msgid "Update docker container list"
+msgstr ""
+
+#: src/Widgets/HeaderBar.vala:40
+msgid "Update error"
+msgstr ""
+
+#: src/Widgets/Screens/DockerContainer/Log.vala:37
+msgid "Autoscroll"
+msgstr ""
+
+#: src/Widgets/Screens/DockerContainer/Log.vala:49
+msgid "Enable autoscroll to bottom border"
+msgstr ""
+
+#: src/Widgets/Screens/DockerContainer/LogOutput.vala:33
+msgid "Cannot get container logs"
+msgstr ""
+
+#: src/Widgets/Screens/DockerContainer/TopBar.vala:69
+#: src/Widgets/Screens/DockerContainer/TopBar.vala:88
+msgid "Start"
+msgstr ""
+
+#: src/Widgets/Screens/DockerContainer/TopBar.vala:77
+msgid "Stop"
+msgstr ""
+
+#: src/Widgets/Screens/DockerContainer/TopBar.vala:82
+msgid "Unpause"
+msgstr ""
+
+#.
+#: src/Widgets/Screens/DockerContainer/TopBar.vala:131
+#: src/Widgets/Screens/Main/ContainerCard.vala:198
+msgid "Pause"
+msgstr ""
+
+#: src/Widgets/Screens/DockerContainer/TopBar.vala:132
+#: src/Widgets/Screens/Main/ContainerCard.vala:206
+msgid "Container pause error"
+msgstr ""
+
+#.
+#: src/Widgets/Screens/DockerContainer/TopBar.vala:147
+#: src/Widgets/Screens/Main/ContainerCard.vala:219
+msgid "Remove"
+msgstr ""
+
+#: src/Widgets/Screens/DockerContainer/TopBar.vala:148
+#: src/Widgets/Screens/Main/ContainerCard.vala:225
+msgid "Container remove error"
+msgstr ""
+
+#: src/Widgets/Screens/DockerContainer/TopBar.vala:156
+#: src/Widgets/Screens/Main/ContainerCard.vala:227
+msgid "Do you really want to remove container?"
+msgstr ""
+
+#: src/Widgets/Screens/DockerContainer/TopBar.vala:157
+#: src/Widgets/Screens/Main/ContainerCard.vala:228
+msgid "Yes, remove"
+msgstr ""
+
+#: src/Widgets/Screens/DockerContainer/TopBar.vala:158
+#: src/Widgets/Screens/Main/ContainerCard.vala:229
+msgid "Cancel"
+msgstr ""
+
+#: src/Widgets/Screens/DockerContainer/TopBar.vala:189
+msgid "Container action error"
+msgstr ""
+
+#: src/Widgets/Screens/DockerContainer/TopBar.vala:196
+#: src/Widgets/Screens/Main/ContainerCard.vala:113
+msgid "Container stop error"
+msgstr ""
+
+#: src/Widgets/Screens/DockerContainer/TopBar.vala:201
+#: src/Widgets/Screens/Main/ContainerCard.vala:137
+msgid "Container unpause error"
+msgstr ""
+
+#: src/Widgets/Screens/DockerContainer/TopBar.vala:207
+#: src/Widgets/Screens/Main/ContainerCard.vala:160
+msgid "Container start error"
+msgstr ""
+
+#: src/Widgets/Screens/Main/ContainersGrid.vala:96
+msgid "No containers"
+msgstr ""
+
+#: src/Widgets/Screens/Main/FilterBar.vala:51
+msgid "Sort by:"
+msgstr ""

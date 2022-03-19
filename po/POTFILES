@@ -1,0 +1,12 @@
+data/app.desktop
+data/app.metainfo.xml
+src/Utils/Sorting/SortingName.vala
+src/Utils/Sorting/SortingType.vala
+src/State/Root.vala
+src/Widgets/HeaderBar.vala
+src/Widgets/Screens/DockerContainer/Log.vala
+src/Widgets/Screens/DockerContainer/LogOutput.vala
+src/Widgets/Screens/DockerContainer/TopBar.vala
+src/Widgets/Screens/Main/ContainerCard.vala
+src/Widgets/Screens/Main/ContainersGrid.vala
+src/Widgets/Screens/Main/FilterBar.vala

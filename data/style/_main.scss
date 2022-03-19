@@ -1,0 +1,171 @@
+@import "tools";
+
+$border-color: rgba(black, 0.25);
+$xs: rem(6px);
+$sm: rem(12px);
+$md: rem(18px);
+$lg: rem(24px);
+
+.titlebar {
+	background-color: #{"@bg_color"};
+	background-image: none;
+	box-shadow: none;
+    
+    .refresh-button {
+        &.refresh-animation image {
+            animation-name: rotate;
+            animation-duration: 500ms;
+            animation-timing-function: cubic-bezier(0.14, 0.99, 0.97, 1);
+            animation-iteration-count: 1;
+        }
+    }
+}
+
+.confirmation-question {
+    margin: $sm $lg;
+}
+
+.screen {
+    &-error {        
+        padding: $lg;
+        
+        .alert {
+            background-color: transparent;
+        }
+    }
+    
+    &-docker-container {
+        background-color: #{"@bg_color"};
+        
+        .top-bar {
+            margin: $lg;
+            
+            .container-name {
+                margin-bottom: $xs;
+                font-size: rem(20px);
+            }
+            
+            .button-main-action {
+                border-top-right-radius: 0px;
+                border-bottom-right-radius: 0px;
+            }
+    
+            .button-menu {
+                border-left: none;
+                border-top-left-radius: 0px;
+                border-bottom-left-radius: 0px;
+            }
+        }
+        
+        .side-bar {
+            border: 1px solid $border-color;
+            margin: $lg 0 $lg $lg;
+            
+            &-item {
+                padding: $sm;
+            }
+            
+            &-separator {
+                padding: $sm $sm $xs $sm;
+            }
+                
+            .image {
+                margin-top: 0;
+            }
+        }
+        
+        .log-output {
+            margin: $lg;
+            margin-top: 0;
+        
+            .terminal {
+                padding: $sm;
+            }
+        }
+        
+        .auto-scroll {
+            opacity: 0.2;
+            margin: $md;
+            border-radius: $xs;
+            padding: $xs;
+            background-color: #{"@bg_color"};
+            transition: opacity ease 150ms;
+            
+            &.visible {
+                opacity: 1;
+            }
+            
+            &-switcher {
+                margin-left: $xs;
+        
+                slider {
+                    min-width: rem(16px);
+                    min-height: rem(16px);
+                }
+            }
+        }
+    }
+    
+    &-main {
+        .docker-containers {
+            &-filter {
+                margin: $lg;
+            }
+            
+            &-grid {
+                margin: $sm;
+                margin-top: 0;
+                
+                .docker-container {
+                    margin: $sm;
+                    border-radius: 3px;
+                    border: 1px solid $border-color;
+                    -gtk-outline-radius: 5px;
+                    padding: $sm;
+                    background-color: bg-color(1);
+                    box-shadow:
+                        outset-highlight("full"),
+                        outset-shadow(2);
+                    
+                    &:focus, 
+                    &:selected, 
+                    &:active {
+                        @if $color-scheme == "light" {
+                            border-color: #{'@accent_color'};
+                        }
+                        color: #{'@selected_fg_color'};
+                        outline-color: #{'alpha(@accent_color, 0.3)'};
+                        outline-width: rem(2px);
+                        outline-style: solid;
+                    }
+                    
+                    &-preview-image {
+                        margin-right: $sm;
+                    }
+
+                    &-name {
+                        margin-bottom: $xs;
+                    }
+                
+                    &-actions {
+                        margin-left: $sm;
+                    }
+                
+                    .image-button {
+                        margin-left: $xs;
+                        
+                        image {
+                            margin: 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@keyframes rotate {
+    to { 
+        -gtk-icon-transform: rotate(1turn); 
+    }
+}

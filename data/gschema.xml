@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+  <schema path="/com/github/sdv43/whaler/" id="com.github.sdv43.whaler">
+    <key name="window-position" type="(ii)">
+      <default>(-1,-1)</default>
+      <summary>Window position</summary>
+    </key>
+    <key name="window-size" type="(ii)">
+      <default>(800,600)</default>
+      <summary>Window size</summary>
+    </key>
+    <key name="window-is-maximized" type="b">
+      <default>false</default>
+      <summary>Whether the window is maximized</summary>
+    </key>
+    <key name="main-screen-search-term" type="s">
+      <default>""</default>
+      <summary>Search entry value</summary>
+    </key>
+    <key name="main-screen-sorting" type="i">
+      <default>0</default>
+      <summary>Selected sorting code</summary>
+    </key>
+    <key name="screen-docker-container-autoscroll" type="b">
+      <default>true</default>
+      <summary>Whether the autoscroll switch is toggled</summary>
+    </key>
+  </schema>
+</schemalist>

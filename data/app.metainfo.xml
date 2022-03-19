@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>com.github.sdv43.whaler</id>
+  <name>Whaler</name>
+  <summary>Docker Container Management</summary>
+  <metadata_license>CC-BY-4.0</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+  <description>
+    <p>
+      Whaler provides basic functionality for managing Docker containers. 
+      The app can start and stop both standalone containers and docker-compose applications. 
+      Also, it supports viewing container logs.
+    </p>
+    <p>
+      The solution is perfect for those who are looking for a simple tool to perform some basic actions. 
+      For the app to run correctly, make sure that Docker and docker-compose are installed on your system.
+    </p>
+  </description>
+  <launchable type="desktop-id">com.github.sdv43.whaler</launchable>
+</component>

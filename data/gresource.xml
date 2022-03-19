@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gresources>
+  <gresource prefix="/com/github/sdv43/whaler">
+    <file compressed="true">images/icons/docker-app-dark.svg</file>
+    <file compressed="true">images/icons/docker-app.svg</file>
+    <file compressed="true">images/icons/docker-container-dark.svg</file>
+    <file compressed="true">images/icons/docker-container.svg</file>    
+  </gresource>
+</gresources>

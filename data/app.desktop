@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Whaler
+GenericName=Whaler
+Comment=Docker Container Management
+Categories=Utility;
+Exec=com.github.sdv43.whaler
+Icon=com.github.sdv43.whaler
+Terminal=false
+Type=Application
+Keywords=Docker;Virtualizaton

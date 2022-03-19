@@ -1,0 +1,5 @@
+build
+.flatpak-builder
+.vscode
+*.glade#
+*.glade~
