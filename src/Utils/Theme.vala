@@ -5,18 +5,6 @@ class Utils.Theme : Object {
         this.style_provider = new Gtk.CssProvider ();
     }
 
-    private string get_css () {
-        Value property_value = Value (typeof(string));
-        var distro = this.get_distro ();
-        var mode = this.is_dark_mode () ? "_dark" : "_light";
-        var property_name = distro + mode;
-
-        var css_styles = new CssStyles ();
-        css_styles.get_property (property_name, ref property_value);
-
-        return property_value.get_string ();
-    }
-
     private string get_distro () {
         return "elementary";
     }
@@ -34,9 +22,11 @@ class Utils.Theme : Object {
     }
 
     public void apply_styles (Gdk.Screen screen) throws Error {
-        var css = this.get_css ();
+        var distro = this.get_distro ();
+        var mode = this.is_dark_mode () ? "dark" : "light";
 
-        this.style_provider.load_from_data (css, css.length);
+        this.style_provider.load_from_resource (@"$RESOURCE_BASE/style/dist/$distro-$mode.css");
+
         Gtk.StyleContext.add_provider_for_screen (
             screen,
             this.style_provider,

@@ -9,20 +9,6 @@ gresource = gnome.compile_resources(
     source_dir: 'data'
 )
 
-# Styles
-style_compiler = find_program('meson/compile_styles.py', required: true)
-
-styles = custom_target(
-    meson.project_name() + '-styles',
-    command: [style_compiler, '@INPUT@', '@OUTPUT@'],
-    input: [
-        'data/style/variants/elementary-light.scss', 
-        'data/style/variants/elementary-dark.scss'
-    ],
-    output: 'CssStyles.vala',
-    build_by_default: true,
-)
-
 # Translations 
 i18n = import('i18n')
 
@@ -75,7 +61,6 @@ install_data (
 executable(
     meson.project_name(),
     gresource,
-    styles,
     
     'src/Application.vala',
 
