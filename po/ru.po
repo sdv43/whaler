@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.sdv43.whaler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-20 11:38+0300\n"
+"POT-Creation-Date: 2022-03-22 08:52+0300\n"
 "PO-Revision-Date: 2022-03-14 08:44+0300\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -18,23 +18,26 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: data/app.desktop:3 data/app.desktop:4 data/app.metainfo.xml:4
+#: data/com.github.sdv43.whaler.desktop.in:3
+#: data/com.github.sdv43.whaler.desktop.in:4
+#: data/com.github.sdv43.whaler.appdata.xml.in:4
 msgid "Whaler"
 msgstr "Whaler"
 
-#: data/app.desktop:5 data/app.metainfo.xml:5
+#: data/com.github.sdv43.whaler.desktop.in:5
+#: data/com.github.sdv43.whaler.appdata.xml.in:5
 msgid "Docker Container Management"
 msgstr "Управление Docker контейнерами"
 
-#: data/app.desktop:8
+#: data/com.github.sdv43.whaler.desktop.in:8
 msgid "com.github.sdv43.whaler"
 msgstr "com.github.sdv43.whaler"
 
-#: data/app.desktop:10
-msgid "Docker;Virtualizaton"
-msgstr "Docker;Virtualizaton"
+#: data/com.github.sdv43.whaler.desktop.in:11
+msgid "Docker;Virtualizaton;Development;"
+msgstr "Docker;Virtualizaton;Development;"
 
-#: data/app.metainfo.xml:9
+#: data/com.github.sdv43.whaler.appdata.xml.in:9
 msgid ""
 "Whaler provides basic functionality for managing Docker containers. The app "
 "can start and stop both standalone containers and docker-compose "
@@ -45,7 +48,7 @@ msgstr ""
 "так и docker-compose приложения. Также есть возможность просматривать логи "
 "контейнера."
 
-#: data/app.metainfo.xml:14
+#: data/com.github.sdv43.whaler.appdata.xml.in:14
 msgid ""
 "The solution is perfect for those who are looking for a simple tool to "
 "perform some basic actions. For the app to run correctly, make sure that "

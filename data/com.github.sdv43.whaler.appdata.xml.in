@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<component type="desktop-application">
+<component type="desktop">
   <id>com.github.sdv43.whaler</id>
   <name>Whaler</name>
   <summary>Docker Container Management</summary>
-  <metadata_license>CC-BY-4.0</metadata_license>
-  <project_license>GPL-3.0-or-later</project_license>
+  <metadata_license>CC0</metadata_license>
+  <project_license>GPL-3.0+</project_license>
+  <developer_name>Selivestrov Dmitriy</developer_name>
   <description>
     <p>
       Whaler provides basic functionality for managing Docker containers. 
@@ -16,5 +17,16 @@
       For the app to run correctly, make sure that Docker and docker-compose are installed on your system.
     </p>
   </description>
-  <launchable type="desktop-id">com.github.sdv43.whaler</launchable>
+  <screenshots>
+    <screenshot type="default">
+      <image>https://raw.githubusercontent.com/sdv43/whaler/master/data/images/screenshots/screenshot-1.png</image>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/sdv43/whaler/master/data/images/screenshots/screenshot-2.png</image>
+    </screenshot>
+  </screenshots>
+  <content_rating type="oars-1.1" />
+  <provides>
+    <binary>com.github.sdv43.whaler</binary>
+  </provides>
 </component>

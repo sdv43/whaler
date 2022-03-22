@@ -1,0 +1,16 @@
+app-id: com.github.sdv43.whaler
+runtime: io.elementary.Platform
+runtime-version: '6.1'
+sdk: io.elementary.Sdk
+command: com.github.sdv43.whaler
+finish-args:
+  - '--share=ipc'
+  - '--socket=fallback-x11'
+  - '--socket=wayland'
+  - '--filesystem=/run/docker.sock'
+modules:
+  - name: whaler
+    buildsystem: meson
+    sources:
+      - type: dir
+        path: .
