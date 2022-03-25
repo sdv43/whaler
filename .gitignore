@@ -1,4 +1,6 @@
+_build
 build
+.flatpak
 .flatpak-builder
 .vscode
 *.glade#
