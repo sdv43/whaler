@@ -1,4 +1,4 @@
-class Widgets.Screens.DockerContainer.Log : Gtk.Overlay {
+class Widgets.Screens.Container.Log : Gtk.Overlay {
     public Log () {
         this.add (new LogOutput ());
         this.add_overlay (this.build_switcher_container ());

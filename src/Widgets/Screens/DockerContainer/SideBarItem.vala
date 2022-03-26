@@ -1,9 +1,9 @@
-using Utils.DataEntities;
+using Utils;
 
-class Widgets.Screens.DockerContainer.SideBarItem : Gtk.ListBoxRow {
-    public Container service;
+class Widgets.Screens.Container.SideBarItem : Gtk.ListBoxRow {
+    public DockerContainer service;
 
-    public SideBarItem (Container service) {
+    public SideBarItem (DockerContainer service) {
         var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
 
         this.service = service;
@@ -23,7 +23,7 @@ class Widgets.Screens.DockerContainer.SideBarItem : Gtk.ListBoxRow {
         box.pack_start (container_name, false);
 
         //
-        var container_image = new Gtk.Label (service.container_image ?? "n\\a");
+        var container_image = new Gtk.Label (service.image);
 
         container_image.get_style_context ().add_class ("dim-label");
         container_image.get_style_context ().add_class ("image");

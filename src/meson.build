@@ -1,10 +1,11 @@
 sources = files(
     'Application.vala',
 
+    'Utils/DockerContainer.vala',
+    'Utils/HttpClient.vala',
     'Utils/Constants.vala',
     'Utils/Helpers.vala',
     'Utils/Theme.vala',
-    'Utils/DataEntities/Container.vala',
     'Utils/Sorting/SortingInterface.vala',
     'Utils/Sorting/SortingName.vala',
     'Utils/Sorting/SortingType.vala',
@@ -13,8 +14,6 @@ sources = files(
     'State/ScreenMain.vala',
     'State/ScreenDockerContainer.vala',
     
-    'Widgets/Utils/ConfirmationDialog.vala',
-
     'Widgets/HeaderBar.vala',
     'Widgets/ScreenManager.vala',
     'Widgets/ScreenError.vala',
@@ -32,7 +31,8 @@ sources = files(
     'Widgets/Screens/DockerContainer/Log.vala',
     'Widgets/Screens/DockerContainer/LogOutput.vala',
 
-    'Docker/Client.vala',
-    'Docker/Command.vala',
+    'Widgets/Utils/ConfirmationDialog.vala',
+
+    'Docker/ApiClient.vala',
     'Docker/ContainerLogWatcher.vala',
 )

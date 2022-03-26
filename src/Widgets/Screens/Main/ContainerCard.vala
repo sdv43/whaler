@@ -1,9 +1,9 @@
-using Utils.DataEntities;
+using Utils;
 
 class Widgets.Screens.Main.ContainerCard : Gtk.FlowBoxChild {
-    private Container container;
+    private DockerContainer container;
 
-    public ContainerCard (Container container) {
+    public ContainerCard (DockerContainer container) {
         var grid = new Gtk.Grid ();
 
         this.container = container;
@@ -15,7 +15,7 @@ class Widgets.Screens.Main.ContainerCard : Gtk.FlowBoxChild {
         grid.attach (this.build_container_image (), 2, 2, 1, 1);
         grid.attach (this.build_actions (), 3, 1, 1, 2);
 
-        if (container.state == ContainerState.UNKNOWN) {
+        if (container.state == DockerContainerState.UNKNOWN) {
             this.sensitive = false;
         }
     }
@@ -34,7 +34,7 @@ class Widgets.Screens.Main.ContainerCard : Gtk.FlowBoxChild {
     }
 
     private Gtk.Widget build_container_image () {
-        var label = new Gtk.Label (this.container.container_image);
+        var label = new Gtk.Label (this.container.image);
 
         label.get_style_context ().add_class ("dim-label");
         label.max_width_chars = 16;
@@ -82,7 +82,7 @@ class Widgets.Screens.Main.ContainerCard : Gtk.FlowBoxChild {
         var settings_granite = Granite.Settings.get_default ();
         var is_dark = settings_granite.prefers_color_scheme == Granite.Settings.ColorScheme.DARK;
 
-        var file = this.container.type == ContainerType.APP ? "app" : "container";
+        var file = this.container.type == DockerContainerType.GROUP ? "app" : "container";
         var variant = is_dark ? "-dark" : "";
 
         return @"$RESOURCE_BASE/images/icons/docker-$file$variant.svg";
@@ -98,7 +98,7 @@ class Widgets.Screens.Main.ContainerCard : Gtk.FlowBoxChild {
         actions.halign = Gtk.Align.END;
 
         switch (this.container.state) {
-            case ContainerState.RUNNING:
+            case DockerContainerState.RUNNING:
                 var action_stop = new Gtk.Button.from_icon_name (
                     "media-playback-stop-symbolic",
                     Gtk.IconSize.MENU
@@ -115,7 +115,7 @@ class Widgets.Screens.Main.ContainerCard : Gtk.FlowBoxChild {
                 state.container_stop.begin (this.container, (_, res) => {
                     try{
                         state.container_stop.end (res);
-                    } catch (Docker.ClientError e) {
+                    } catch (Docker.ApiClientError e) {
                         screen_error.show_error_dialog (err_msg, e.message);
                     } finally {
                         this.sensitive = true;
@@ -125,7 +125,7 @@ class Widgets.Screens.Main.ContainerCard : Gtk.FlowBoxChild {
 
                 break;
 
-            case ContainerState.PAUSED:
+            case DockerContainerState.PAUSED:
                 var action_unpause = new Gtk.Button.from_icon_name ("media-playback-start-symbolic", Gtk.IconSize.MENU);
 
                 action_unpause.valign = Gtk.Align.CENTER;
@@ -139,7 +139,7 @@ class Widgets.Screens.Main.ContainerCard : Gtk.FlowBoxChild {
                 state.container_unpause.begin (this.container, (_, res) => {
                     try{
                         state.container_unpause.end (res);
-                    } catch (Docker.ClientError e) {
+                    } catch (Docker.ApiClientError e) {
                         screen_error.show_error_dialog (err_msg, e.message);
                     } finally {
                         this.sensitive = true;
@@ -148,7 +148,8 @@ class Widgets.Screens.Main.ContainerCard : Gtk.FlowBoxChild {
             });
                 break;
 
-            case ContainerState.STOPPED:
+            case DockerContainerState.UNKNOWN:
+            case DockerContainerState.STOPPED:
                 var action_start = new Gtk.Button.from_icon_name ("media-playback-start-symbolic", Gtk.IconSize.MENU);
 
                 action_start.valign = Gtk.Align.CENTER;
@@ -162,7 +163,7 @@ class Widgets.Screens.Main.ContainerCard : Gtk.FlowBoxChild {
                 state.container_start.begin (this.container, (_, res) => {
                     try{
                         state.container_start.end (res);
-                    } catch (Docker.ClientError e) {
+                    } catch (Docker.ApiClientError e) {
                         screen_error.show_error_dialog (err_msg, e.message);
                     } finally {
                         this.sensitive = true;
@@ -196,7 +197,7 @@ class Widgets.Screens.Main.ContainerCard : Gtk.FlowBoxChild {
         var menu = new Gtk.Menu ();
 
         var item_pause = new Gtk.MenuItem.with_label (_ ("Pause"));
-        item_pause.sensitive = this.container.state == ContainerState.RUNNING;
+        item_pause.sensitive = this.container.state == DockerContainerState.RUNNING;
         item_pause.show ();
         menu.append (item_pause);
 
@@ -208,7 +209,7 @@ class Widgets.Screens.Main.ContainerCard : Gtk.FlowBoxChild {
             state.container_pause.begin (this.container, (_, res) => {
                 try{
                     state.container_pause.end (res);
-                } catch (Docker.ClientError e) {
+                } catch (Docker.ApiClientError e) {
                     screen_error.show_error_dialog (err_msg, e.message);
                 } finally {
                     item_pause.sensitive = true;
@@ -233,7 +234,7 @@ class Widgets.Screens.Main.ContainerCard : Gtk.FlowBoxChild {
                 state.container_remove.begin (this.container, (_, res) => {
                     try{
                         state.container_remove.end (res);
-                    } catch (Docker.ClientError e) {
+                    } catch (Docker.ApiClientError e) {
                         screen_error.show_error_dialog (err_msg, e.message);
                     } finally {
                         item_remove.sensitive = true;

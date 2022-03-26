@@ -1,4 +1,4 @@
-using Utils.DataEntities;
+using Utils;
 
 class Utils.Sorting.SortingName : Object, SortingInterface {
     public string code {
@@ -13,7 +13,7 @@ class Utils.Sorting.SortingName : Object, SortingInterface {
         }
     }
 
-    public int compare (Container a, Container b) {
+    public int compare (DockerContainer a, DockerContainer b) {
         return strcmp (a.name, b.name);
     }
 }

@@ -1,6 +1,6 @@
-using Utils.DataEntities;
+using Utils;
 
-class Widgets.Screens.DockerContainer.SideBar : Gtk.ScrolledWindow {
+class Widgets.Screens.Container.SideBar : Gtk.ScrolledWindow {
     public SideBar () {
         var state = State.Root.get_instance ().screen_docker_container;
         var list_box = new Gtk.ListBox ();
@@ -23,11 +23,9 @@ class Widgets.Screens.DockerContainer.SideBar : Gtk.ScrolledWindow {
         });
 
         state.notify["container"].connect (() => {
-            this.visible = state.container.type == ContainerType.APP;
+            this.visible = state.container.type == DockerContainerType.GROUP;
 
             if (!this.visible) {
-                state.service = state.container;
-
                 return;
             }
 
@@ -44,22 +42,20 @@ class Widgets.Screens.DockerContainer.SideBar : Gtk.ScrolledWindow {
 
             var selected_item = main_container_item;
 
-            foreach (var service in state.container.containers) {
+            foreach (var service in state.container.services) {
                 var item = new SideBarItem (service);
 
                 list_box.add (item);
-                debug ("added");
 
-                if (state.service != null && state.service.container_id == service.container_id) {
+                if (state.service != null && state.service.id == service.id) {
                     selected_item = item;
                 }
             }
 
             state.service = selected_item.service;
+
             list_box.select_row (selected_item);
             list_box.show_all ();
-
-            debug ("list box rebuilded");
         });
     }
 }

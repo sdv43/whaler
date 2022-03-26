@@ -1,11 +1,11 @@
-using Utils.DataEntities;
+using Utils;
 
 class State.ScreenDockerContainer : Object {
     private Root root;
 
     public bool is_auto_scroll_enable;
-    public Container? container {get; set;}
-    public Container? service {get; set;}
+    public DockerContainer? container {get; set;}
+    public DockerContainer? service {get; set;}
 
     public ScreenDockerContainer (Root root) {
         this.root = root;
@@ -18,18 +18,28 @@ class State.ScreenDockerContainer : Object {
                 return;
             }
 
-            foreach (var container in this.root.containers) {
-                if (this.container.container_id == container.container_id) {
-                    this.container = container;
+            var index = root.containers.index_of (this.container);
 
-                    if (this.service != null && container.containers != null) {
-                        foreach (var service in container.containers) {
-                            if (this.service.container_id == service.container_id) {
-                                this.service = service;
-                            }
-                        }
+            if (index != -1) {
+                this.container = root.containers[index];
+            }
+        });
+
+        this.notify["container"].connect (() => {
+            if (this.container.type == DockerContainerType.GROUP) {
+                if (this.service == null) {
+                    this.service = this.container;
+                } else {
+                    var index = this.container.services.index_of (this.service);
+
+                    if (index != -1) {
+                        this.service = this.container.services[index];
+                    } else {
+                        this.service = this.container;
                     }
                 }
+            } else {
+                this.service = this.container;
             }
         });
     }

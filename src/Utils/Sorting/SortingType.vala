@@ -1,5 +1,3 @@
-using Utils.DataEntities;
-
 class Utils.Sorting.SortingType : Object, SortingInterface {
     public string code {
         get {
@@ -13,7 +11,7 @@ class Utils.Sorting.SortingType : Object, SortingInterface {
         }
     }
 
-    public int compare (Container a, Container b) {
+    public int compare (DockerContainer a, DockerContainer b) {
         if (this.weight (a) == this.weight (b)) {
             return strcmp (a.name, b.name);
         }
@@ -21,15 +19,15 @@ class Utils.Sorting.SortingType : Object, SortingInterface {
         return this.weight (a) < this.weight (b) ? -1 : +1;
     }
 
-    private int weight (Container container) {
+    private int weight (DockerContainer container) {
         var weight = 0;
 
         switch (container.type) {
-            case ContainerType.APP:
+            case DockerContainerType.GROUP:
                 weight = 1;
                 break;
 
-            case ContainerType.CONTAINER:
+            case DockerContainerType.CONTAINER:
                 weight = 10;
                 break;
         }

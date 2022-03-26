@@ -1,26 +1,19 @@
-using Utils.DataEntities;
+using Utils;
 using Docker;
 
-class Widgets.Screens.DockerContainer.LogOutput : Gtk.ScrolledWindow {
-    private Gtk.TextView log_text_view;
-    private Container? current_service;
-    private ContainerLogWatcher? watcher;
-
+class Widgets.Screens.Container.LogOutput : Gtk.ScrolledWindow {
     public LogOutput () {
         var state_root = State.Root.get_instance ();
         var state_docker_container = state_root.screen_docker_container;
         var text_view = new Gtk.TextView ();
         var log_buffer = new Gtk.TextBuffer (null);
 
+        this.get_style_context ().add_class ("log-output");
+
         text_view.get_style_context ().add_class ("terminal");
         text_view.editable = false;
         text_view.cursor_visible = false;
         text_view.buffer = log_buffer;
-
-        this.log_text_view = text_view;
-        this.current_service = null;
-        this.watcher = null;
-        this.get_style_context ().add_class ("log-output");
         this.add (text_view);
 
         this.vadjustment.changed.connect (() => {
@@ -29,43 +22,31 @@ class Widgets.Screens.DockerContainer.LogOutput : Gtk.ScrolledWindow {
             }
         });
 
+        ContainerLogWatcher? log_watcher = null;
+        DockerContainer? selected_container = null;
+
         state_docker_container.notify["service"].connect (() => {
-            var err_msg = _ ("Cannot get container logs");
+            var is_container_changed = true;
+            var is_container_state_changed = true;
 
-            this.update_service.begin (state_docker_container.service, (_, res) => {
-                try {
-                    this.update_service.end (res);
-                } catch (Error e) {
-                    ScreenError.get_instance ().show_error_dialog (err_msg, e.message);
+            if (selected_container != null) {
+                is_container_changed = selected_container.id != state_docker_container.service.id;
+                is_container_state_changed = selected_container.state != state_docker_container.service.state;
+            }
+
+            selected_container = state_docker_container.service;
+
+            if (is_container_changed) {
+                if (log_watcher != null) {
+                    log_watcher.watching_stop ();
+                    log_buffer.text = "";
                 }
-            });
+
+                log_watcher = new ContainerLogWatcher (selected_container, log_buffer);
+                log_watcher.watching_start ();
+            } else if (is_container_state_changed) {
+                log_watcher.watching_start ();
+            }
         });
-    }
-
-    public async void update_service (Container service) throws Error {
-        var is_service_changed = this.current_service != null
-                                 ? this.current_service.container_id != service.container_id
-                                 : true;
-
-        if (is_service_changed) {
-            if (this.watcher != null) {
-                yield this.watcher.watch_stop ();
-            }
-
-            this.watcher = new ContainerLogWatcher (this.log_text_view.buffer, service);
-            this.log_text_view.buffer.text = "";
-
-            yield this.watcher.read_tail ();
-
-            if (service.state == ContainerState.RUNNING) {
-                yield this.watcher.watch_start ();
-            }
-        } else {
-            if (service.state == ContainerState.RUNNING && !this.watcher.is_watching) {
-                yield this.watcher.watch_start ();
-            }
-        }
-
-        this.current_service = service;
     }
 }

@@ -1,4 +1,4 @@
-class Widgets.Screens.DockerContainer.SideBarSeparator : Gtk.ListBoxRow {
+class Widgets.Screens.Container.SideBarSeparator : Gtk.ListBoxRow {
     public SideBarSeparator (string text) {
         this.can_focus = false;
         this.activatable = false;

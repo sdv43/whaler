@@ -5,13 +5,14 @@ class Widgets.Screens.Main.ContainersGrid : Gtk.Stack {
 
     public ContainersGrid () {
         var state = State.Root.get_instance ();
+        var state_main = state.screen_main;
 
         this.add_named (this.build_loader (), "loader");
         this.add_named (this.build_notice (), "no-containers");
         this.add_named (this.build_grid (), "containers");
 
-        state.notify["containers"].connect (() => {
-            if (state.containers.size > 0) {
+        state_main.notify["containers-prepared"].connect (() => {
+            if (state_main.containers_prepared.size > 0) {
                 this.set_visible_child_name ("containers");
 
                 if (state.active_screen == ContainersGrid.CODE) {
@@ -31,6 +32,7 @@ class Widgets.Screens.Main.ContainersGrid : Gtk.Stack {
 
     private Gtk.Widget build_grid () {
         var state = State.Root.get_instance ();
+        var state_main = state.screen_main;
         var root = new Gtk.ScrolledWindow (null, null);
 
         var flow_box = new Gtk.FlowBox ();
@@ -41,9 +43,8 @@ class Widgets.Screens.Main.ContainersGrid : Gtk.Stack {
         flow_box.max_children_per_line = 7;
         flow_box.selection_mode = Gtk.SelectionMode.NONE;
         flow_box.activate_on_single_click = true;
-
         flow_box.child_activated.connect ((child) => {
-            state.screen_docker_container.container = state.containers[child.get_index ()];
+            state.screen_docker_container.container = state_main.containers_prepared[child.get_index ()];
             state.next_screen (Widgets.ScreenDockerContainer.CODE);
         });
         root.add (flow_box);
@@ -53,24 +54,8 @@ class Widgets.Screens.Main.ContainersGrid : Gtk.Stack {
                 flow_box.remove (child);
             });
 
-            foreach (var container in state.containers) {
-                if (container.name.down (container.name.length).index_of (state.screen_main.search_term, 0) > -1) {
-                    flow_box.add (new ContainerCard (container));
-                }
-            }
-
-            flow_box.show_all ();
-        });
-
-        state.screen_main.notify["search-term"].connect (() => {
-            flow_box.foreach ((child) => {
-                flow_box.remove (child);
-            });
-
-            foreach (var container in state.containers) {
-                if (container.name.down (container.name.length).index_of (state.screen_main.search_term, 0) > -1) {
-                    flow_box.add (new ContainerCard (container));
-                }
+            foreach (var container in state_main.containers_prepared) {
+                flow_box.add (new ContainerCard (container));
             }
 
             flow_box.show_all ();

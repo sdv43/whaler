@@ -51,7 +51,7 @@ class Widgets.HeaderBar : Gtk.HeaderBar {
             state.containers_load.begin ((_, res) => {
                 try {
                     state.containers_load.end (res);
-                } catch (Docker.ClientError e) {
+                } catch (Docker.ApiClientError e) {
                     ScreenError.get_instance ().show_error_screen (err_msg, e.message);
                 }
             });

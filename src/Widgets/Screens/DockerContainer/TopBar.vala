@@ -1,6 +1,6 @@
-using Utils.DataEntities;
+using Utils;
 
-namespace Widgets.Screens.DockerContainer {
+namespace Widgets.Screens.Container {
     class TopBar : Gtk.Box {
         private Gtk.Widget box_actions;
 
@@ -35,7 +35,7 @@ namespace Widgets.Screens.DockerContainer {
             //
             state_docker_container.notify["service"].connect (() => {
                 container_name.set_text (state_docker_container.service.name);
-                container_image.set_text (state_docker_container.service.container_image ?? "n\\a");
+                container_image.set_text (state_docker_container.service.image);
             });
 
             return box;
@@ -71,19 +71,26 @@ namespace Widgets.Screens.DockerContainer {
 
             //
             state_docker_container.notify["service"].connect (() => {
+                this.box_actions.sensitive = true;
+
                 switch (state_docker_container.service.state) {
-                    case ContainerState.RUNNING:
+                    case DockerContainerState.RUNNING:
                         icon.icon_name = "media-playback-stop-symbolic";
                         label.set_text (_ ("Stop"));
                         break;
 
-                    case ContainerState.PAUSED:
+                    case DockerContainerState.PAUSED:
                         icon.icon_name = "media-playback-start-symbolic";
                         label.set_text (_ ("Unpause"));
                         break;
 
-                    case ContainerState.STOPPED:
-                    case ContainerState.UNKNOWN:
+                    case DockerContainerState.STOPPED:
+                        icon.icon_name = "media-playback-start-symbolic";
+                        label.set_text (_ ("Start"));
+                        break;
+
+                    case DockerContainerState.UNKNOWN:
+                        this.box_actions.sensitive = false;
                         icon.icon_name = "media-playback-start-symbolic";
                         label.set_text (_ ("Start"));
                         break;
@@ -137,7 +144,7 @@ namespace Widgets.Screens.DockerContainer {
                 state.container_pause.begin (state_docker_container.service, (_, res) => {
                     try{
                         state.container_pause.end (res);
-                    } catch (Docker.ClientError e) {
+                    } catch (Docker.ApiClientError e) {
                         screen_error.show_error_dialog (err_msg_pause, e.message);
                     }
                 });
@@ -163,7 +170,7 @@ namespace Widgets.Screens.DockerContainer {
                         try{
                             state.container_remove.end (res);
                             state.active_screen = ScreenMain.CODE;
-                        } catch (Docker.ClientError e) {
+                        } catch (Docker.ApiClientError e) {
                             screen_error.show_error_dialog (err_msg_remove, e.message);
                         } finally {
                             item_remove.sensitive = true;
@@ -178,13 +185,13 @@ namespace Widgets.Screens.DockerContainer {
 
             //
             state_docker_container.notify["service"].connect (() => {
-                item_pause.sensitive = state_docker_container.service.state == ContainerState.RUNNING;
+                item_pause.sensitive = state_docker_container.service.state == DockerContainerState.RUNNING;
             });
 
             return menu;
         }
 
-        private async void button_main_action_handler (Container service) {
+        private async void button_main_action_handler (DockerContainer service) {
             var state = State.Root.get_instance ();
             var err_msg = _ ("Container action error");
 
@@ -192,24 +199,27 @@ namespace Widgets.Screens.DockerContainer {
                 this.box_actions.sensitive = false;
 
                 switch (service.state) {
-                    case ContainerState.RUNNING:
+                    case DockerContainerState.RUNNING:
                         err_msg = _ ("Container stop error");
                         yield state.container_stop(service);
                         break;
 
-                    case ContainerState.PAUSED:
+                    case DockerContainerState.PAUSED:
                         err_msg = _ ("Container unpause error");
                         yield state.container_unpause(service);
                         break;
 
-                    case ContainerState.STOPPED:
-                    case ContainerState.UNKNOWN:
+                    case DockerContainerState.STOPPED:
                         err_msg = _ ("Container start error");
                         yield state.container_start(service);
                         break;
+
+                    case DockerContainerState.UNKNOWN:
+                        err_msg = _ ("Action error");
+                        throw new Docker.ApiClientError.ERROR (err_msg);
                 }
 
-            } catch (Docker.ClientError e) {
+            } catch (Docker.ApiClientError e) {
                 ScreenError.get_instance ().show_error_dialog (err_msg, e.message);
             } finally {
                 this.box_actions.sensitive = true;
