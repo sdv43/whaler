@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.sdv43.whaler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-22 08:52+0300\n"
+"POT-Creation-Date: 2022-04-09 14:17+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,14 +18,16 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: data/com.github.sdv43.whaler.desktop.in:3
-#: data/com.github.sdv43.whaler.desktop.in:4
 #: data/com.github.sdv43.whaler.appdata.xml.in:4
 msgid "Whaler"
 msgstr ""
 
+#: data/com.github.sdv43.whaler.desktop.in:4
+msgid "Docker Client"
+msgstr ""
+
 #: data/com.github.sdv43.whaler.desktop.in:5
-#: data/com.github.sdv43.whaler.appdata.xml.in:5
-msgid "Docker Container Management"
+msgid "Manage your Docker containers"
 msgstr ""
 
 #: data/com.github.sdv43.whaler.desktop.in:8
@@ -36,14 +38,22 @@ msgstr ""
 msgid "Docker;Virtualizaton;Development;"
 msgstr ""
 
-#: data/com.github.sdv43.whaler.appdata.xml.in:9
+#: data/com.github.sdv43.whaler.appdata.xml.in:5
+msgid "Docker Container Management"
+msgstr ""
+
+#: data/com.github.sdv43.whaler.appdata.xml.in:8
+msgid "Selivestrov Dmitriy"
+msgstr ""
+
+#: data/com.github.sdv43.whaler.appdata.xml.in:10
 msgid ""
 "Whaler provides basic functionality for managing Docker containers. The app "
 "can start and stop both standalone containers and docker-compose "
 "applications. Also, it supports viewing container logs."
 msgstr ""
 
-#: data/com.github.sdv43.whaler.appdata.xml.in:14
+#: data/com.github.sdv43.whaler.appdata.xml.in:15
 msgid ""
 "The solution is perfect for those who are looking for a simple tool to "
 "perform some basic actions. For the app to run correctly, make sure that "
@@ -54,11 +64,11 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
-#: src/Utils/Sorting/SortingType.vala:12
+#: src/Utils/Sorting/SortingType.vala:10
 msgid "Type"
 msgstr ""
 
-#: src/State/Root.vala:40
+#: src/State/Root.vala:35
 msgid "Cannot get list of docker containers"
 msgstr ""
 
@@ -82,80 +92,81 @@ msgstr ""
 msgid "Enable autoscroll to bottom border"
 msgstr ""
 
-#: src/Widgets/Screens/DockerContainer/LogOutput.vala:33
-msgid "Cannot get container logs"
-msgstr ""
-
 #: src/Widgets/Screens/DockerContainer/TopBar.vala:69
-#: src/Widgets/Screens/DockerContainer/TopBar.vala:88
+#: src/Widgets/Screens/DockerContainer/TopBar.vala:89
+#: src/Widgets/Screens/DockerContainer/TopBar.vala:95
 msgid "Start"
 msgstr ""
 
-#: src/Widgets/Screens/DockerContainer/TopBar.vala:77
+#: src/Widgets/Screens/DockerContainer/TopBar.vala:79
 msgid "Stop"
 msgstr ""
 
-#: src/Widgets/Screens/DockerContainer/TopBar.vala:82
+#: src/Widgets/Screens/DockerContainer/TopBar.vala:84
 msgid "Unpause"
 msgstr ""
 
 #.
-#: src/Widgets/Screens/DockerContainer/TopBar.vala:131
-#: src/Widgets/Screens/Main/ContainerCard.vala:198
+#: src/Widgets/Screens/DockerContainer/TopBar.vala:138
+#: src/Widgets/Screens/Main/ContainerCard.vala:199
 msgid "Pause"
 msgstr ""
 
-#: src/Widgets/Screens/DockerContainer/TopBar.vala:132
-#: src/Widgets/Screens/Main/ContainerCard.vala:206
+#: src/Widgets/Screens/DockerContainer/TopBar.vala:139
+#: src/Widgets/Screens/Main/ContainerCard.vala:207
 msgid "Container pause error"
 msgstr ""
 
 #.
-#: src/Widgets/Screens/DockerContainer/TopBar.vala:147
-#: src/Widgets/Screens/Main/ContainerCard.vala:219
+#: src/Widgets/Screens/DockerContainer/TopBar.vala:154
+#: src/Widgets/Screens/Main/ContainerCard.vala:220
 msgid "Remove"
 msgstr ""
 
-#: src/Widgets/Screens/DockerContainer/TopBar.vala:148
-#: src/Widgets/Screens/Main/ContainerCard.vala:225
+#: src/Widgets/Screens/DockerContainer/TopBar.vala:155
+#: src/Widgets/Screens/Main/ContainerCard.vala:226
 msgid "Container remove error"
 msgstr ""
 
-#: src/Widgets/Screens/DockerContainer/TopBar.vala:156
-#: src/Widgets/Screens/Main/ContainerCard.vala:227
+#: src/Widgets/Screens/DockerContainer/TopBar.vala:163
+#: src/Widgets/Screens/Main/ContainerCard.vala:228
 msgid "Do you really want to remove container?"
 msgstr ""
 
-#: src/Widgets/Screens/DockerContainer/TopBar.vala:157
-#: src/Widgets/Screens/Main/ContainerCard.vala:228
+#: src/Widgets/Screens/DockerContainer/TopBar.vala:164
+#: src/Widgets/Screens/Main/ContainerCard.vala:229
 msgid "Yes, remove"
 msgstr ""
 
-#: src/Widgets/Screens/DockerContainer/TopBar.vala:158
-#: src/Widgets/Screens/Main/ContainerCard.vala:229
+#: src/Widgets/Screens/DockerContainer/TopBar.vala:165
+#: src/Widgets/Screens/Main/ContainerCard.vala:230
 msgid "Cancel"
 msgstr ""
 
-#: src/Widgets/Screens/DockerContainer/TopBar.vala:189
+#: src/Widgets/Screens/DockerContainer/TopBar.vala:196
 msgid "Container action error"
 msgstr ""
 
-#: src/Widgets/Screens/DockerContainer/TopBar.vala:196
+#: src/Widgets/Screens/DockerContainer/TopBar.vala:203
 #: src/Widgets/Screens/Main/ContainerCard.vala:113
 msgid "Container stop error"
 msgstr ""
 
-#: src/Widgets/Screens/DockerContainer/TopBar.vala:201
+#: src/Widgets/Screens/DockerContainer/TopBar.vala:208
 #: src/Widgets/Screens/Main/ContainerCard.vala:137
 msgid "Container unpause error"
 msgstr ""
 
-#: src/Widgets/Screens/DockerContainer/TopBar.vala:207
-#: src/Widgets/Screens/Main/ContainerCard.vala:160
+#: src/Widgets/Screens/DockerContainer/TopBar.vala:213
+#: src/Widgets/Screens/Main/ContainerCard.vala:161
 msgid "Container start error"
 msgstr ""
 
-#: src/Widgets/Screens/Main/ContainersGrid.vala:96
+#: src/Widgets/Screens/DockerContainer/TopBar.vala:218
+msgid "Action error"
+msgstr ""
+
+#: src/Widgets/Screens/Main/ContainersGrid.vala:81
 msgid "No containers"
 msgstr ""
 

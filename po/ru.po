@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.sdv43.whaler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-22 08:52+0300\n"
+"POT-Creation-Date: 2022-04-09 14:17+0300\n"
 "PO-Revision-Date: 2022-03-14 08:44+0300\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -19,15 +19,17 @@ msgstr ""
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: data/com.github.sdv43.whaler.desktop.in:3
-#: data/com.github.sdv43.whaler.desktop.in:4
 #: data/com.github.sdv43.whaler.appdata.xml.in:4
 msgid "Whaler"
 msgstr "Whaler"
 
+#: data/com.github.sdv43.whaler.desktop.in:4
+msgid "Docker Client"
+msgstr "Docker клиент"
+
 #: data/com.github.sdv43.whaler.desktop.in:5
-#: data/com.github.sdv43.whaler.appdata.xml.in:5
-msgid "Docker Container Management"
-msgstr "Управление Docker контейнерами"
+msgid "Manage your Docker containers"
+msgstr "Управляй Docker контейнерами"
 
 #: data/com.github.sdv43.whaler.desktop.in:8
 msgid "com.github.sdv43.whaler"
@@ -37,7 +39,15 @@ msgstr "com.github.sdv43.whaler"
 msgid "Docker;Virtualizaton;Development;"
 msgstr "Docker;Virtualizaton;Development;"
 
-#: data/com.github.sdv43.whaler.appdata.xml.in:9
+#: data/com.github.sdv43.whaler.appdata.xml.in:5
+msgid "Docker Container Management"
+msgstr "Управление Docker контейнерами"
+
+#: data/com.github.sdv43.whaler.appdata.xml.in:8
+msgid "Selivestrov Dmitriy"
+msgstr "Selivestrov Dmitriy"
+
+#: data/com.github.sdv43.whaler.appdata.xml.in:10
 msgid ""
 "Whaler provides basic functionality for managing Docker containers. The app "
 "can start and stop both standalone containers and docker-compose "
@@ -48,7 +58,7 @@ msgstr ""
 "так и docker-compose приложения. Также есть возможность просматривать логи "
 "контейнера."
 
-#: data/com.github.sdv43.whaler.appdata.xml.in:14
+#: data/com.github.sdv43.whaler.appdata.xml.in:15
 msgid ""
 "The solution is perfect for those who are looking for a simple tool to "
 "perform some basic actions. For the app to run correctly, make sure that "
@@ -62,11 +72,11 @@ msgstr ""
 msgid "Name"
 msgstr "Название"
 
-#: src/Utils/Sorting/SortingType.vala:12
+#: src/Utils/Sorting/SortingType.vala:10
 msgid "Type"
 msgstr "Тип"
 
-#: src/State/Root.vala:40
+#: src/State/Root.vala:35
 msgid "Cannot get list of docker containers"
 msgstr "Не могу получить список docker контейнеров"
 
@@ -90,80 +100,81 @@ msgstr "Автоскролл"
 msgid "Enable autoscroll to bottom border"
 msgstr "Включить автоскролл к нижней границе"
 
-#: src/Widgets/Screens/DockerContainer/LogOutput.vala:33
-msgid "Cannot get container logs"
-msgstr "Не могу получить список docker контейнеров"
-
 #: src/Widgets/Screens/DockerContainer/TopBar.vala:69
-#: src/Widgets/Screens/DockerContainer/TopBar.vala:88
+#: src/Widgets/Screens/DockerContainer/TopBar.vala:89
+#: src/Widgets/Screens/DockerContainer/TopBar.vala:95
 msgid "Start"
 msgstr "Запустить"
 
-#: src/Widgets/Screens/DockerContainer/TopBar.vala:77
+#: src/Widgets/Screens/DockerContainer/TopBar.vala:79
 msgid "Stop"
 msgstr "Остановить"
 
-#: src/Widgets/Screens/DockerContainer/TopBar.vala:82
+#: src/Widgets/Screens/DockerContainer/TopBar.vala:84
 msgid "Unpause"
 msgstr "Запустить"
 
 #.
-#: src/Widgets/Screens/DockerContainer/TopBar.vala:131
-#: src/Widgets/Screens/Main/ContainerCard.vala:198
+#: src/Widgets/Screens/DockerContainer/TopBar.vala:138
+#: src/Widgets/Screens/Main/ContainerCard.vala:199
 msgid "Pause"
 msgstr "Пауза"
 
-#: src/Widgets/Screens/DockerContainer/TopBar.vala:132
-#: src/Widgets/Screens/Main/ContainerCard.vala:206
+#: src/Widgets/Screens/DockerContainer/TopBar.vala:139
+#: src/Widgets/Screens/Main/ContainerCard.vala:207
 msgid "Container pause error"
 msgstr "Ошибка остановки контейнера"
 
 #.
-#: src/Widgets/Screens/DockerContainer/TopBar.vala:147
-#: src/Widgets/Screens/Main/ContainerCard.vala:219
+#: src/Widgets/Screens/DockerContainer/TopBar.vala:154
+#: src/Widgets/Screens/Main/ContainerCard.vala:220
 msgid "Remove"
 msgstr "Удалить"
 
-#: src/Widgets/Screens/DockerContainer/TopBar.vala:148
-#: src/Widgets/Screens/Main/ContainerCard.vala:225
+#: src/Widgets/Screens/DockerContainer/TopBar.vala:155
+#: src/Widgets/Screens/Main/ContainerCard.vala:226
 msgid "Container remove error"
 msgstr "Ошибка удаления контейнера"
 
-#: src/Widgets/Screens/DockerContainer/TopBar.vala:156
-#: src/Widgets/Screens/Main/ContainerCard.vala:227
+#: src/Widgets/Screens/DockerContainer/TopBar.vala:163
+#: src/Widgets/Screens/Main/ContainerCard.vala:228
 msgid "Do you really want to remove container?"
 msgstr "Вы действительно хотите удалить контейнер?"
 
-#: src/Widgets/Screens/DockerContainer/TopBar.vala:157
-#: src/Widgets/Screens/Main/ContainerCard.vala:228
+#: src/Widgets/Screens/DockerContainer/TopBar.vala:164
+#: src/Widgets/Screens/Main/ContainerCard.vala:229
 msgid "Yes, remove"
 msgstr "Да, удалить"
 
-#: src/Widgets/Screens/DockerContainer/TopBar.vala:158
-#: src/Widgets/Screens/Main/ContainerCard.vala:229
+#: src/Widgets/Screens/DockerContainer/TopBar.vala:165
+#: src/Widgets/Screens/Main/ContainerCard.vala:230
 msgid "Cancel"
 msgstr "Отмена"
 
-#: src/Widgets/Screens/DockerContainer/TopBar.vala:189
+#: src/Widgets/Screens/DockerContainer/TopBar.vala:196
 msgid "Container action error"
 msgstr "Ошибка при работе с контейнером"
 
-#: src/Widgets/Screens/DockerContainer/TopBar.vala:196
+#: src/Widgets/Screens/DockerContainer/TopBar.vala:203
 #: src/Widgets/Screens/Main/ContainerCard.vala:113
 msgid "Container stop error"
 msgstr "Ошибка остановки контейнера"
 
-#: src/Widgets/Screens/DockerContainer/TopBar.vala:201
+#: src/Widgets/Screens/DockerContainer/TopBar.vala:208
 #: src/Widgets/Screens/Main/ContainerCard.vala:137
 msgid "Container unpause error"
 msgstr "Ошибка запуска контейнера"
 
-#: src/Widgets/Screens/DockerContainer/TopBar.vala:207
-#: src/Widgets/Screens/Main/ContainerCard.vala:160
+#: src/Widgets/Screens/DockerContainer/TopBar.vala:213
+#: src/Widgets/Screens/Main/ContainerCard.vala:161
 msgid "Container start error"
 msgstr "Ошибка запуска контейнера"
 
-#: src/Widgets/Screens/Main/ContainersGrid.vala:96
+#: src/Widgets/Screens/DockerContainer/TopBar.vala:218
+msgid "Action error"
+msgstr "Ошибка при работе с контейнером"
+
+#: src/Widgets/Screens/Main/ContainersGrid.vala:81
 msgid "No containers"
 msgstr "Список контейнеров пуст"
 
