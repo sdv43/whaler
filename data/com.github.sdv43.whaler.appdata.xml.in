@@ -17,6 +17,9 @@
       For the app to run correctly, make sure that Docker and docker-compose are installed on your system.
     </p>
   </description>
+  <releases>
+    <release version="1.0.0" date="2022-04-13"/>
+  </releases>
   <screenshots>
     <screenshot type="default">
       <image>https://raw.githubusercontent.com/sdv43/whaler/master/data/images/screenshots/screenshot-1.png</image>
