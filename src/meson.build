@@ -23,6 +23,7 @@ sources = files(
     'Widgets/Screens/Main/FilterBar.vala',
     'Widgets/Screens/Main/ContainersGrid.vala',
     'Widgets/Screens/Main/ContainerCard.vala',
+    'Widgets/Screens/Main/ContainerCardActions.vala',
 
     'Widgets/Screens/DockerContainer/TopBar.vala',
     'Widgets/Screens/DockerContainer/SideBar.vala',
