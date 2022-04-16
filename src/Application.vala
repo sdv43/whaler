@@ -5,10 +5,8 @@ public class Whaler : Gtk.Application {
     private static Whaler? instance;
 
     private Whaler () {
-        Object (
-            application_id: APP_ID,
-            flags : ApplicationFlags.FLAGS_NONE
-        );
+        this.application_id = APP_ID;
+        this.flags |= ApplicationFlags.FLAGS_NONE;
     }
 
     public static Whaler get_instance () {
@@ -30,17 +28,18 @@ public class Whaler : Gtk.Application {
             title = APP_NAME
         };
 
-        this.styles (window);
-        this.restore_window_state (window);
-
         window.set_titlebar (new HeaderBar ());
         window.add (new ScreenManager ());
+
+        this.styles (window);
+        this.window_state (window);
+
         window.show_all ();
 
         State.Root.get_instance ().init.begin ();
     }
 
-    private void restore_window_state (Gtk.Window window) {
+    private void window_state (Gtk.Window window) {
         var settings = new Settings (APP_ID);
         int window_x, window_y, window_width, window_height;
 
