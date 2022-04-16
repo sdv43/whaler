@@ -10,7 +10,7 @@ class Widgets.Screens.Main.ContainerCard : Gtk.FlowBoxChild {
         this.get_style_context ().add_class ("docker-container");
         this.add (grid);
 
-        grid.attach (this.build_preview_image (), 1, 1, 1, 2);
+        grid.attach (this.build_container_icon (), 1, 1, 1, 2);
         grid.attach (this.build_container_name (), 2, 1, 1, 1);
         grid.attach (this.build_container_image (), 2, 2, 1, 1);
         grid.attach (this.build_actions (), 3, 1, 1, 2);
@@ -45,47 +45,18 @@ class Widgets.Screens.Main.ContainerCard : Gtk.FlowBoxChild {
         return label;
     }
 
-    private Gtk.Widget build_preview_image () {
-        var image = new Gtk.Image.from_icon_name ("image-missing", Gtk.IconSize.DIALOG);
+    private Gtk.Widget build_container_icon () {
+        var icon_name = "docker-container-symbolic";
 
-        try {
-            var pixbuf_image = new Gdk.Pixbuf.from_resource_at_scale (
-                this.get_preview_image_path (),
-                56, 56,
-                true
-            );
-
-            image = new Gtk.Image.from_pixbuf (pixbuf_image);
-        } catch (Error error) {
-            warning ("Error on container image creation: %s", error.message);
+        if (this.container.type == DockerContainerType.GROUP) {
+            icon_name = "docker-container-group-symbolic";
         }
 
+        var image = new Gtk.Image.from_icon_name (icon_name, Gtk.IconSize.DIALOG);
         image.get_style_context ().add_class ("docker-container-preview-image");
-        image.style_updated.connect (() => {
-            try {
-                var pixbuf_image = new Gdk.Pixbuf.from_resource_at_scale (
-                    this.get_preview_image_path (),
-                    56, 56,
-                    true
-                );
-
-                image.set_from_pixbuf (pixbuf_image);
-            } catch (Error error) {
-                warning ("Error on container image creation: %s", error.message);
-            }
-        });
+        image.set_pixel_size (56);
 
         return image;
-    }
-
-    private string get_preview_image_path () {
-        var settings_granite = Granite.Settings.get_default ();
-        var is_dark = settings_granite.prefers_color_scheme == Granite.Settings.ColorScheme.DARK;
-
-        var file = this.container.type == DockerContainerType.GROUP ? "app" : "container";
-        var variant = is_dark ? "-dark" : "";
-
-        return @"$RESOURCE_BASE/images/icons/docker-$file$variant.svg";
     }
 
     private Gtk.Widget build_actions () {

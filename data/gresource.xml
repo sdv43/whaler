@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
-  <gresource prefix="/com/github/sdv43/whaler">
-    <file compressed="true">images/icons/docker-app-dark.svg</file>
-    <file compressed="true">images/icons/docker-app.svg</file>
-    <file compressed="true">images/icons/docker-container-dark.svg</file>
-    <file compressed="true">images/icons/docker-container.svg</file> 
+  <gresource prefix="/com/github/sdv43/whaler">    
+    <file 
+      alias="/icons/scalable/mimetypes/docker-container-group-symbolic.svg"
+      compressed="true"
+    >images/icons/docker-container-group.svg</file>
+    
+    <file 
+      alias="/icons/scalable/mimetypes/docker-container-symbolic.svg"
+      compressed="true"
+    >images/icons/docker-container.svg</file>
 
     <file compressed="true">style/dist/elementary-light.css</file>    
     <file compressed="true">style/dist/elementary-dark.css</file>    

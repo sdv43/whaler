@@ -74,9 +74,11 @@ public class Whaler : Gtk.Application {
     private void styles (Gtk.Window window) {
         var settings_granite = Granite.Settings.get_default ();
         var theme = new Utils.Theme ();
+        var icon_theme = Gtk.IconTheme.get_default ();
 
         try{
             theme.apply_styles (window.screen);
+            icon_theme.add_resource_path (@"$RESOURCE_BASE/icons");
 
             settings_granite.notify["prefers-color-scheme"].connect (() => {
                 try{
