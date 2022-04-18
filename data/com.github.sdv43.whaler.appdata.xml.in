@@ -28,6 +28,8 @@
       <image>https://raw.githubusercontent.com/sdv43/whaler/master/data/images/screenshots/screenshot-2.png</image>
     </screenshot>
   </screenshots>
+  <url type="homepage">https://github.com/sdv43/whaler</url>
+  <url type="bugtracker">https://github.com/sdv43/whaler/issues</url>
   <content_rating type="oars-1.1" />
   <provides>
     <binary>com.github.sdv43.whaler</binary>
