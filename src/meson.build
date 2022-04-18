@@ -26,6 +26,7 @@ sources = files(
     'Widgets/Screens/Main/ContainerCardActions.vala',
 
     'Widgets/Screens/DockerContainer/TopBar.vala',
+    'Widgets/Screens/DockerContainer/TopBarActions.vala',
     'Widgets/Screens/DockerContainer/SideBar.vala',
     'Widgets/Screens/DockerContainer/SideBarItem.vala',
     'Widgets/Screens/DockerContainer/SideBarSeparator.vala',

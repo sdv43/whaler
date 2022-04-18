@@ -4,16 +4,20 @@ class Widgets.Screens.Main.ContainerCard : Gtk.FlowBoxChild {
     private DockerContainer container;
 
     public ContainerCard (DockerContainer container) {
-        var grid = new Gtk.Grid ();
-
         this.container = container;
-        this.get_style_context ().add_class ("docker-container");
-        this.add (grid);
 
+        var card_actions = new ContainerCardActions (container);
+        card_actions.hexpand = true;
+        card_actions.halign = Gtk.Align.END;
+
+        var grid = new Gtk.Grid ();
         grid.attach (this.build_container_icon (), 1, 1, 1, 2);
         grid.attach (this.build_container_name (), 2, 1, 1, 1);
         grid.attach (this.build_container_image (), 2, 2, 1, 1);
-        grid.attach (new ContainerCardActions (container), 3, 1, 1, 2);
+        grid.attach (card_actions, 3, 1, 1, 2);
+
+        this.get_style_context ().add_class ("docker-container");
+        this.add (grid);
 
         if (container.state == DockerContainerState.UNKNOWN) {
             this.sensitive = false;
