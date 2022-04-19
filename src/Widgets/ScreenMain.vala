@@ -8,7 +8,7 @@ class Widgets.ScreenMain : Gtk.Box {
         this.spacing = 0;
 
         this.get_style_context ().add_class ("screen-main");
-        this.pack_start (new FilterBar (), false, false);
+        this.pack_start (new ContainersGridFilter (), false, false);
         this.pack_start (new ContainersGrid (), true, true);
     }
 }

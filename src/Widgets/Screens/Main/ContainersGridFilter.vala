@@ -1,7 +1,7 @@
 using Utils.Sorting;
 
-class Widgets.Screens.Main.FilterBar : Gtk.Box {
-    public FilterBar () {
+class Widgets.Screens.Main.ContainersGridFilter : Gtk.Box {
+    public ContainersGridFilter () {
         var first_launch = true;
         var state = State.Root.get_instance ();
         var search_entry = this.build_search_entry ();

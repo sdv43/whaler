@@ -20,8 +20,8 @@ sources = files(
     'Widgets/ScreenMain.vala',
     'Widgets/ScreenDockerContainer.vala',
 
-    'Widgets/Screens/Main/FilterBar.vala',
     'Widgets/Screens/Main/ContainersGrid.vala',
+    'Widgets/Screens/Main/ContainersGridFilter.vala',
     'Widgets/Screens/Main/ContainerCard.vala',
     'Widgets/Screens/Main/ContainerCardActions.vala',
 
