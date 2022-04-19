@@ -76,19 +76,11 @@ public class Whaler : Gtk.Application {
         var theme = new Utils.Theme ();
         var icon_theme = Gtk.IconTheme.get_default ();
 
-        try{
-            theme.apply_styles (window.screen);
-            icon_theme.add_resource_path (@"$RESOURCE_BASE/icons");
+        theme.apply_styles (window.screen);
+        icon_theme.add_resource_path (@"$RESOURCE_BASE/icons");
 
-            settings_granite.notify["prefers-color-scheme"].connect (() => {
-                try{
-                    theme.apply_styles (window.screen);
-                } catch (Error e) {
-                    warning ("Cannot load app styles: %s", e.message);
-                }
-            });
-        } catch (Error e) {
-            warning ("Cannot load app styles: %s", e.message);
-        }
+        settings_granite.notify["prefers-color-scheme"].connect (() => {
+            theme.apply_styles (window.screen);
+        });
     }
 }
