@@ -1,3 +1,5 @@
+using Utils.Constants;
+
 class Widgets.HeaderBar : Gtk.HeaderBar {
     public HeaderBar () {
         this.show_close_button = true;

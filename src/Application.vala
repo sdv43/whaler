@@ -1,5 +1,6 @@
 using Widgets;
 using Utils.Sorting;
+using Utils.Constants;
 
 public class Whaler : Gtk.Application {
     private static Whaler? instance;

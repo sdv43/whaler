@@ -1,3 +1,5 @@
+using Utils.Constants;
+
 class Widgets.Screens.Container.Log : Gtk.Overlay {
     public Log () {
         this.add (new LogOutput ());

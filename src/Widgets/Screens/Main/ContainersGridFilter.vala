@@ -1,4 +1,5 @@
 using Utils.Sorting;
+using Utils.Constants;
 
 class Widgets.Screens.Main.ContainersGridFilter : Gtk.Box {
     public ContainersGridFilter () {

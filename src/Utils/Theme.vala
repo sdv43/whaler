@@ -1,3 +1,5 @@
+using Utils.Constants;
+
 class Utils.Theme : Object {
     public Gtk.CssProvider style_provider;
 

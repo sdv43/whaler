@@ -1,4 +1,5 @@
 using Utils;
+using Utils.Constants;
 
 namespace Docker {
     errordomain ApiClientError {
