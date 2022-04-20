@@ -7,6 +7,8 @@ src/Widgets/HeaderBar.vala
 src/Widgets/Screens/DockerContainer/Log.vala
 src/Widgets/Screens/DockerContainer/LogOutput.vala
 src/Widgets/Screens/DockerContainer/TopBar.vala
+src/Widgets/Screens/DockerContainer/TopBarActions.vala
 src/Widgets/Screens/Main/ContainerCard.vala
+src/Widgets/Screens/Main/ContainerCardActions.vala
 src/Widgets/Screens/Main/ContainersGrid.vala
-src/Widgets/Screens/Main/FilterBar.vala
+src/Widgets/Screens/Main/ContainersGridFilter.vala

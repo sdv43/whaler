@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.sdv43.whaler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-09 14:17+0300\n"
+"POT-Creation-Date: 2022-04-20 14:39+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -92,84 +92,70 @@ msgstr ""
 msgid "Enable autoscroll to bottom border"
 msgstr ""
 
-#: src/Widgets/Screens/DockerContainer/TopBar.vala:69
-#: src/Widgets/Screens/DockerContainer/TopBar.vala:89
-#: src/Widgets/Screens/DockerContainer/TopBar.vala:95
+#: src/Widgets/Screens/DockerContainer/TopBarActions.vala:19
 msgid "Start"
 msgstr ""
 
-#: src/Widgets/Screens/DockerContainer/TopBar.vala:79
+#: src/Widgets/Screens/DockerContainer/TopBarActions.vala:23
 msgid "Stop"
 msgstr ""
 
-#: src/Widgets/Screens/DockerContainer/TopBar.vala:84
+#: src/Widgets/Screens/DockerContainer/TopBarActions.vala:25
 msgid "Unpause"
 msgstr ""
 
-#.
-#: src/Widgets/Screens/DockerContainer/TopBar.vala:138
-#: src/Widgets/Screens/Main/ContainerCard.vala:199
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:57
 msgid "Pause"
 msgstr ""
 
-#: src/Widgets/Screens/DockerContainer/TopBar.vala:139
-#: src/Widgets/Screens/Main/ContainerCard.vala:207
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:60
 msgid "Container pause error"
 msgstr ""
 
-#.
-#: src/Widgets/Screens/DockerContainer/TopBar.vala:154
-#: src/Widgets/Screens/Main/ContainerCard.vala:220
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:72
 msgid "Remove"
 msgstr ""
 
-#: src/Widgets/Screens/DockerContainer/TopBar.vala:155
-#: src/Widgets/Screens/Main/ContainerCard.vala:226
-msgid "Container remove error"
-msgstr ""
-
-#: src/Widgets/Screens/DockerContainer/TopBar.vala:163
-#: src/Widgets/Screens/Main/ContainerCard.vala:228
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:75
 msgid "Do you really want to remove container?"
 msgstr ""
 
-#: src/Widgets/Screens/DockerContainer/TopBar.vala:164
-#: src/Widgets/Screens/Main/ContainerCard.vala:229
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:76
 msgid "Yes, remove"
 msgstr ""
 
-#: src/Widgets/Screens/DockerContainer/TopBar.vala:165
-#: src/Widgets/Screens/Main/ContainerCard.vala:230
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:77
 msgid "Cancel"
 msgstr ""
 
-#: src/Widgets/Screens/DockerContainer/TopBar.vala:196
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:81
+msgid "Container remove error"
+msgstr ""
+
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:104
 msgid "Container action error"
 msgstr ""
 
-#: src/Widgets/Screens/DockerContainer/TopBar.vala:203
-#: src/Widgets/Screens/Main/ContainerCard.vala:113
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:109
 msgid "Container stop error"
 msgstr ""
 
-#: src/Widgets/Screens/DockerContainer/TopBar.vala:208
-#: src/Widgets/Screens/Main/ContainerCard.vala:137
-msgid "Container unpause error"
-msgstr ""
-
-#: src/Widgets/Screens/DockerContainer/TopBar.vala:213
-#: src/Widgets/Screens/Main/ContainerCard.vala:161
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:114
 msgid "Container start error"
 msgstr ""
 
-#: src/Widgets/Screens/DockerContainer/TopBar.vala:218
-msgid "Action error"
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:119
+msgid "Container unpause error"
+msgstr ""
+
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:124
+msgid "Container state is unknown"
 msgstr ""
 
 #: src/Widgets/Screens/Main/ContainersGrid.vala:81
 msgid "No containers"
 msgstr ""
 
-#: src/Widgets/Screens/Main/FilterBar.vala:51
+#: src/Widgets/Screens/Main/ContainersGridFilter.vala:51
 msgid "Sort by:"
 msgstr ""
