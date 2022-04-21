@@ -1,9 +1,21 @@
-sources = files(
+configuration = configuration_data()
+
+configuration.set_quoted('APP_ID', meson.project_name())
+configuration.set_quoted('APP_VERSION', meson.project_version())
+configuration.set_quoted('LOCALE_DIR', join_paths (get_option('prefix'), get_option('localedir')))
+
+constants = configure_file(
+    input : 'Utils/Constants.vala.in',
+    output : 'Constants.vala',
+    configuration : configuration
+)
+
+#
+sources = files(    
     'Application.vala',
 
     'Utils/DockerContainer.vala',
     'Utils/HttpClient.vala',
-    'Utils/Constants.vala',
     'Utils/Helpers.vala',
     'Utils/Theme.vala',
     'Utils/Sorting/SortingInterface.vala',

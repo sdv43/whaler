@@ -29,6 +29,8 @@ public class Whaler : Gtk.Application {
             title = APP_NAME
         };
 
+        Intl.bindtextdomain (APP_ID, LOCALE_DIR);
+
         window.set_titlebar (new HeaderBar ());
         window.add (new ScreenManager ());
 

@@ -20,6 +20,7 @@ subdir('src')
 executable(
     meson.project_name(),
     gresource,
+    constants,
     sources,
     dependencies: [
         dependency('gio-2.0'),
