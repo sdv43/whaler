@@ -102,6 +102,9 @@
 .screen-main .docker-containers-grid .docker-container-preview-image {
   margin-right: 1.000000001rem;
 }
+.screen-main .docker-containers-grid .docker-container-preview-image:disabled {
+  opacity: 0.4;
+}
 .screen-main .docker-containers-grid .docker-container-name {
   margin-bottom: 0.500000001rem;
 }
