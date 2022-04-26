@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.sdv43.whaler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-20 14:39+0300\n"
+"POT-Creation-Date: 2022-04-26 19:58+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -68,27 +68,35 @@ msgstr ""
 msgid "Type"
 msgstr ""
 
-#: src/State/Root.vala:35
+#: src/State/Root.vala:36
 msgid "Cannot get list of docker containers"
 msgstr ""
 
-#: src/Widgets/HeaderBar.vala:12
+#: src/State/Root.vala:44
+msgid "Docker isn't installed"
+msgstr ""
+
+#: src/State/Root.vala:47
+msgid "Docker runs as root"
+msgstr ""
+
+#: src/Widgets/HeaderBar.vala:14
 msgid "Back"
 msgstr ""
 
-#: src/Widgets/HeaderBar.vala:37
+#: src/Widgets/HeaderBar.vala:39
 msgid "Update docker container list"
 msgstr ""
 
-#: src/Widgets/HeaderBar.vala:40
+#: src/Widgets/HeaderBar.vala:42
 msgid "Update error"
 msgstr ""
 
-#: src/Widgets/Screens/DockerContainer/Log.vala:37
+#: src/Widgets/Screens/DockerContainer/Log.vala:39
 msgid "Autoscroll"
 msgstr ""
 
-#: src/Widgets/Screens/DockerContainer/Log.vala:49
+#: src/Widgets/Screens/DockerContainer/Log.vala:51
 msgid "Enable autoscroll to bottom border"
 msgstr ""
 
@@ -156,6 +164,6 @@ msgstr ""
 msgid "No containers"
 msgstr ""
 
-#: src/Widgets/Screens/Main/ContainersGridFilter.vala:51
+#: src/Widgets/Screens/Main/ContainersGridFilter.vala:52
 msgid "Sort by:"
 msgstr ""

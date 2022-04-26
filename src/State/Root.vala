@@ -1,8 +1,9 @@
 using Utils;
 using Widgets;
+using Docker;
 
 class State.Root : Object {
-    private Docker.ApiClient api_client;
+    private ApiClient api_client;
     private static Root? instance;
     private string? previuos_screen;
 
@@ -14,7 +15,7 @@ class State.Root : Object {
     public ScreenDockerContainer screen_docker_container {get; private set;}
 
     private Root () {
-        this.api_client = new Docker.ApiClient ();
+        this.api_client = new ApiClient ();
         this.button_back_visible = false;
         this.active_screen = Widgets.ScreenMain.CODE;
         this.containers = new Gee.ArrayList<DockerContainer> (DockerContainer.equal);
@@ -36,8 +37,17 @@ class State.Root : Object {
 
         try {
             yield this.containers_load();
-        } catch (Docker.ApiClientError error) {
-            Widgets.ScreenError.get_instance ().show_error_screen (err_msg, error.message);
+        } catch (ApiClientError error) {
+            var err_desc = error.message;
+
+            if (error is ApiClientError.ERROR_NO_ENTRY) {
+                err_desc = _ ("Docker isn't installed");
+            }
+            if (error is ApiClientError.ERROR_ACCESS) {
+                err_desc = _ ("Docker runs as root");
+            }
+
+            Widgets.ScreenError.get_instance ().show_error_screen (err_msg, err_desc);
         }
     }
 
@@ -57,7 +67,7 @@ class State.Root : Object {
         this.button_back_visible = true;
     }
 
-    public async void containers_load () throws Docker.ApiClientError {
+    public async void containers_load () throws ApiClientError {
         this.containers.clear ();
 
         // grouping containers into applications
@@ -142,7 +152,7 @@ class State.Root : Object {
         this.notify_property ("containers");
     }
 
-    public async void container_start (DockerContainer container) throws Docker.ApiClientError {
+    public async void container_start (DockerContainer container) throws ApiClientError {
         if (container.type == DockerContainerType.GROUP) {
             foreach (var service in container.services) {
                 yield this.api_client.start_container (service.api_container);
@@ -155,7 +165,7 @@ class State.Root : Object {
         yield this.containers_load ();
     }
 
-    public async void container_stop (DockerContainer container) throws Docker.ApiClientError {
+    public async void container_stop (DockerContainer container) throws ApiClientError {
         if (container.type == DockerContainerType.GROUP) {
             foreach (var service in container.services) {
                 yield this.api_client.stop_container (service.api_container);
@@ -168,7 +178,7 @@ class State.Root : Object {
         yield this.containers_load ();
     }
 
-    public async void container_pause (DockerContainer container) throws Docker.ApiClientError {
+    public async void container_pause (DockerContainer container) throws ApiClientError {
         if (container.type == DockerContainerType.GROUP) {
             foreach (var service in container.services) {
                 yield this.api_client.pause_container (service.api_container);
@@ -181,7 +191,7 @@ class State.Root : Object {
         yield this.containers_load ();
     }
 
-    public async void container_unpause (DockerContainer container) throws Docker.ApiClientError {
+    public async void container_unpause (DockerContainer container) throws ApiClientError {
         if (container.type == DockerContainerType.GROUP) {
             foreach (var service in container.services) {
                 yield this.api_client.unpause_container (service.api_container);
@@ -194,7 +204,7 @@ class State.Root : Object {
         yield this.containers_load ();
     }
 
-    public async void container_remove (DockerContainer container) throws Docker.ApiClientError {
+    public async void container_remove (DockerContainer container) throws ApiClientError {
         if (container.type == DockerContainerType.GROUP) {
             foreach (var service in container.services) {
                 yield this.api_client.remove_container (service.api_container);

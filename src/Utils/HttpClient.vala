@@ -1,6 +1,8 @@
 namespace Utils {
     errordomain HttpClientError {
         ERROR,
+        ERROR_ACCESS,
+        ERROR_NO_ENTRY
     }
 
     enum HttpClientMethod {
@@ -47,6 +49,19 @@ namespace Utils {
             //  debug ("call api method: %s - %s", this.get_request_method (method), url);
 
             yield this.perform (curl);
+
+            long curl_errno = -1;
+
+            r = curl.getinfo (Curl.Info.OS_ERRNO, &curl_errno);
+            assert_true (r == Curl.Code.OK);
+
+            if (curl_errno == Posix.ENOENT) {
+                throw new HttpClientError.ERROR_NO_ENTRY (strerror ((int)curl_errno));
+            } else if (curl_errno == Posix.EACCES) {
+                throw new HttpClientError.ERROR_ACCESS (strerror ((int)curl_errno));
+            } else if (curl_errno > 0) {
+                throw new HttpClientError.ERROR ("Unknown error");
+            }
 
             if (r == Curl.Code.OK) {
                 curl.getinfo (Curl.Info.RESPONSE_CODE, &response.code);

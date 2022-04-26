@@ -5,6 +5,8 @@ namespace Docker {
     errordomain ApiClientError {
         ERROR,
         ERROR_JSON,
+        ERROR_ACCESS,
+        ERROR_NO_ENTRY,
     }
 
     struct Container {
@@ -115,7 +117,15 @@ namespace Docker {
                 }
 
                 return container_list;
-            } catch (Error error) {
+            } catch (HttpClientError error) {
+                if (error is HttpClientError.ERROR_NO_ENTRY) {
+                    throw new ApiClientError.ERROR_NO_ENTRY (error.message);
+                } else if (error is HttpClientError.ERROR_ACCESS) {
+                    throw new ApiClientError.ERROR_ACCESS (error.message);
+                } else {
+                    throw new ApiClientError.ERROR (error.message);
+                }
+            } catch (IOError error) {
                 throw new ApiClientError.ERROR (error.message);
             }
         }
@@ -133,7 +143,7 @@ namespace Docker {
                 if (resp.code == 500) {
                     throw new ApiClientError.ERROR ("Server error");
                 }
-            } catch (Error error) {
+            } catch (HttpClientError error) {
                 throw new ApiClientError.ERROR (error.message);
             }
         }
@@ -151,7 +161,7 @@ namespace Docker {
                 if (resp.code == 500) {
                     throw new ApiClientError.ERROR ("Server error");
                 }
-            } catch (Error error) {
+            } catch (HttpClientError error) {
                 throw new ApiClientError.ERROR (error.message);
             }
         }
@@ -166,7 +176,7 @@ namespace Docker {
                 if (resp.code == 500) {
                     throw new ApiClientError.ERROR ("Server error");
                 }
-            } catch (Error error) {
+            } catch (HttpClientError error) {
                 throw new ApiClientError.ERROR (error.message);
             }
         }
@@ -181,7 +191,7 @@ namespace Docker {
                 if (resp.code == 500) {
                     throw new ApiClientError.ERROR ("Server error");
                 }
-            } catch (Error error) {
+            } catch (HttpClientError error) {
                 throw new ApiClientError.ERROR (error.message);
             }
         }
@@ -202,7 +212,7 @@ namespace Docker {
                 if (resp.code == 500) {
                     throw new ApiClientError.ERROR ("Server error");
                 }
-            } catch (Error error) {
+            } catch (HttpClientError error) {
                 throw new ApiClientError.ERROR (error.message);
             }
         }
