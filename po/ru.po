@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.sdv43.whaler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-20 14:39+0300\n"
+"POT-Creation-Date: 2022-04-26 19:58+0300\n"
 "PO-Revision-Date: 2022-03-14 08:44+0300\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -76,27 +76,43 @@ msgstr "Название"
 msgid "Type"
 msgstr "Тип"
 
-#: src/State/Root.vala:35
+#: src/State/Root.vala:36
 msgid "Cannot get list of docker containers"
-msgstr "Не могу получить список docker контейнеров"
+msgstr "Приложение не может получить список docker контейнеров"
 
-#: src/Widgets/HeaderBar.vala:12
+#: src/State/Root.vala:44
+msgid "Docker isn't installed"
+msgstr ""
+"Похоже, что Docker не установлен в вашей системе.\n"
+"Инструкция по установке доступна в "
+"<a href=\"https://docs.docker.com/engine/install/\">Docker Manuals</a>."
+
+#: src/State/Root.vala:47
+msgid "Docker runs as root"
+msgstr ""
+"Похоже, что Docker требует root права для работы. "
+"Из-за этого приложение не может подключиться к Docker Engine API. "
+"Инструкция по запуску без root прав доступна в "
+"<a href=\"https://docs.docker.com/engine/install/linux-postinstall/\">Docker Manuals</a>, "
+"иначе приложение не сможет работать корректно."
+
+#: src/Widgets/HeaderBar.vala:14
 msgid "Back"
 msgstr "Назад"
 
-#: src/Widgets/HeaderBar.vala:37
+#: src/Widgets/HeaderBar.vala:39
 msgid "Update docker container list"
 msgstr "Обновить список docker контейнеров"
 
-#: src/Widgets/HeaderBar.vala:40
+#: src/Widgets/HeaderBar.vala:42
 msgid "Update error"
 msgstr "Ошибка обновления"
 
-#: src/Widgets/Screens/DockerContainer/Log.vala:37
+#: src/Widgets/Screens/DockerContainer/Log.vala:39
 msgid "Autoscroll"
 msgstr "Автоскролл"
 
-#: src/Widgets/Screens/DockerContainer/Log.vala:49
+#: src/Widgets/Screens/DockerContainer/Log.vala:51
 msgid "Enable autoscroll to bottom border"
 msgstr "Включить автоскролл к нижней границе"
 
@@ -164,6 +180,6 @@ msgstr "Неизвестное состояние контейнера"
 msgid "No containers"
 msgstr "Список контейнеров пуст"
 
-#: src/Widgets/Screens/Main/ContainersGridFilter.vala:51
+#: src/Widgets/Screens/Main/ContainersGridFilter.vala:52
 msgid "Sort by:"
 msgstr "Сортировать по:"
