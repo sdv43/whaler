@@ -36,7 +36,7 @@ namespace Docker {
         }
 
         public async void read () throws FrameReaderError {
-            try{
+            try {
                 if (this.is_reading) {
                     return;
                 }
@@ -272,7 +272,7 @@ namespace Docker {
                 }
 
                 reader.read.begin ((_, res) => {
-                    try{
+                    try {
                         reader.read.end (res);
                     } catch (FrameReaderError error) {
                         warning (@"Log reading error: $(error.message)");

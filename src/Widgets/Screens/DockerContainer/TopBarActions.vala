@@ -49,7 +49,7 @@ namespace Widgets.Screens.Container {
 
         private Gtk.Widget build_button_menu_action () {
             var button = new Gtk.Button ();
-            var menu = ContainerCardActions.build_menu (this.container);
+            var menu = ContainerCardActions.build_menu (this.container, this);
 
             button.get_style_context ().add_class ("button-menu");
             button.valign = Gtk.Align.FILL;

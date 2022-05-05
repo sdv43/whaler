@@ -181,6 +181,21 @@ namespace Docker {
             }
         }
 
+        public async void restart_container (Container container) throws ApiClientError {
+            try {
+                var resp = yield this.http_client.r_post (@"/containers/$(container.id)/restart");
+
+                if (resp.code == 404) {
+                    throw new ApiClientError.ERROR ("No such container");
+                }
+                if (resp.code == 500) {
+                    throw new ApiClientError.ERROR ("Server error");
+                }
+            } catch (HttpClientError error) {
+                throw new ApiClientError.ERROR (error.message);
+            }
+        }
+
         public async void unpause_container (Container container) throws ApiClientError {
             try {
                 var resp = yield this.http_client.r_post (@"/containers/$(container.id)/unpause");

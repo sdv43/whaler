@@ -27,11 +27,9 @@ class Widgets.Screens.Container.LogOutput : Gtk.ScrolledWindow {
 
         state_docker_container.notify["service"].connect (() => {
             var is_container_changed = true;
-            var is_container_state_changed = true;
 
             if (selected_container != null) {
                 is_container_changed = selected_container.id != state_docker_container.service.id;
-                is_container_state_changed = selected_container.state != state_docker_container.service.state;
             }
 
             selected_container = state_docker_container.service;
@@ -44,7 +42,7 @@ class Widgets.Screens.Container.LogOutput : Gtk.ScrolledWindow {
 
                 log_watcher = new ContainerLogWatcher (selected_container, log_buffer);
                 log_watcher.watching_start ();
-            } else if (is_container_state_changed) {
+            } else {
                 log_watcher.watching_start ();
             }
         });

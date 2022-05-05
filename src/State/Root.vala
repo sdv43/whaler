@@ -178,6 +178,19 @@ class State.Root : Object {
         yield this.containers_load ();
     }
 
+    public async void container_restart (DockerContainer container) throws ApiClientError {
+        if (container.type == DockerContainerType.GROUP) {
+            foreach (var service in container.services) {
+                yield this.api_client.restart_container (service.api_container);
+            }
+        } else {
+            assert_true (container.api_container != null);
+            yield this.api_client.restart_container (container.api_container);
+        }
+
+        yield this.containers_load ();
+    }
+
     public async void container_pause (DockerContainer container) throws ApiClientError {
         if (container.type == DockerContainerType.GROUP) {
             foreach (var service in container.services) {

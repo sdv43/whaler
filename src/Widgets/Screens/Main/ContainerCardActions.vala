@@ -34,7 +34,7 @@ class Widgets.Screens.Main.ContainerCardActions : Gtk.Box {
     }
 
     private Gtk.Widget build_button_menu_action () {
-        var menu = ContainerCardActions.build_menu (this.container);
+        var menu = ContainerCardActions.build_menu (this.container, this);
 
         var button = new Gtk.Button.from_icon_name ("view-more-symbolic", Gtk.IconSize.BUTTON);
         button.valign = Gtk.Align.CENTER;
@@ -50,7 +50,7 @@ class Widgets.Screens.Main.ContainerCardActions : Gtk.Box {
         return button;
     }
 
-    public static Gtk.Menu build_menu (DockerContainer container) {
+    public static Gtk.Menu build_menu (DockerContainer container, Gtk.Widget actions_widget) {
         var screen_error = ScreenError.get_instance ();
         var state = State.Root.get_instance ();
 
@@ -58,16 +58,36 @@ class Widgets.Screens.Main.ContainerCardActions : Gtk.Box {
         item_pause.sensitive = container.state == DockerContainerState.RUNNING;
         item_pause.activate.connect (() => {
             var err_msg = _ ("Container pause error");
+            actions_widget.sensitive = false;
 
             state.container_pause.begin (container, (_, res) => {
-                try{
+                try {
                     state.container_pause.end (res);
                 } catch (Docker.ApiClientError error) {
                     screen_error.show_error_dialog (err_msg, error.message);
+                } finally {
+                    actions_widget.sensitive = true;
                 }
             });
         });
         item_pause.show ();
+
+        var item_restart = new Gtk.MenuItem.with_label (_ ("Restart"));
+        item_restart.activate.connect (() => {
+            var err_msg = _ ("Container restart error");
+            actions_widget.sensitive = false;
+
+            state.container_restart.begin (container, (_, res) => {
+                try {
+                    state.container_restart.end (res);
+                } catch (Docker.ApiClientError error) {
+                    screen_error.show_error_dialog (err_msg, error.message);
+                } finally {
+                    actions_widget.sensitive = true;
+                }
+            });
+        });
+        item_restart.show ();
 
         var item_remove = new Gtk.MenuItem.with_label (_ ("Remove"));
         item_remove.activate.connect (() => {
@@ -77,14 +97,18 @@ class Widgets.Screens.Main.ContainerCardActions : Gtk.Box {
                 _ ("Cancel")
             );
 
+            actions_widget.sensitive = false;
+
             confirm.accept.connect (() => {
                 var err_msg = _ ("Container remove error");
 
                 state.container_remove.begin (container, (_, res) => {
-                    try{
+                    try {
                         state.container_remove.end (res);
                     } catch (Docker.ApiClientError error) {
                         screen_error.show_error_dialog (err_msg, error.message);
+                    } finally {
+                        actions_widget.sensitive = true;
                     }
                 });
             });
@@ -93,6 +117,7 @@ class Widgets.Screens.Main.ContainerCardActions : Gtk.Box {
 
         var menu = new Gtk.Menu ();
         menu.append (item_pause);
+        menu.append (item_restart);
         menu.append (item_remove);
 
         return menu;
