@@ -46,6 +46,7 @@ sources = files(
     'Widgets/Screens/DockerContainer/LogOutput.vala',
 
     'Widgets/Utils/ConfirmationDialog.vala',
+    'Widgets/Utils/ContainerInfoDialog.vala',
 
     'Docker/ApiClient.vala',
     'Docker/ContainerLogWatcher.vala',

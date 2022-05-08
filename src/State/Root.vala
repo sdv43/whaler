@@ -124,6 +124,7 @@ class State.Root : Object {
 
                 // image
                 string?[] services = {};
+
                 foreach (var service in container_group.services) {
                     services += service.name;
                 }
@@ -228,5 +229,20 @@ class State.Root : Object {
         }
 
         yield this.containers_load ();
+    }
+
+    public async Gee.HashMap<DockerContainer, ContainerInspectInfo?> container_inspect (DockerContainer container) throws ApiClientError {
+        var container_info = new Gee.HashMap<DockerContainer, ContainerInspectInfo?> ();
+
+        if (container.type == DockerContainerType.GROUP) {
+            foreach (var service in container.services) {
+                container_info[service] = yield this.api_client.inspect_container (service.api_container);
+            }
+        } else {
+            assert_true (container.api_container != null);
+            container_info[container] = yield this.api_client.inspect_container (container.api_container);
+        }
+
+        return container_info;
     }
 }

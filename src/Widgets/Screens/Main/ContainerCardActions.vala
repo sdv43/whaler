@@ -112,13 +112,32 @@ class Widgets.Screens.Main.ContainerCardActions : Gtk.Box {
                     }
                 });
             });
+
+            confirm.cancel.connect (() => {
+                actions_widget.sensitive = true;
+            });
         });
         item_remove.show ();
+
+        var item_info = new Gtk.MenuItem.with_label (_ ("Info"));
+        item_info.activate.connect (() => {
+            var err_msg = _ ("Cannot get infomation");
+
+            state.container_inspect.begin (container, (_, res) => {
+                try {
+                    new Utils.ContainerInfoDialog (state.container_inspect.end (res));
+                } catch (Docker.ApiClientError error) {
+                    screen_error.show_error_dialog (err_msg, error.message);
+                }
+            });
+        });
+        item_info.show ();
 
         var menu = new Gtk.Menu ();
         menu.append (item_pause);
         menu.append (item_restart);
         menu.append (item_remove);
+        menu.append (item_info);
 
         return menu;
     }

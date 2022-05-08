@@ -14,6 +14,24 @@
   margin: 1.000000001rem 2.000000001rem;
 }
 
+.container-info-dialog-switcher {
+  margin: 0.500000001rem 0 1.000000001rem 0;
+}
+.container-info-dialog-tab {
+  margin: 0.500000001rem 1.500000001rem 0 0;
+}
+.container-info-dialog-row {
+  min-width: 30.000000001rem;
+}
+.container-info-dialog-label {
+  margin-right: 0.500000001rem;
+  font-weight: bold;
+  opacity: 0.8;
+}
+.container-info-dialog-value {
+  margin-bottom: 0.500000001rem;
+}
+
 .screen-error {
   padding: 2.000000001rem;
 }

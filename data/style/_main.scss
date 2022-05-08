@@ -25,6 +25,30 @@ $lg: rem(24px);
     margin: $sm $lg;
 }
 
+.container-info-dialog {
+    &-switcher {
+        margin: $xs 0 $sm 0;
+    }
+
+    &-tab {
+        margin: $xs $md 0 0;
+    }
+
+    &-row {
+        min-width: rem(360px);
+    }
+
+    &-label {
+        margin-right: $xs;
+        font-weight: bold;
+        opacity: .8;
+    }
+
+    &-value {
+        margin-bottom: $xs;
+    }
+}
+
 .screen {
     &-error {
         padding: $lg;

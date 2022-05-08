@@ -20,6 +20,15 @@ namespace Docker {
         public string? label_workdir;
     }
 
+    struct ContainerInspectInfo {
+        public string name;
+        public string image;
+        public string status;
+        public string[]? binds;
+        public string[]? envs;
+        public string[]? ports;
+    }
+
     class ApiClient : Object {
         public HttpClient http_client;
         public string version;
@@ -67,7 +76,7 @@ namespace Docker {
                 var json = "";
                 string? line = null;
 
-                while ((line = resp.body_data_stream.read_line_utf8 (null, null)) != null) {
+                while ((line = yield resp.body_data_stream.read_line_utf8_async ()) != null) {
                     json += line;
                 }
 
@@ -228,6 +237,99 @@ namespace Docker {
                     throw new ApiClientError.ERROR ("Server error");
                 }
             } catch (HttpClientError error) {
+                throw new ApiClientError.ERROR (error.message);
+            }
+        }
+
+        public async ContainerInspectInfo inspect_container (Container container) throws ApiClientError {
+            try {
+                var container_info = ContainerInspectInfo ();
+                var resp = yield this.http_client.r_get (@"/containers/$(container.id)/json");
+
+                //
+                if (resp.code == 404) {
+                    throw new ApiClientError.ERROR ("No such container");
+                }
+                if (resp.code == 500) {
+                    throw new ApiClientError.ERROR ("Server error");
+                }
+
+                //
+                var json = yield resp.body_data_stream.read_line_utf8_async ();
+                assert_nonnull (json);
+
+                var root_node = parse_json (json);
+                var root_object = root_node.get_object ();
+                assert_nonnull (root_object);
+
+                //
+                container_info.name = root_object.get_string_member_with_default ("Name", _ ("Unknown"));
+
+                //
+                var state_object = root_object.get_object_member ("State");
+                assert_nonnull (state_object);
+
+                container_info.status = state_object.get_string_member_with_default ("Status", _ ("Unknown"));
+
+                //
+                var config_object = root_object.get_object_member ("Config");
+                assert_nonnull (config_object);
+
+                container_info.image = config_object.get_string_member_with_default ("Image", _ ("Unknown"));
+
+                //
+                var env_array = config_object.get_array_member ("Env");
+
+                if (env_array != null && env_array.get_length () > 0) {
+                    container_info.envs = new string[0];
+
+                    foreach (var env_node in env_array.get_elements ()) {
+                        container_info.envs += env_node.get_string () ?? _ ("Unknown");
+                    }
+                }
+
+                //
+                var host_config_object = root_object.get_object_member ("HostConfig");
+
+                if (host_config_object != null) {
+                    var binds_array = host_config_object.get_array_member ("Binds");
+
+                    if (binds_array != null && binds_array.get_length () > 0) {
+                        container_info.binds = new string[0];
+
+                        foreach (var bind_node in binds_array.get_elements ()) {
+                            container_info.binds += bind_node.get_string () ?? _ ("Unknown");
+                        }
+                    }
+                }
+
+                //
+                var port_bindings_object = host_config_object.get_object_member ("PortBindings");
+
+                if (port_bindings_object != null) {
+                    port_bindings_object.foreach_member ((obj, key, port_binding_node) => {
+                        var port_binding_array = port_binding_node.get_array ();
+
+                        if (port_binding_array != null && port_binding_array.get_length () > 0) {
+                            container_info.ports = new string[0];
+
+                            foreach (var port_node in port_binding_array.get_elements ()) {
+                                var port_object = port_node.get_object ();
+                                assert_nonnull (port_object);
+
+                                var ip = port_object.get_string_member_with_default ("HostIp", "");
+                                var port = port_object.get_string_member_with_default ("HostPort", "-");
+
+                                container_info.ports += key + (ip.length > 0 ? @"$ip:" : ":") + port;
+                            }
+                        }
+                    });
+                }
+
+                return container_info;
+            } catch (HttpClientError error) {
+                throw new ApiClientError.ERROR (error.message);
+            } catch (IOError error) {
                 throw new ApiClientError.ERROR (error.message);
             }
         }
