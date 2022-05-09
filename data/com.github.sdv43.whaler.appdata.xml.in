@@ -24,7 +24,7 @@
           <li>Code refactoring</li>
           <li>Add homepage and bugtracker links</li>
           <li>Set elementary theme as default</li>
-          <li>Fix incorrect window positon at startup</li>
+          <li>Fix incorrect window position at startup</li>
           <li>Fix wrong language choice</li>
         </ul>
       </description>
