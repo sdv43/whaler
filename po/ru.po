@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.sdv43.whaler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-26 19:58+0300\n"
+"POT-Creation-Date: 2022-05-11 20:59+0300\n"
 "PO-Revision-Date: 2022-03-14 08:44+0300\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -76,25 +76,25 @@ msgstr "Название"
 msgid "Type"
 msgstr "Тип"
 
-#: src/State/Root.vala:36
+#: src/State/Root.vala:40
 msgid "Cannot get list of docker containers"
 msgstr "Приложение не может получить список docker контейнеров"
 
-#: src/State/Root.vala:44
+#: src/State/Root.vala:48
 msgid "Docker isn't installed"
 msgstr ""
 "Похоже, что Docker не установлен в вашей системе.\n"
-"Инструкция по установке доступна в "
-"<a href=\"https://docs.docker.com/engine/install/\">Docker Manuals</a>."
+"Инструкция по установке доступна в <a href=\"https://docs.docker.com/engine/"
+"install/\">Docker Manuals</a>."
 
-#: src/State/Root.vala:47
+#: src/State/Root.vala:51
 msgid "Docker runs as root"
 msgstr ""
-"Похоже, что Docker требует root права для работы. "
-"Из-за этого приложение не может подключиться к Docker Engine API. "
-"Инструкция по запуску без root прав доступна в "
-"<a href=\"https://docs.docker.com/engine/install/linux-postinstall/\">Docker Manuals</a>, "
-"иначе приложение не сможет работать корректно."
+"Похоже, что Docker требует root права для работы. Из-за этого приложение не "
+"может подключиться к Docker Engine API. Инструкция по запуску без root прав "
+"доступна в <a href=\"https://docs.docker.com/engine/install/linux-"
+"postinstall/\">Docker Manuals</a>, иначе приложение не сможет работать "
+"корректно."
 
 #: src/Widgets/HeaderBar.vala:14
 msgid "Back"
@@ -136,43 +136,75 @@ msgstr "Пауза"
 msgid "Container pause error"
 msgstr "Ошибка остановки контейнера"
 
-#: src/Widgets/Screens/Main/ContainerCardActions.vala:72
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:75
+msgid "Restart"
+msgstr "Перезапустить"
+
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:77
+msgid "Container restart error"
+msgstr "Ошибка перезапуска контейнера"
+
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:80
+msgid "Restarting container"
+msgstr "Идет перезапуск контейнера"
+
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:96
 msgid "Remove"
 msgstr "Удалить"
 
-#: src/Widgets/Screens/Main/ContainerCardActions.vala:75
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:99
 msgid "Do you really want to remove container?"
 msgstr "Вы действительно хотите удалить контейнер?"
 
-#: src/Widgets/Screens/Main/ContainerCardActions.vala:76
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:100
 msgid "Yes, remove"
 msgstr "Да, удалить"
 
-#: src/Widgets/Screens/Main/ContainerCardActions.vala:77
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:101
 msgid "Cancel"
 msgstr "Отмена"
 
-#: src/Widgets/Screens/Main/ContainerCardActions.vala:81
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:107
 msgid "Container remove error"
 msgstr "Ошибка удаления контейнера"
 
-#: src/Widgets/Screens/Main/ContainerCardActions.vala:104
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:109
+msgid "Removing container"
+msgstr "Идет удаление контейнера"
+
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:130
+msgid "Info"
+msgstr "Информация"
+
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:132
+msgid "Cannot get information"
+msgstr "Приложение не может получить информацию о контейнере"
+
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:156
 msgid "Container action error"
 msgstr "Ошибка при работе с контейнером"
 
-#: src/Widgets/Screens/Main/ContainerCardActions.vala:109
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:161
 msgid "Container stop error"
 msgstr "Ошибка остановки контейнера"
 
-#: src/Widgets/Screens/Main/ContainerCardActions.vala:114
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:162
+msgid "Stopping container"
+msgstr "Идет остановка контейнера"
+
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:168
 msgid "Container start error"
 msgstr "Ошибка запуска контейнера"
 
-#: src/Widgets/Screens/Main/ContainerCardActions.vala:119
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:169
+msgid "Starting container"
+msgstr "Идет запуск контейнера"
+
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:175
 msgid "Container unpause error"
 msgstr "Ошибка запуска контейнера"
 
-#: src/Widgets/Screens/Main/ContainerCardActions.vala:124
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:180
 msgid "Container state is unknown"
 msgstr "Неизвестное состояние контейнера"
 

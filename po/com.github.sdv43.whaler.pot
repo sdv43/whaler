@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.sdv43.whaler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-26 19:58+0300\n"
+"POT-Creation-Date: 2022-05-11 20:59+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -68,15 +68,15 @@ msgstr ""
 msgid "Type"
 msgstr ""
 
-#: src/State/Root.vala:36
+#: src/State/Root.vala:40
 msgid "Cannot get list of docker containers"
 msgstr ""
 
-#: src/State/Root.vala:44
+#: src/State/Root.vala:48
 msgid "Docker isn't installed"
 msgstr ""
 
-#: src/State/Root.vala:47
+#: src/State/Root.vala:51
 msgid "Docker runs as root"
 msgstr ""
 
@@ -120,43 +120,75 @@ msgstr ""
 msgid "Container pause error"
 msgstr ""
 
-#: src/Widgets/Screens/Main/ContainerCardActions.vala:72
-msgid "Remove"
-msgstr ""
-
 #: src/Widgets/Screens/Main/ContainerCardActions.vala:75
-msgid "Do you really want to remove container?"
-msgstr ""
-
-#: src/Widgets/Screens/Main/ContainerCardActions.vala:76
-msgid "Yes, remove"
+msgid "Restart"
 msgstr ""
 
 #: src/Widgets/Screens/Main/ContainerCardActions.vala:77
+msgid "Container restart error"
+msgstr ""
+
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:80
+msgid "Restarting container"
+msgstr ""
+
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:96
+msgid "Remove"
+msgstr ""
+
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:99
+msgid "Do you really want to remove container?"
+msgstr ""
+
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:100
+msgid "Yes, remove"
+msgstr ""
+
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:101
 msgid "Cancel"
 msgstr ""
 
-#: src/Widgets/Screens/Main/ContainerCardActions.vala:81
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:107
 msgid "Container remove error"
 msgstr ""
 
-#: src/Widgets/Screens/Main/ContainerCardActions.vala:104
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:109
+msgid "Removing container"
+msgstr ""
+
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:130
+msgid "Info"
+msgstr ""
+
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:132
+msgid "Cannot get information"
+msgstr ""
+
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:156
 msgid "Container action error"
 msgstr ""
 
-#: src/Widgets/Screens/Main/ContainerCardActions.vala:109
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:161
 msgid "Container stop error"
 msgstr ""
 
-#: src/Widgets/Screens/Main/ContainerCardActions.vala:114
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:162
+msgid "Stopping container"
+msgstr ""
+
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:168
 msgid "Container start error"
 msgstr ""
 
-#: src/Widgets/Screens/Main/ContainerCardActions.vala:119
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:169
+msgid "Starting container"
+msgstr ""
+
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:175
 msgid "Container unpause error"
 msgstr ""
 
-#: src/Widgets/Screens/Main/ContainerCardActions.vala:124
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:180
 msgid "Container state is unknown"
 msgstr ""
 

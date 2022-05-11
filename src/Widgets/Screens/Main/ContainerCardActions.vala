@@ -129,7 +129,7 @@ class Widgets.Screens.Main.ContainerCardActions : Gtk.Box {
 
         var item_info = new Gtk.MenuItem.with_label (_ ("Info"));
         item_info.activate.connect (() => {
-            var err_msg = _ ("Cannot get infomation");
+            var err_msg = _ ("Cannot get information");
 
             state.container_inspect.begin (container, (_, res) => {
                 try {
