@@ -32,6 +32,21 @@
   margin-bottom: 0.500000001rem;
 }
 
+.docker-container-status-label {
+  border-radius: 20px;
+  padding: 0.15rem 1rem 0.25rem;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+.docker-container-status-label.running {
+  background-color: @accent_color_500;
+  color: white;
+}
+.docker-container-status-label.paused {
+  background-color: lighter(@accent_color_300);
+  color: @accent_color_700;
+}
+
 .screen-error {
   padding: 2.000000001rem;
 }
@@ -42,11 +57,15 @@
   background-color: @bg_color;
 }
 .screen-docker-container .top-bar {
-  margin: 2.000000001rem;
+  margin: 2.000000001rem 2.000000001rem 1.500000001rem;
 }
 .screen-docker-container .top-bar .container-name {
   margin-bottom: 0.500000001rem;
   font-size: 1.6666666677rem;
+}
+.screen-docker-container .top-bar .container-image {
+  padding: 0.125rem 0 0.225rem;
+  opacity: 0.7;
 }
 .screen-docker-container .top-bar .button-main-action {
   border-top-right-radius: 0px;
@@ -126,6 +145,10 @@
 }
 .screen-main .docker-containers-grid .docker-container-name {
   margin-bottom: 0.500000001rem;
+}
+.screen-main .docker-containers-grid .docker-container-image {
+  padding: 0.125rem 0 0.225rem;
+  opacity: 0.7;
 }
 .screen-main .docker-containers-grid .docker-container-actions {
   margin-left: 1.000000001rem;

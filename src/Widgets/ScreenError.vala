@@ -38,6 +38,7 @@ class Widgets.ScreenError : Gtk.Grid {
             Gtk.ButtonsType.CLOSE
         );
 
+        message_dialog.transient_for = Whaler.get_instance ().active_window;
         message_dialog.run ();
         message_dialog.destroy ();
     }

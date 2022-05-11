@@ -49,6 +49,23 @@ $lg: rem(24px);
     }
 }
 
+.docker-container-status-label {
+    border-radius: 20px;
+    padding: 0.15rem 1rem 0.25rem;
+    font-weight: 500;
+    font-size: .95rem;
+
+    &.running {
+        background-color: #{'@accent_color_500'};
+        color: white;
+    }
+
+    &.paused {
+        background-color: lighter(#{'@accent_color_300'});
+        color: #{'@accent_color_700'};
+    }
+}
+
 .screen {
     &-error {
         padding: $lg;
@@ -62,11 +79,16 @@ $lg: rem(24px);
         background-color: #{"@bg_color"};
 
         .top-bar {
-            margin: $lg;
+            margin: $lg $lg $md;
 
             .container-name {
                 margin-bottom: $xs;
                 font-size: rem(20px);
+            }
+
+            .container-image {
+                padding: 0.125rem 0 0.225rem;
+                opacity: .7;
             }
 
             .button-main-action {
@@ -174,6 +196,11 @@ $lg: rem(24px);
 
                     &-name {
                         margin-bottom: $xs;
+                    }
+
+                    &-image {
+                        padding: 0.125rem 0 0.225rem;
+                        opacity: .7;
                     }
 
                     &-actions {
