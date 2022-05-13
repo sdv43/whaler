@@ -18,6 +18,18 @@
     </p>
   </description>
   <releases>
+    <release version="1.1.0" date="2022-05-14">
+      <description>
+        <ul>
+          <li>Add container status labels</li>
+          <li>Show overlay bar for lingering actions</li>
+          <li>Add "Info" in container context menu</li>
+          <li>Add "Restart" in container context menu</li>
+          <li>Add more user-friendly error messages</li>
+          <li>Update screenshots</li>
+        </ul>
+      </description>
+    </release>
     <release version="1.0.1" date="2022-04-22">
       <description>
         <ul>
