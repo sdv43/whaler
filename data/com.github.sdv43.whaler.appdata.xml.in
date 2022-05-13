@@ -14,7 +14,7 @@
     </p>
     <p>
       The solution is perfect for those who are looking for a simple tool to perform some basic actions. 
-      For the app to run correctly, make sure that Docker and docker-compose are installed on your system.
+      For the app to run correctly, make sure that Docker is installed on your system.
     </p>
   </description>
   <releases>
@@ -37,6 +37,9 @@
     </screenshot>
     <screenshot>
       <image>https://raw.githubusercontent.com/sdv43/whaler/master/data/images/screenshots/screenshot-2.png</image>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/sdv43/whaler/master/data/images/screenshots/screenshot-3.png</image>
     </screenshot>
   </screenshots>
   <url type="homepage">https://github.com/sdv43/whaler</url>
