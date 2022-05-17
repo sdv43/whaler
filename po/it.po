@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: com.github.sdv43.whaler\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-05-11 20:59+0300\n"
-"PO-Revision-Date: 2022-05-15 12:26+0100\n"
+"PO-Revision-Date: 2022-05-17 19:26+0100\n"
 "Last-Translator: Albano Battistella <albano_battistella@hotmail.com>\n"
 "Language-Team: Italian <LL@li.org>\n"
 "Language: it\n"
@@ -79,11 +79,18 @@ msgstr "Impossibile ottenere l'elenco dei contenitori Docker"
 
 #: src/State/Root.vala:48
 msgid "Docker isn't installed"
-msgstr "Docker non è installato"
+msgstr ""
+"Sembra che Docker non sia installato sul tuo sistema.\n"
+"Per scoprire come installarlo, vedere <a href=\"https://docs.docker.com/engine/"
+"install/\">Manuali Docker</a>."
 
 #: src/State/Root.vala:51
 msgid "Docker runs as root"
-msgstr "Docker viene eseguito come root"
+msgstr ""
+"Sembra che Docker richieda i diritti di root per usarlo. Quindi, l'applicazione "
+"non potrà connettersi all'API Docker Engine. Scopri come eseguire Docker senza  i diritti "
+"di root in <a href=\"https://docs.docker.com/engine/install/linux-postinstall/"
+"\">Manuali Docker</a>, altrimenti l'applicazione non può funzionare correttamente."
 
 #: src/Widgets/HeaderBar.vala:14
 msgid "Back"
