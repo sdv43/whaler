@@ -46,6 +46,11 @@ namespace Widgets.Screens.Container {
 
         private Gtk.Widget? build_container_status_label () {
             var label = Utils.DockerContainerStatusLabel.create_by_container (this.container);
+
+            if (label == null) {
+                return null;
+            }
+
             label.halign = Gtk.Align.START;
 
             return label;

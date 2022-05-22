@@ -40,6 +40,10 @@ class Widgets.Screens.Main.ContainerCard : Gtk.FlowBoxChild {
     private Gtk.Widget? build_container_status_label () {
         var info = Utils.DockerContainerStatusLabel.create_by_container (this.container);
 
+        if (info == null) {
+            return null;
+        }
+
         info.halign = Gtk.Align.START;
         info.valign = Gtk.Align.START;
 
