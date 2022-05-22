@@ -1,6 +1,6 @@
 app-id: com.github.sdv43.whaler
 runtime: io.elementary.Platform
-runtime-version: '6.1'
+runtime-version: '7'
 sdk: io.elementary.Sdk
 command: com.github.sdv43.whaler
 finish-args:
