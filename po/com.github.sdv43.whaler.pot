@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.sdv43.whaler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-11 20:59+0300\n"
+"POT-Creation-Date: 2022-05-22 16:55+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,21 +17,8 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: data/com.github.sdv43.whaler.desktop.in:3
-#: data/com.github.sdv43.whaler.appdata.xml.in:4
-msgid "Whaler"
-msgstr ""
-
-#: data/com.github.sdv43.whaler.desktop.in:4
-msgid "Docker Client"
-msgstr ""
-
 #: data/com.github.sdv43.whaler.desktop.in:5
 msgid "Manage your Docker containers"
-msgstr ""
-
-#: data/com.github.sdv43.whaler.desktop.in:8
-msgid "com.github.sdv43.whaler"
 msgstr ""
 
 #: data/com.github.sdv43.whaler.desktop.in:11
@@ -40,10 +27,6 @@ msgstr ""
 
 #: data/com.github.sdv43.whaler.appdata.xml.in:5
 msgid "Docker Container Management"
-msgstr ""
-
-#: data/com.github.sdv43.whaler.appdata.xml.in:8
-msgid "Selivestrov Dmitriy"
 msgstr ""
 
 #: data/com.github.sdv43.whaler.appdata.xml.in:10
@@ -57,7 +40,7 @@ msgstr ""
 msgid ""
 "The solution is perfect for those who are looking for a simple tool to "
 "perform some basic actions. For the app to run correctly, make sure that "
-"Docker and docker-compose are installed on your system."
+"Docker is installed on your system."
 msgstr ""
 
 #: src/Utils/Sorting/SortingName.vala:12
@@ -69,15 +52,22 @@ msgid "Type"
 msgstr ""
 
 #: src/State/Root.vala:40
-msgid "Cannot get list of docker containers"
+msgid "The app cannot get list of docker containers"
 msgstr ""
 
-#: src/State/Root.vala:48
-msgid "Docker isn't installed"
+#: src/State/Root.vala:49
+msgid ""
+"It looks like Docker is not installed on your system.\n"
+"To find out how to install it, see <a href=\"https://docs.docker.com/engine/"
+"install/\">Docker Manuals</a>."
 msgstr ""
 
-#: src/State/Root.vala:51
-msgid "Docker runs as root"
+#: src/State/Root.vala:56
+msgid ""
+"It looks like Docker requires root rights to use it. Thus, the application "
+"cannot connect to Docker Engine API. Find out how to run docker without root "
+"rights in <a href=\"https://docs.docker.com/engine/install/linux-postinstall/"
+"\">Docker Manuals</a>, otherwise the application cannot work correctly."
 msgstr ""
 
 #: src/Widgets/HeaderBar.vala:14

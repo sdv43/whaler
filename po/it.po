@@ -7,31 +7,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.sdv43.whaler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-11 20:59+0300\n"
+"POT-Creation-Date: 2022-05-22 16:55+0300\n"
 "PO-Revision-Date: 2022-05-17 19:26+0100\n"
 "Last-Translator: Albano Battistella <albano_battistella@hotmail.com>\n"
 "Language-Team: Italian <LL@li.org>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-
-#: data/com.github.sdv43.whaler.desktop.in:3
-#: data/com.github.sdv43.whaler.appdata.xml.in:4
-msgid "Whaler"
-msgstr "Whaler"
-
-#: data/com.github.sdv43.whaler.desktop.in:4
-msgid "Docker Client"
-msgstr "Docker Client"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: data/com.github.sdv43.whaler.desktop.in:5
 msgid "Manage your Docker containers"
 msgstr "Gestisci i tuoi contenitori Docker"
-
-#: data/com.github.sdv43.whaler.desktop.in:8
-msgid "com.github.sdv43.whaler"
-msgstr "com.github.sdv43.whaler"
 
 #: data/com.github.sdv43.whaler.desktop.in:11
 msgid "Docker;Virtualizaton;Development;"
@@ -40,10 +28,6 @@ msgstr "Docker;Virtualizzazione;Sviluppo;"
 #: data/com.github.sdv43.whaler.appdata.xml.in:5
 msgid "Docker Container Management"
 msgstr "Gestione dei container Docker"
-
-#: data/com.github.sdv43.whaler.appdata.xml.in:8
-msgid "Selivestrov Dmitriy"
-msgstr "Selivestrov Dmitriy"
 
 #: data/com.github.sdv43.whaler.appdata.xml.in:10
 msgid ""
@@ -59,7 +43,7 @@ msgstr ""
 msgid ""
 "The solution is perfect for those who are looking for a simple tool to "
 "perform some basic actions. For the app to run correctly, make sure that "
-"Docker and docker-compose are installed on your system."
+"Docker is installed on your system."
 msgstr ""
 "La soluzione è perfetta per chi cerca un semplice strumento per "
 "eseguire alcune azioni di base. Affinché l'app funzioni correttamente, assicurati che "
@@ -74,18 +58,25 @@ msgid "Type"
 msgstr "Tipo"
 
 #: src/State/Root.vala:40
-msgid "Cannot get list of docker containers"
+msgid "The app cannot get list of docker containers"
 msgstr "Impossibile ottenere l'elenco dei contenitori Docker"
 
-#: src/State/Root.vala:48
-msgid "Docker isn't installed"
+#: src/State/Root.vala:49
+msgid ""
+"It looks like Docker is not installed on your system.\n"
+"To find out how to install it, see <a href=\"https://docs.docker.com/engine/"
+"install/\">Docker Manuals</a>."
 msgstr ""
 "Sembra che Docker non sia installato sul tuo sistema.\n"
 "Per scoprire come installarlo, vedere <a href=\"https://docs.docker.com/engine/"
 "install/\">Manuali Docker</a>."
 
-#: src/State/Root.vala:51
-msgid "Docker runs as root"
+#: src/State/Root.vala:56
+msgid ""
+"It looks like Docker requires root rights to use it. Thus, the application "
+"cannot connect to Docker Engine API. Find out how to run docker without root "
+"rights in <a href=\"https://docs.docker.com/engine/install/linux-postinstall/"
+"\">Docker Manuals</a>, otherwise the application cannot work correctly."
 msgstr ""
 "Sembra che Docker richieda i diritti di root per usarlo. Quindi, l'applicazione "
 "non potrà connettersi all'API Docker Engine. Scopri come eseguire Docker senza  i diritti "
