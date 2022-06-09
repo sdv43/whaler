@@ -21,6 +21,7 @@ sources = files(
     'Utils/Sorting/SortingInterface.vala',
     'Utils/Sorting/SortingName.vala',
     'Utils/Sorting/SortingType.vala',
+    'Utils/Sorting/SortingStatus.vala',
 
     'State/Root.vala',
     'State/ScreenMain.vala',
@@ -45,6 +46,7 @@ sources = files(
     'Widgets/Screens/DockerContainer/Log.vala',
     'Widgets/Screens/DockerContainer/LogOutput.vala',
 
+    'Widgets/Utils/SettingsDialog.vala',
     'Widgets/Utils/ConfirmationDialog.vala',
     'Widgets/Utils/ContainerInfoDialog.vala',
     'Widgets/Utils/DockerContainerStatusLabel.vala',

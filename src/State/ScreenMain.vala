@@ -30,6 +30,7 @@ class State.ScreenMain : Object {
             this.containers_prepared.add_all_iterator (root.containers.filter ((container) => {
                 return container.name.down (container.name.length).index_of (this.search_term, 0) > -1;
             }));
+            this.containers_prepared.sort (this.sorting.compare);
 
             this.notify_property ("containers-prepared");
         });

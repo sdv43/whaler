@@ -42,6 +42,7 @@ class Widgets.Screens.Main.ContainersGridFilter : Gtk.Box {
 
     private Gtk.Widget build_sorting_combobox () {
         SortingInterface[] sortings = {
+            new SortingStatus (),
             new SortingName (),
             new SortingType ()
         };
