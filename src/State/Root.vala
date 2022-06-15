@@ -8,8 +8,6 @@ class State.Root : Object {
     private static Root? instance;
     private string? previuos_screen;
 
-    public bool overlay_bar_visible {get; set;}
-    public string overlay_bar_text {get; set;}
     public bool button_back_visible {get; set;}
     public string active_screen {get; set;}
     public Gee.ArrayList<DockerContainer> containers {get; set;}
@@ -21,8 +19,6 @@ class State.Root : Object {
         var settings = new Settings (APP_ID);
 
         this.api_client = new ApiClient ();
-        this.overlay_bar_visible = false;
-        this.overlay_bar_text = "";
         this.button_back_visible = false;
         this.active_screen = Widgets.ScreenMain.CODE;
         this.containers = new Gee.ArrayList<DockerContainer> (DockerContainer.equal);
