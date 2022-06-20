@@ -51,7 +51,6 @@ class Widgets.Screens.Main.ContainerCardActions : Gtk.Box {
     }
 
     public static Gtk.Menu build_menu (DockerContainer container, Gtk.Widget actions_widget) {
-        var screen_error = ScreenError.get_instance ();
         var state = State.Root.get_instance ();
 
         var item_pause = new Gtk.MenuItem.with_label (_ ("Pause"));
@@ -64,7 +63,7 @@ class Widgets.Screens.Main.ContainerCardActions : Gtk.Box {
                 try {
                     state.container_pause.end (res);
                 } catch (Docker.ApiClientError error) {
-                    screen_error.show_error_dialog (err_msg, error.message);
+                    ScreenManager.dialog_error_show (err_msg, error.message);
                 } finally {
                     actions_widget.sensitive = true;
                 }
@@ -83,7 +82,7 @@ class Widgets.Screens.Main.ContainerCardActions : Gtk.Box {
                 try {
                     state.container_restart.end (res);
                 } catch (Docker.ApiClientError error) {
-                    screen_error.show_error_dialog (err_msg, error.message);
+                    ScreenManager.dialog_error_show (err_msg, error.message);
                 } finally {
                     actions_widget.sensitive = true;
                     ScreenManager.overlay_bar_hide ();
@@ -111,7 +110,7 @@ class Widgets.Screens.Main.ContainerCardActions : Gtk.Box {
                     try {
                         state.container_remove.end (res);
                     } catch (Docker.ApiClientError error) {
-                        screen_error.show_error_dialog (err_msg, error.message);
+                        ScreenManager.dialog_error_show (err_msg, error.message);
                     } finally {
                         actions_widget.sensitive = true;
                         ScreenManager.overlay_bar_hide ();
@@ -133,7 +132,7 @@ class Widgets.Screens.Main.ContainerCardActions : Gtk.Box {
                 try {
                     new Utils.ContainerInfoDialog (state.container_inspect.end (res));
                 } catch (Docker.ApiClientError error) {
-                    screen_error.show_error_dialog (err_msg, error.message);
+                    ScreenManager.dialog_error_show (err_msg, error.message);
                 }
             });
         });
@@ -150,7 +149,6 @@ class Widgets.Screens.Main.ContainerCardActions : Gtk.Box {
 
     public static async void button_main_action_handler (DockerContainer container) {
         var state = State.Root.get_instance ();
-        var screen_error = ScreenError.get_instance ();
         var err_msg = _ ("Container action error");
 
         try {
@@ -173,11 +171,11 @@ class Widgets.Screens.Main.ContainerCardActions : Gtk.Box {
                     break;
 
                 case DockerContainerState.UNKNOWN:
-                    screen_error.show_error_dialog (err_msg, _ ("Container state is unknown"));
+                    ScreenManager.dialog_error_show (err_msg, _ ("Container state is unknown"));
                     break;
             }
         } catch (Docker.ApiClientError error) {
-            screen_error.show_error_dialog (err_msg, error.message);
+            ScreenManager.dialog_error_show (err_msg, error.message);
         } finally {
             ScreenManager.overlay_bar_hide ();
         }

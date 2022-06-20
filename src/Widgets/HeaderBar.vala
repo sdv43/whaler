@@ -80,7 +80,7 @@ class Widgets.HeaderBar : Gtk.HeaderBar {
                         err_desc = err_desc_access;
                     }
 
-                    Widgets.ScreenError.get_instance ().show_error_screen (err_msg, err_desc);
+                    ScreenManager.screen_error_show (err_msg, err_desc);
                 }
             });
         });
