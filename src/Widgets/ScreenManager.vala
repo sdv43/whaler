@@ -71,10 +71,13 @@ class Widgets.ScreenManager : Gtk.Overlay {
         message_dialog.destroy ();
     }
 
-    public static void screen_error_show (string error, string description) {
-        instance.screen_error.show_error (error, description);
+    //  public static void screen_error_show (string error, string description) {
+    //      instance.screen_error.show_error (error, description);
+    //      State.Root.get_instance ().active_screen = ScreenError.CODE;
+    //  }
+
+    public static void screen_error_show_widget (Gtk.Widget widget) {
+        instance.screen_error.show_widget (widget);
         State.Root.get_instance ().active_screen = ScreenError.CODE;
     }
-
-    public static void screen_error_show_with_widget (string error, Gtk.Widget widget) {}
 }

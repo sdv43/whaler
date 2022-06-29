@@ -147,6 +147,9 @@
   min-width: 1.3333333343rem;
   min-height: 1.3333333343rem;
 }
+.screen-main {
+  background-color: @bg_color;
+}
 .screen-main .docker-containers-filter {
   margin: 2.000000001rem;
 }

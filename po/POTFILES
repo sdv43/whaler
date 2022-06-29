@@ -2,8 +2,12 @@ data/com.github.sdv43.whaler.desktop.in
 data/com.github.sdv43.whaler.appdata.xml.in
 src/Utils/Sorting/SortingName.vala
 src/Utils/Sorting/SortingType.vala
+src/Widgets/Utils/SettingsDialog.vala
+src/Widgets/Utils/DockerContainerStatusLabel.vala
+src/Widgets/Utils/ContainerInfoDialog.vala
 src/State/Root.vala
 src/Widgets/HeaderBar.vala
+src/Widgets/ScreenError.vala
 src/Widgets/Screens/DockerContainer/Log.vala
 src/Widgets/Screens/DockerContainer/LogOutput.vala
 src/Widgets/Screens/DockerContainer/TopBar.vala

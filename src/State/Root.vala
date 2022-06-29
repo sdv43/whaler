@@ -37,30 +37,14 @@ class State.Root : Object {
     }
 
     public async void init () {
-        var err_msg = _ ("The app cannot get list of docker containers");
-
         try {
             yield this.containers_load();
         } catch (ApiClientError error) {
-            var err_desc = error.message;
+            var error_widget = ScreenError.build_error_docker_not_avialable (
+                error is ApiClientError.ERROR_NO_ENTRY
+            );
 
-            if (error is ApiClientError.ERROR_NO_ENTRY) {
-                err_desc = _ (
-                    "It looks like Docker is not installed on your system.\n" +
-                    "To find out how to install it, see <a href=\"https://docs.docker.com/engine/" +
-                    "install/\">Docker Manuals</a>."
-                );
-            }
-            if (error is ApiClientError.ERROR_ACCESS) {
-                err_desc = _ (
-                    "It looks like Docker requires root rights to use it. Thus, the application " +
-                    "cannot connect to Docker Engine API. Find out how to run docker without root " +
-                    "rights in <a href=\"https://docs.docker.com/engine/install/linux-postinstall/" +
-                    "\">Docker Manuals</a>, otherwise the application cannot work correctly."
-                );
-            }
-
-            ScreenManager.screen_error_show (err_msg, err_desc);
+            ScreenManager.screen_error_show_widget (error_widget);
         }
     }
 

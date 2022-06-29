@@ -23,7 +23,7 @@ class Widgets.Utils.SettingsDialog : Granite.Dialog {
         var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         box.expand = true;
 
-        var title = new Gtk.Label (_ ("Docker settings"));
+        var title = new Gtk.Label (_ ("Settings"));
         title.get_style_context ().add_class ("h4");
         title.get_style_context ().add_class ("dialog-settings-title");
 
@@ -82,8 +82,6 @@ class SocketPathEntry : Gtk.Box {
 
         this.pack_start (this.build_entry (), false);
         this.pack_start (this.build_button_check (), false);
-        //  this.pack_start (this.build_notice ("Cannot get infomation about docker. No response on socker path.", false), false);
-        //  this.pack_start (this.build_notice ("Docker v1.69, API v1.41", true), false);
     }
 
     private Gtk.Widget build_entry () {
@@ -103,7 +101,7 @@ class SocketPathEntry : Gtk.Box {
         var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         box.get_style_context ().add_class ("button-check");
 
-        var button = new Gtk.Button.with_label (_ ("Check"));
+        var button = new Gtk.Button.with_label (_ ("Check connection"));
         button.halign = Gtk.Align.START;
         button.clicked.connect (() => {
             button.sensitive = false;
@@ -139,7 +137,7 @@ class SocketPathEntry : Gtk.Box {
 
     private async void button_check_handler () {
         var api_client = new Docker.ApiClient ();
-        var err_msg = _ ("Socket path \"%s\" is incorrect");
+        var err_msg = _ ("Incorrect socket path \"%s\"");
 
         if (this.notice != null) {
             this.remove (this.notice);

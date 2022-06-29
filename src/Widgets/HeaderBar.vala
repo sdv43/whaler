@@ -40,21 +40,7 @@ class Widgets.HeaderBar : Gtk.HeaderBar {
         button_refresh.set_tooltip_text (_ ("Update docker container list"));
         button_refresh.get_style_context ().add_class ("refresh-button");
 
-        var err_msg = _ ("Update error");
-
         button_refresh.clicked.connect ((button) => {
-            var err_desc_no_entry = _ (
-                "It looks like Docker is not installed on your system.\n" +
-                "To find out how to install it, see <a href=\"https://docs.docker.com/engine/" +
-                "install/\">Docker Manuals</a>."
-            );
-            var err_desc_access = _ (
-                "It looks like Docker requires root rights to use it. Thus, the application " +
-                "cannot connect to Docker Engine API. Find out how to run docker without root " +
-                "rights in <a href=\"https://docs.docker.com/engine/install/linux-postinstall/" +
-                "\">Docker Manuals</a>, otherwise the application cannot work correctly."
-            );
-
             button_refresh.get_style_context ().add_class ("refresh-animation");
 
             Timeout.add (600, () => {
@@ -71,16 +57,11 @@ class Widgets.HeaderBar : Gtk.HeaderBar {
                         state.active_screen = ScreenMain.CODE;
                     }
                 } catch (Docker.ApiClientError error) {
-                    var err_desc = error.message;
+                    var error_widget = ScreenError.build_error_docker_not_avialable (
+                        error is Docker.ApiClientError.ERROR_NO_ENTRY
+                    );
 
-                    if (error is Docker.ApiClientError.ERROR_NO_ENTRY) {
-                        err_desc = err_desc_no_entry;
-                    }
-                    if (error is Docker.ApiClientError.ERROR_ACCESS) {
-                        err_desc = err_desc_access;
-                    }
-
-                    ScreenManager.screen_error_show (err_msg, err_desc);
+                    ScreenManager.screen_error_show_widget (error_widget);
                 }
             });
         });
