@@ -7,17 +7,17 @@ class Widgets.ScreenError : Gtk.Grid {
         this.halign = Gtk.Align.CENTER;
     }
 
-    public void show_error (string error, string description) {
-        this.foreach ((child) => {
-            this.remove (child);
-        });
+    //  public void show_error (string error, string description) {
+    //      this.foreach ((child) => {
+    //          this.remove (child);
+    //      });
 
-        var alert = new Granite.Widgets.AlertView (error, description, "dialog-error");
-        alert.get_style_context ().add_class ("alert");
-        this.add (alert);
+    //      var alert = new Granite.Widgets.AlertView (error, description, "dialog-error");
+    //      alert.get_style_context ().add_class ("alert");
+    //      this.add (alert);
 
-        this.show_all ();
-    }
+    //      this.show_all ();
+    //  }
 
     public void show_widget (Gtk.Widget widget) {
         this.foreach ((child) => {

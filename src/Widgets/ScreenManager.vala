@@ -43,11 +43,11 @@ class Widgets.ScreenManager : Gtk.Overlay {
     }
 
     public static void overlay_bar_show (string message, int delay = 1000) {
+        instance.overlay_bar_visible = true;
         instance.overlay_bar.label = message;
 
         Timeout.add (delay, () => {
             instance.overlay_bar.visible = instance.overlay_bar_visible;
-            instance.show_all ();
 
             return false;
         });
