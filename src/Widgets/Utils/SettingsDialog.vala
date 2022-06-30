@@ -136,6 +136,7 @@ class SocketPathEntry : Gtk.Box {
     }
 
     private async void button_check_handler () {
+        var state = State.Root.get_instance ();
         var api_client = new Docker.ApiClient ();
         var err_msg = _ ("Incorrect socket path \"%s\"");
 
@@ -154,6 +155,9 @@ class SocketPathEntry : Gtk.Box {
                 @"Docker v$(docker_version_info.version), API v$(docker_version_info.api_version)",
                 true
             );
+
+            yield state.containers_load ();
+            state.active_screen = Widgets.ScreenMain.CODE;
         } catch (Docker.ApiClientError error) {
             this.notice = this.build_notice (err_msg.printf (this.entry_socket_path.text), false);
         } finally {
