@@ -8,6 +8,9 @@ finish-args:
   - '--socket=fallback-x11'
   - '--socket=wayland'
   - '--filesystem=/run/docker.sock'
+  - '--filesystem=xdg-run/docker.sock'
+  - '--filesystem=/run/podman/podman.sock'
+  - '--filesystem=xdg-run/podman/podman.sock'
 modules:
   - name: whaler
     buildsystem: meson

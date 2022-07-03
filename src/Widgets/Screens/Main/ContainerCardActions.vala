@@ -51,7 +51,6 @@ class Widgets.Screens.Main.ContainerCardActions : Gtk.Box {
     }
 
     public static Gtk.Menu build_menu (DockerContainer container, Gtk.Widget actions_widget) {
-        var screen_error = ScreenError.get_instance ();
         var state = State.Root.get_instance ();
 
         var item_pause = new Gtk.MenuItem.with_label (_ ("Pause"));
@@ -64,7 +63,7 @@ class Widgets.Screens.Main.ContainerCardActions : Gtk.Box {
                 try {
                     state.container_pause.end (res);
                 } catch (Docker.ApiClientError error) {
-                    screen_error.show_error_dialog (err_msg, error.message);
+                    ScreenManager.dialog_error_show (err_msg, error.message);
                 } finally {
                     actions_widget.sensitive = true;
                 }
@@ -77,17 +76,16 @@ class Widgets.Screens.Main.ContainerCardActions : Gtk.Box {
             var err_msg = _ ("Container restart error");
 
             actions_widget.sensitive = false;
-            state.overlay_bar_text = _ ("Restarting container");
-            state.overlay_bar_visible = true;
+            ScreenManager.overlay_bar_show (_ ("Restarting container"));
 
             state.container_restart.begin (container, (_, res) => {
                 try {
                     state.container_restart.end (res);
                 } catch (Docker.ApiClientError error) {
-                    screen_error.show_error_dialog (err_msg, error.message);
+                    ScreenManager.dialog_error_show (err_msg, error.message);
                 } finally {
                     actions_widget.sensitive = true;
-                    state.overlay_bar_visible = false;
+                    ScreenManager.overlay_bar_hide ();
                 }
             });
         });
@@ -106,17 +104,16 @@ class Widgets.Screens.Main.ContainerCardActions : Gtk.Box {
             confirm.accept.connect (() => {
                 var err_msg = _ ("Container remove error");
 
-                state.overlay_bar_text = _ ("Removing container");
-                state.overlay_bar_visible = true;
+                ScreenManager.overlay_bar_show (_ ("Removing container"));
 
                 state.container_remove.begin (container, (_, res) => {
                     try {
                         state.container_remove.end (res);
                     } catch (Docker.ApiClientError error) {
-                        screen_error.show_error_dialog (err_msg, error.message);
+                        ScreenManager.dialog_error_show (err_msg, error.message);
                     } finally {
                         actions_widget.sensitive = true;
-                        state.overlay_bar_visible = false;
+                        ScreenManager.overlay_bar_hide ();
                     }
                 });
             });
@@ -135,7 +132,7 @@ class Widgets.Screens.Main.ContainerCardActions : Gtk.Box {
                 try {
                     new Utils.ContainerInfoDialog (state.container_inspect.end (res));
                 } catch (Docker.ApiClientError error) {
-                    screen_error.show_error_dialog (err_msg, error.message);
+                    ScreenManager.dialog_error_show (err_msg, error.message);
                 }
             });
         });
@@ -152,22 +149,19 @@ class Widgets.Screens.Main.ContainerCardActions : Gtk.Box {
 
     public static async void button_main_action_handler (DockerContainer container) {
         var state = State.Root.get_instance ();
-        var screen_error = ScreenError.get_instance ();
         var err_msg = _ ("Container action error");
 
         try {
             switch (container.state) {
                 case DockerContainerState.RUNNING:
                     err_msg = _ ("Container stop error");
-                    state.overlay_bar_text = _ ("Stopping container");
-                    state.overlay_bar_visible = true;
+                    ScreenManager.overlay_bar_show (_ ("Stopping container"));
                     yield state.container_stop(container);
                     break;
 
                 case DockerContainerState.STOPPED:
                     err_msg = _ ("Container start error");
-                    state.overlay_bar_text = _ ("Starting container");
-                    state.overlay_bar_visible = true;
+                    ScreenManager.overlay_bar_show (_ ("Starting container"));
                     yield state.container_start(container);
                     break;
 
@@ -177,13 +171,13 @@ class Widgets.Screens.Main.ContainerCardActions : Gtk.Box {
                     break;
 
                 case DockerContainerState.UNKNOWN:
-                    screen_error.show_error_dialog (err_msg, _ ("Container state is unknown"));
+                    ScreenManager.dialog_error_show (err_msg, _ ("Container state is unknown"));
                     break;
             }
         } catch (Docker.ApiClientError error) {
-            screen_error.show_error_dialog (err_msg, error.message);
+            ScreenManager.dialog_error_show (err_msg, error.message);
         } finally {
-            state.overlay_bar_visible = false;
+            ScreenManager.overlay_bar_hide ();
         }
     }
 }

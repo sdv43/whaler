@@ -6,6 +6,7 @@ class Widgets.HeaderBar : Gtk.HeaderBar {
         this.title = APP_NAME;
 
         this.pack_start (this.build_button_back ());
+        this.pack_end (this.build_button_settings ());
         this.pack_end (this.build_button_refresh ());
     }
 
@@ -39,8 +40,6 @@ class Widgets.HeaderBar : Gtk.HeaderBar {
         button_refresh.set_tooltip_text (_ ("Update docker container list"));
         button_refresh.get_style_context ().add_class ("refresh-button");
 
-        var err_msg = _ ("Update error");
-
         button_refresh.clicked.connect ((button) => {
             button_refresh.get_style_context ().add_class ("refresh-animation");
 
@@ -53,19 +52,44 @@ class Widgets.HeaderBar : Gtk.HeaderBar {
             state.containers_load.begin ((_, res) => {
                 try {
                     state.containers_load.end (res);
-                } catch (Docker.ApiClientError e) {
-                    ScreenError.get_instance ().show_error_screen (err_msg, e.message);
+
+                    if (state.active_screen == ScreenError.CODE) {
+                        state.active_screen = ScreenMain.CODE;
+                    }
+                } catch (Docker.ApiClientError error) {
+                    var error_widget = ScreenError.build_error_docker_not_avialable (
+                        error is Docker.ApiClientError.ERROR_NO_ENTRY
+                    );
+
+                    ScreenManager.screen_error_show_widget (error_widget);
                 }
             });
         });
+
         button_refresh.show.connect (() => {
-            button_refresh.sensitive = state.active_screen == ScreenMain.CODE;
+            button_refresh.sensitive = state.active_screen == ScreenMain.CODE
+                                       || state.active_screen == ScreenError.CODE;
         });
 
         state.notify["active-screen"].connect (() => {
-            button_refresh.sensitive = state.active_screen == ScreenMain.CODE;
+            button_refresh.sensitive = state.active_screen == ScreenMain.CODE
+                                       || state.active_screen == ScreenError.CODE;
         });
 
         return button_refresh;
+    }
+
+    private Gtk.Widget build_button_settings () {
+        var button_settings = new Gtk.Button.from_icon_name ("open-menu-symbolic", Gtk.IconSize.MENU);
+
+        button_settings.valign = Gtk.Align.CENTER;
+        button_settings.focus_on_click = false;
+        button_settings.set_tooltip_text (_ ("Open settings"));
+
+        button_settings.clicked.connect ((button) => {
+            new Utils.SettingsDialog ();
+        });
+
+        return button_settings;
     }
 }

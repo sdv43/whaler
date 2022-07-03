@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.sdv43.whaler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-22 16:55+0300\n"
+"POT-Creation-Date: 2022-06-29 14:03+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -44,6 +44,7 @@ msgid ""
 msgstr ""
 
 #: src/Utils/Sorting/SortingName.vala:12
+#: src/Widgets/Utils/ContainerInfoDialog.vala:52
 msgid "Name"
 msgstr ""
 
@@ -51,35 +52,102 @@ msgstr ""
 msgid "Type"
 msgstr ""
 
-#: src/State/Root.vala:40
-msgid "The app cannot get list of docker containers"
+#: src/Widgets/Utils/SettingsDialog.vala:11
+#: src/Widgets/Utils/ContainerInfoDialog.vala:13
+msgid "Close"
 msgstr ""
 
-#: src/State/Root.vala:49
-msgid ""
-"It looks like Docker is not installed on your system.\n"
-"To find out how to install it, see <a href=\"https://docs.docker.com/engine/"
-"install/\">Docker Manuals</a>."
+#: src/Widgets/Utils/SettingsDialog.vala:26
+msgid "Settings"
 msgstr ""
 
-#: src/State/Root.vala:56
+#: src/Widgets/Utils/SettingsDialog.vala:41
+msgid "API socket path:"
+msgstr ""
+
+#: src/Widgets/Utils/SettingsDialog.vala:104
+msgid "Check connection"
+msgstr ""
+
+#: src/Widgets/Utils/SettingsDialog.vala:124
+msgid "Success"
+msgstr ""
+
+#: src/Widgets/Utils/SettingsDialog.vala:124
+msgid "Error"
+msgstr ""
+
+#: src/Widgets/Utils/SettingsDialog.vala:140
+#, c-format
+msgid "Incorrect socket path \"%s\""
+msgstr ""
+
+#: src/Widgets/Utils/DockerContainerStatusLabel.vala:11
+msgid "Running"
+msgstr ""
+
+#: src/Widgets/Utils/DockerContainerStatusLabel.vala:16
+msgid "Paused"
+msgstr ""
+
+#: src/Widgets/Utils/DockerContainerStatusLabel.vala:21
+msgid "Stopped"
+msgstr ""
+
+#: src/Widgets/Utils/DockerContainerStatusLabel.vala:26
+msgid "Unknown"
+msgstr ""
+
+#: src/Widgets/Utils/ContainerInfoDialog.vala:53
+msgid "Image"
+msgstr ""
+
+#: src/Widgets/Utils/ContainerInfoDialog.vala:54
+msgid "Status"
+msgstr ""
+
+#: src/Widgets/Utils/ContainerInfoDialog.vala:57
+msgid "Ports"
+msgstr ""
+
+#: src/Widgets/Utils/ContainerInfoDialog.vala:61
+msgid "Binds"
+msgstr ""
+
+#: src/Widgets/Utils/ContainerInfoDialog.vala:65
+msgid "Env"
+msgstr ""
+
+#: src/Widgets/HeaderBar.vala:15
+msgid "Back"
+msgstr ""
+
+#: src/Widgets/HeaderBar.vala:40
+msgid "Update docker container list"
+msgstr ""
+
+#: src/Widgets/HeaderBar.vala:87 src/Widgets/ScreenError.vala:56
+msgid "Open settings"
+msgstr ""
+
+#: src/Widgets/ScreenError.vala:33
 msgid ""
 "It looks like Docker requires root rights to use it. Thus, the application "
 "cannot connect to Docker Engine API. Find out how to run docker without root "
 "rights in <a href=\"https://docs.docker.com/engine/install/linux-postinstall/"
-"\">Docker Manuals</a>, otherwise the application cannot work correctly."
+"\">Docker Manuals</a>, otherwise the application cannot work correctly. Or "
+"check your socket path to Docker API in Settings."
 msgstr ""
 
-#: src/Widgets/HeaderBar.vala:14
-msgid "Back"
+#: src/Widgets/ScreenError.vala:42
+msgid ""
+"It looks like Docker is not installed on your system. To find out how to "
+"install it, see <a href=\"https://docs.docker.com/engine/install/\">Docker "
+"Manuals</a>. Or check your socket path to Docker API in Settings."
 msgstr ""
 
-#: src/Widgets/HeaderBar.vala:39
-msgid "Update docker container list"
-msgstr ""
-
-#: src/Widgets/HeaderBar.vala:42
-msgid "Update error"
+#: src/Widgets/ScreenError.vala:50
+msgid "The app cannot connect to Docker API"
 msgstr ""
 
 #: src/Widgets/Screens/DockerContainer/Log.vala:39
@@ -102,83 +170,83 @@ msgstr ""
 msgid "Unpause"
 msgstr ""
 
-#: src/Widgets/Screens/Main/ContainerCardActions.vala:57
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:56
 msgid "Pause"
 msgstr ""
 
-#: src/Widgets/Screens/Main/ContainerCardActions.vala:60
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:59
 msgid "Container pause error"
 msgstr ""
 
-#: src/Widgets/Screens/Main/ContainerCardActions.vala:75
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:74
 msgid "Restart"
 msgstr ""
 
-#: src/Widgets/Screens/Main/ContainerCardActions.vala:77
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:76
 msgid "Container restart error"
 msgstr ""
 
-#: src/Widgets/Screens/Main/ContainerCardActions.vala:80
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:79
 msgid "Restarting container"
 msgstr ""
 
-#: src/Widgets/Screens/Main/ContainerCardActions.vala:96
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:94
 msgid "Remove"
 msgstr ""
 
-#: src/Widgets/Screens/Main/ContainerCardActions.vala:99
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:97
 msgid "Do you really want to remove container?"
 msgstr ""
 
-#: src/Widgets/Screens/Main/ContainerCardActions.vala:100
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:98
 msgid "Yes, remove"
 msgstr ""
 
-#: src/Widgets/Screens/Main/ContainerCardActions.vala:101
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:99
 msgid "Cancel"
 msgstr ""
 
-#: src/Widgets/Screens/Main/ContainerCardActions.vala:107
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:105
 msgid "Container remove error"
 msgstr ""
 
-#: src/Widgets/Screens/Main/ContainerCardActions.vala:109
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:107
 msgid "Removing container"
 msgstr ""
 
-#: src/Widgets/Screens/Main/ContainerCardActions.vala:130
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:127
 msgid "Info"
 msgstr ""
 
-#: src/Widgets/Screens/Main/ContainerCardActions.vala:132
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:129
 msgid "Cannot get information"
 msgstr ""
 
-#: src/Widgets/Screens/Main/ContainerCardActions.vala:156
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:152
 msgid "Container action error"
 msgstr ""
 
-#: src/Widgets/Screens/Main/ContainerCardActions.vala:161
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:157
 msgid "Container stop error"
 msgstr ""
 
-#: src/Widgets/Screens/Main/ContainerCardActions.vala:162
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:158
 msgid "Stopping container"
 msgstr ""
 
-#: src/Widgets/Screens/Main/ContainerCardActions.vala:168
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:163
 msgid "Container start error"
 msgstr ""
 
-#: src/Widgets/Screens/Main/ContainerCardActions.vala:169
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:164
 msgid "Starting container"
 msgstr ""
 
-#: src/Widgets/Screens/Main/ContainerCardActions.vala:175
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:169
 msgid "Container unpause error"
 msgstr ""
 
-#: src/Widgets/Screens/Main/ContainerCardActions.vala:180
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:174
 msgid "Container state is unknown"
 msgstr ""
 
@@ -186,6 +254,6 @@ msgstr ""
 msgid "No containers"
 msgstr ""
 
-#: src/Widgets/Screens/Main/ContainersGridFilter.vala:52
+#: src/Widgets/Screens/Main/ContainersGridFilter.vala:53
 msgid "Sort by:"
 msgstr ""

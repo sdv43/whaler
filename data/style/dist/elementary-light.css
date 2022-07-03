@@ -38,6 +38,9 @@
   font-weight: 500;
   font-size: 0.95rem;
 }
+.docker-container-status-label:disabled {
+  opacity: 0.4;
+}
 .docker-container-status-label.running {
   background-color: @accent_color_500;
   color: white;
@@ -45,6 +48,36 @@
 .docker-container-status-label.paused {
   background-color: lighter(@accent_color_300);
   color: @accent_color_700;
+}
+
+.dialog-settings-title {
+  padding-bottom: 1.000000001rem;
+}
+.dialog-settings-section {
+  padding: 0.500000001rem 1.500000001rem;
+}
+.dialog-settings-row-label {
+  margin-right: 0.500000001rem;
+}
+.dialog-settings .docker-socket-path .button-check {
+  margin-top: 0.500000001rem;
+}
+.dialog-settings .docker-socket-path .button-check spinner {
+  margin-left: 1.000000001rem;
+}
+.dialog-settings .docker-socket-path .notice {
+  margin-top: 0.500000001rem;
+  padding: 0.500000001rem 0;
+  border-radius: 0.500000001rem;
+}
+.dialog-settings .docker-socket-path .notice .h4 {
+  padding: 0 0 0.500000001rem 0;
+}
+.dialog-settings .docker-socket-path .notice.successfull .h4 {
+  color: @LIME_900;
+}
+.dialog-settings .docker-socket-path .notice.failed {
+  color: @STRAWBERRY_900;
 }
 
 .screen-error {
@@ -113,6 +146,9 @@
 .screen-docker-container .auto-scroll-switcher slider {
   min-width: 1.3333333343rem;
   min-height: 1.3333333343rem;
+}
+.screen-main {
+  background-color: @bg_color;
 }
 .screen-main .docker-containers-filter {
   margin: 2.000000001rem;
