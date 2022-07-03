@@ -55,6 +55,10 @@ $lg: rem(24px);
     font-weight: 500;
     font-size: .95rem;
 
+    &:disabled {
+        opacity: 0.4;
+    }
+    
     &.running {
         background-color: #{'@accent_color_500'};
         color: white;
@@ -63,6 +67,54 @@ $lg: rem(24px);
     &.paused {
         background-color: lighter(#{'@accent_color_300'});
         color: #{'@accent_color_700'};
+    }
+}
+
+.dialog {
+    &-settings {
+        &-title {
+            padding-bottom: $sm;
+        }
+        
+        &-section {
+            padding: $xs $md;
+        }
+        
+        &-row {
+            &-label {
+                margin-right: $xs;
+            }
+        }
+        
+        .docker-socket-path {
+            .button-check {
+                margin-top: $xs;
+                
+                spinner {
+                    margin-left: $sm;
+                }
+            }
+            
+            .notice {
+                margin-top: $xs;
+                padding: $xs 0;
+                border-radius: $xs;
+                
+                .h4 {
+                    padding: 0 0 $xs 0;
+                }
+                
+                &.successfull {
+                    .h4 {
+                        color: #{'@LIME_900'};
+                    }
+                }
+                
+                &.failed {
+                    color: #{'@STRAWBERRY_900'};
+                }
+            }
+        }
     }
 }
 
@@ -153,6 +205,8 @@ $lg: rem(24px);
     }
 
     &-main {
+        background-color: #{"@bg_color"};
+        
         .docker-containers {
             &-filter {
                 margin: $lg;

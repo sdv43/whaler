@@ -1,4 +1,5 @@
 using Utils;
+using Utils.Constants;
 using Widgets;
 using Docker;
 
@@ -7,8 +8,6 @@ class State.Root : Object {
     private static Root? instance;
     private string? previuos_screen;
 
-    public bool overlay_bar_visible {get; set;}
-    public string overlay_bar_text {get; set;}
     public bool button_back_visible {get; set;}
     public string active_screen {get; set;}
     public Gee.ArrayList<DockerContainer> containers {get; set;}
@@ -17,15 +16,16 @@ class State.Root : Object {
     public ScreenDockerContainer screen_docker_container {get; private set;}
 
     private Root () {
+        var settings = new Settings (APP_ID);
+
         this.api_client = new ApiClient ();
-        this.overlay_bar_visible = false;
-        this.overlay_bar_text = "";
         this.button_back_visible = false;
         this.active_screen = Widgets.ScreenMain.CODE;
         this.containers = new Gee.ArrayList<DockerContainer> (DockerContainer.equal);
-
         this.screen_main = new ScreenMain (this);
         this.screen_docker_container = new ScreenDockerContainer (this);
+
+        settings.bind ("docker-api-socket-path", this.api_client.http_client, "unix_socket_path", SettingsBindFlags.GET);
     }
 
     public static Root get_instance () {
@@ -37,30 +37,14 @@ class State.Root : Object {
     }
 
     public async void init () {
-        var err_msg = _ ("The app cannot get list of docker containers");
-
         try {
             yield this.containers_load();
         } catch (ApiClientError error) {
-            var err_desc = error.message;
+            var error_widget = ScreenError.build_error_docker_not_avialable (
+                error is ApiClientError.ERROR_NO_ENTRY
+            );
 
-            if (error is ApiClientError.ERROR_NO_ENTRY) {
-                err_desc = _ (
-                    "It looks like Docker is not installed on your system.\n" +
-                    "To find out how to install it, see <a href=\"https://docs.docker.com/engine/" +
-                    "install/\">Docker Manuals</a>."
-                );
-            }
-            if (error is ApiClientError.ERROR_ACCESS) {
-                err_desc = _ (
-                    "It looks like Docker requires root rights to use it. Thus, the application " +
-                    "cannot connect to Docker Engine API. Find out how to run docker without root " +
-                    "rights in <a href=\"https://docs.docker.com/engine/install/linux-postinstall/" +
-                    "\">Docker Manuals</a>, otherwise the application cannot work correctly."
-                );
-            }
-
-            Widgets.ScreenError.get_instance ().show_error_screen (err_msg, err_desc);
+            ScreenManager.screen_error_show_widget (error_widget);
         }
     }
 

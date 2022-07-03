@@ -29,13 +29,15 @@ namespace Docker {
         public string[]? ports;
     }
 
+    struct DockerVersionInfo {
+        public string version;
+        public string api_version;
+    }
+
     class ApiClient : Object {
         public HttpClient http_client;
-        public string version;
 
         public ApiClient () {
-            this.version = "1.41";
-
             this.http_client = new HttpClient ();
             this.http_client.verbose = false;
             this.http_client.base_url = @"http://localhost/v$(DOCKER_ENIGINE_API_VERSION)";
@@ -331,6 +333,42 @@ namespace Docker {
                 throw new ApiClientError.ERROR (error.message);
             } catch (IOError error) {
                 throw new ApiClientError.ERROR (error.message);
+            }
+        }
+
+        public async DockerVersionInfo version () throws ApiClientError {
+            try {
+                var version = Docker.DockerVersionInfo ();
+                var resp = yield this.http_client.r_get ("/version");
+
+                //
+                var json = yield resp.body_data_stream.read_line_utf8_async ();
+                assert_nonnull (json);
+
+                var root_node = parse_json (json);
+                var root_object = root_node.get_object ();
+                assert_nonnull (root_object);
+
+                version.version = root_object.get_string_member_with_default ("Version", "-");
+                version.api_version = root_object.get_string_member_with_default ("ApiVersion", "-");
+
+                return version;
+            } catch (HttpClientError error) {
+                throw new ApiClientError.ERROR (error.message);
+            } catch (IOError error) {
+                throw new ApiClientError.ERROR (error.message);
+            }
+        }
+
+        public async void ping () throws ApiClientError {
+            try {
+                yield this.http_client.r_get ("/_ping");
+            } catch (HttpClientError error) {
+                if (error is HttpClientError.ERROR_NO_ENTRY) {
+                    throw new ApiClientError.ERROR_NO_ENTRY (error.message);
+                } else {
+                    throw new ApiClientError.ERROR (error.message);
+                }
             }
         }
     }

@@ -13,7 +13,7 @@ namespace Utils {
 
     class HttpClient : Object {
         public bool verbose = false;
-        public string? unix_socket_path;
+        public string? unix_socket_path {get; set;}
         public string? base_url;
 
         public async HttpClientResponse r_get (string url) throws HttpClientError {

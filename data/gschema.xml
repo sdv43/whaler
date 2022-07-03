@@ -25,5 +25,9 @@
       <default>true</default>
       <summary>Whether the autoscroll switch is toggled</summary>
     </key>
+    <key name="docker-api-socket-path" type="s">
+      <default>"/run/docker.sock"</default>
+      <summary>Search entry value</summary>
+    </key>
   </schema>
 </schemalist>

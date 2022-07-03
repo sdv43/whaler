@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.sdv43.whaler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-22 16:55+0300\n"
+"POT-Creation-Date: 2022-06-29 14:00+0300\n"
 "PO-Revision-Date: 2022-05-17 19:26+0100\n"
 "Last-Translator: Albano Battistella <albano_battistella@hotmail.com>\n"
 "Language-Team: Italian <LL@li.org>\n"
@@ -35,9 +35,10 @@ msgid ""
 "can start and stop both standalone containers and docker-compose "
 "applications. Also, it supports viewing container logs."
 msgstr ""
-"Whaler fornisce funzionalità di base per la gestione dei container Docker. L'app "
-"può avviare e interrompere sia i contenitori standalone che le applicazioni "
-"docker-compose. Inoltre, supporta la visualizzazione dei registri del container."
+"Whaler fornisce funzionalità di base per la gestione dei container Docker. "
+"L'app può avviare e interrompere sia i contenitori standalone che le "
+"applicazioni docker-compose. Inoltre, supporta la visualizzazione dei "
+"registri del container."
 
 #: data/com.github.sdv43.whaler.appdata.xml.in:15
 msgid ""
@@ -45,11 +46,12 @@ msgid ""
 "perform some basic actions. For the app to run correctly, make sure that "
 "Docker is installed on your system."
 msgstr ""
-"La soluzione è perfetta per chi cerca un semplice strumento per "
-"eseguire alcune azioni di base. Affinché l'app funzioni correttamente, assicurati che "
+"La soluzione è perfetta per chi cerca un semplice strumento per eseguire "
+"alcune azioni di base. Affinché l'app funzioni correttamente, assicurati che "
 "Docker e docker-compose siano installati sul tuo sistema."
 
 #: src/Utils/Sorting/SortingName.vala:12
+#: src/Widgets/Utils/ContainerInfoDialog.vala:52
 msgid "Name"
 msgstr "Nome"
 
@@ -57,43 +59,113 @@ msgstr "Nome"
 msgid "Type"
 msgstr "Tipo"
 
-#: src/State/Root.vala:40
-msgid "The app cannot get list of docker containers"
-msgstr "Impossibile ottenere l'elenco dei contenitori Docker"
-
-#: src/State/Root.vala:49
-msgid ""
-"It looks like Docker is not installed on your system.\n"
-"To find out how to install it, see <a href=\"https://docs.docker.com/engine/"
-"install/\">Docker Manuals</a>."
+#: src/Widgets/Utils/SettingsDialog.vala:11
+#: src/Widgets/Utils/ContainerInfoDialog.vala:13
+msgid "Close"
 msgstr ""
-"Sembra che Docker non sia installato sul tuo sistema.\n"
-"Per scoprire come installarlo, vedere <a href=\"https://docs.docker.com/engine/"
-"install/\">Manuali Docker</a>."
 
-#: src/State/Root.vala:56
+#: src/Widgets/Utils/SettingsDialog.vala:26
+msgid "Settings"
+msgstr ""
+
+#: src/Widgets/Utils/SettingsDialog.vala:41
+msgid "API socket path:"
+msgstr ""
+
+#: src/Widgets/Utils/SettingsDialog.vala:104
+msgid "Check connection"
+msgstr ""
+
+#: src/Widgets/Utils/SettingsDialog.vala:124
+msgid "Success"
+msgstr ""
+
+#: src/Widgets/Utils/SettingsDialog.vala:124
+msgid "Error"
+msgstr ""
+
+#: src/Widgets/Utils/SettingsDialog.vala:140
+#, c-format
+msgid "Incorrect socket path \"%s\""
+msgstr ""
+
+#: src/Widgets/Utils/DockerContainerStatusLabel.vala:11
+msgid "Running"
+msgstr ""
+
+#: src/Widgets/Utils/DockerContainerStatusLabel.vala:16
+msgid "Paused"
+msgstr ""
+
+#: src/Widgets/Utils/DockerContainerStatusLabel.vala:21
+msgid "Stopped"
+msgstr ""
+
+#: src/Widgets/Utils/DockerContainerStatusLabel.vala:26
+msgid "Unknown"
+msgstr ""
+
+#: src/Widgets/Utils/ContainerInfoDialog.vala:53
+msgid "Image"
+msgstr ""
+
+#: src/Widgets/Utils/ContainerInfoDialog.vala:54
+msgid "Status"
+msgstr ""
+
+#: src/Widgets/Utils/ContainerInfoDialog.vala:57
+msgid "Ports"
+msgstr ""
+
+#: src/Widgets/Utils/ContainerInfoDialog.vala:61
+msgid "Binds"
+msgstr ""
+
+#: src/Widgets/Utils/ContainerInfoDialog.vala:65
+msgid "Env"
+msgstr ""
+
+#: src/Widgets/HeaderBar.vala:15
+msgid "Back"
+msgstr "Indietro"
+
+#: src/Widgets/HeaderBar.vala:40
+msgid "Update docker container list"
+msgstr "Aggiorna elenco docker container"
+
+#: src/Widgets/HeaderBar.vala:87 src/Widgets/ScreenError.vala:56
+msgid "Open settings"
+msgstr ""
+
+#: src/Widgets/ScreenError.vala:33
 msgid ""
 "It looks like Docker requires root rights to use it. Thus, the application "
 "cannot connect to Docker Engine API. Find out how to run docker without root "
 "rights in <a href=\"https://docs.docker.com/engine/install/linux-postinstall/"
-"\">Docker Manuals</a>, otherwise the application cannot work correctly."
+"\">Docker Manuals</a>, otherwise the application cannot work correctly. Or "
+"check your socket path to Docker API in Settings."
 msgstr ""
-"Sembra che Docker richieda i diritti di root per usarlo. Quindi, l'applicazione "
-"non potrà connettersi all'API Docker Engine. Scopri come eseguire Docker senza  i diritti "
-"di root in <a href=\"https://docs.docker.com/engine/install/linux-postinstall/"
-"\">Manuali Docker</a>, altrimenti l'applicazione non può funzionare correttamente."
+"Sembra che Docker richieda i diritti di root per usarlo. Quindi, "
+"l'applicazione non potrà connettersi all'API Docker Engine. Scopri come "
+"eseguire Docker senza  i diritti di root in <a href=\"https://docs.docker."
+"com/engine/install/linux-postinstall/\">Manuali Docker</a>, altrimenti "
+"l'applicazione non può funzionare correttamente. "
+"Oppure controlla il percorso del tuo socket per l'API Docker in Impostazioni."
 
-#: src/Widgets/HeaderBar.vala:14
-msgid "Back"
-msgstr "Indietro"
+#: src/Widgets/ScreenError.vala:42
+msgid ""
+"It looks like Docker is not installed on your system. To find out how to "
+"install it, see <a href=\"https://docs.docker.com/engine/install/\">Docker "
+"Manuals</a>. Or check your socket path to Docker API in Settings."
+msgstr ""
+"Sembra che Docker non sia installato sul tuo sistema.\n"
+"Per scoprire come installarlo, vedere <a href=\"https://docs.docker.com/"
+"engine/install/\">Manuali Docker</a>. "
+"Oppure controlla il percorso del tuo socket per l'API Docker in Impostazioni."
 
-#: src/Widgets/HeaderBar.vala:39
-msgid "Update docker container list"
-msgstr "Aggiorna elenco docker container"
-
-#: src/Widgets/HeaderBar.vala:42
-msgid "Update error"
-msgstr "Errore di aggiornamento"
+#: src/Widgets/ScreenError.vala:50
+msgid "The app cannot connect to Docker API"
+msgstr "L'app non può connettersi all'API Docker"
 
 #: src/Widgets/Screens/DockerContainer/Log.vala:39
 msgid "Autoscroll"
@@ -115,83 +187,83 @@ msgstr "Ferma"
 msgid "Unpause"
 msgstr "Riattiva"
 
-#: src/Widgets/Screens/Main/ContainerCardActions.vala:57
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:56
 msgid "Pause"
 msgstr "Pausa"
 
-#: src/Widgets/Screens/Main/ContainerCardActions.vala:60
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:59
 msgid "Container pause error"
 msgstr "Errore di pausa del container"
 
-#: src/Widgets/Screens/Main/ContainerCardActions.vala:75
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:74
 msgid "Restart"
 msgstr "Riavvia"
 
-#: src/Widgets/Screens/Main/ContainerCardActions.vala:77
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:76
 msgid "Container restart error"
 msgstr "Errore di riavvio del container"
 
-#: src/Widgets/Screens/Main/ContainerCardActions.vala:80
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:79
 msgid "Restarting container"
 msgstr "Container in riavvio"
 
-#: src/Widgets/Screens/Main/ContainerCardActions.vala:96
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:94
 msgid "Remove"
 msgstr "Rimuovi"
 
-#: src/Widgets/Screens/Main/ContainerCardActions.vala:99
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:97
 msgid "Do you really want to remove container?"
 msgstr "Vuoi davvero rimuovere il container"
 
-#: src/Widgets/Screens/Main/ContainerCardActions.vala:100
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:98
 msgid "Yes, remove"
 msgstr "Sì, rimuovi"
 
-#: src/Widgets/Screens/Main/ContainerCardActions.vala:101
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:99
 msgid "Cancel"
 msgstr "Cancella"
 
-#: src/Widgets/Screens/Main/ContainerCardActions.vala:107
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:105
 msgid "Container remove error"
 msgstr "Errore di rimozione del container"
 
-#: src/Widgets/Screens/Main/ContainerCardActions.vala:109
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:107
 msgid "Removing container"
 msgstr "Rimozione del container"
 
-#: src/Widgets/Screens/Main/ContainerCardActions.vala:130
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:127
 msgid "Info"
 msgstr "Informazioni"
 
-#: src/Widgets/Screens/Main/ContainerCardActions.vala:132
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:129
 msgid "Cannot get information"
 msgstr "Impossibile ottenere informazioni"
 
-#: src/Widgets/Screens/Main/ContainerCardActions.vala:156
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:152
 msgid "Container action error"
 msgstr "Errore di azione del container"
 
-#: src/Widgets/Screens/Main/ContainerCardActions.vala:161
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:157
 msgid "Container stop error"
 msgstr "Errore di arresto del container"
 
-#: src/Widgets/Screens/Main/ContainerCardActions.vala:162
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:158
 msgid "Stopping container"
 msgstr "Arresto del container"
 
-#: src/Widgets/Screens/Main/ContainerCardActions.vala:168
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:163
 msgid "Container start error"
 msgstr "Errore di avvio del container"
 
-#: src/Widgets/Screens/Main/ContainerCardActions.vala:169
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:164
 msgid "Starting container"
 msgstr "Container in avvio"
 
-#: src/Widgets/Screens/Main/ContainerCardActions.vala:175
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:169
 msgid "Container unpause error"
 msgstr "Errore di ripristino del container"
 
-#: src/Widgets/Screens/Main/ContainerCardActions.vala:180
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:174
 msgid "Container state is unknown"
 msgstr "Lo stato del container è sconosciuto"
 
@@ -199,6 +271,6 @@ msgstr "Lo stato del container è sconosciuto"
 msgid "No containers"
 msgstr "Nessun container"
 
-#: src/Widgets/Screens/Main/ContainersGridFilter.vala:52
+#: src/Widgets/Screens/Main/ContainersGridFilter.vala:53
 msgid "Sort by:"
 msgstr "Ordina per:"
