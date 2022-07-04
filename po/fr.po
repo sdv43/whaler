@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.sdv43.whaler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-29 14:03+0300\n"
+"POT-Creation-Date: 2022-07-04 08:24+0300\n"
 "PO-Revision-Date: 2022-07-04 00:02+0200\n"
 "Last-Translator: Irénée Thirion <irenee.thirion@e.email>\n"
 "Language-Team: \n"
@@ -85,7 +85,7 @@ msgstr "Succès"
 msgid "Error"
 msgstr "Erreur"
 
-#: src/Widgets/Utils/SettingsDialog.vala:140
+#: src/Widgets/Utils/SettingsDialog.vala:141
 #, c-format
 msgid "Incorrect socket path \"%s\""
 msgstr "Chemin de prise incorrect « %s »"
@@ -275,6 +275,3 @@ msgstr "Pas de conteneurs"
 #: src/Widgets/Screens/Main/ContainersGridFilter.vala:53
 msgid "Sort by:"
 msgstr "Trier par :"
-
-#~ msgid "Update error"
-#~ msgstr "Erreur de mise à jour"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.sdv43.whaler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-29 14:00+0300\n"
+"POT-Creation-Date: 2022-07-04 08:24+0300\n"
 "PO-Revision-Date: 2022-05-17 19:26+0100\n"
 "Last-Translator: Albano Battistella <albano_battistella@hotmail.com>\n"
 "Language-Team: Italian <LL@li.org>\n"
@@ -84,7 +84,7 @@ msgstr ""
 msgid "Error"
 msgstr ""
 
-#: src/Widgets/Utils/SettingsDialog.vala:140
+#: src/Widgets/Utils/SettingsDialog.vala:141
 #, c-format
 msgid "Incorrect socket path \"%s\""
 msgstr ""
@@ -149,8 +149,8 @@ msgstr ""
 "l'applicazione non potrà connettersi all'API Docker Engine. Scopri come "
 "eseguire Docker senza  i diritti di root in <a href=\"https://docs.docker."
 "com/engine/install/linux-postinstall/\">Manuali Docker</a>, altrimenti "
-"l'applicazione non può funzionare correttamente. "
-"Oppure controlla il percorso del tuo socket per l'API Docker in Impostazioni."
+"l'applicazione non può funzionare correttamente. Oppure controlla il "
+"percorso del tuo socket per l'API Docker in Impostazioni."
 
 #: src/Widgets/ScreenError.vala:42
 msgid ""
@@ -160,8 +160,8 @@ msgid ""
 msgstr ""
 "Sembra che Docker non sia installato sul tuo sistema.\n"
 "Per scoprire come installarlo, vedere <a href=\"https://docs.docker.com/"
-"engine/install/\">Manuali Docker</a>. "
-"Oppure controlla il percorso del tuo socket per l'API Docker in Impostazioni."
+"engine/install/\">Manuali Docker</a>. Oppure controlla il percorso del tuo "
+"socket per l'API Docker in Impostazioni."
 
 #: src/Widgets/ScreenError.vala:50
 msgid "The app cannot connect to Docker API"

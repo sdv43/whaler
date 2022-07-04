@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.sdv43.whaler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-29 14:03+0300\n"
+"POT-Creation-Date: 2022-07-04 08:24+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -77,7 +77,7 @@ msgstr ""
 msgid "Error"
 msgstr ""
 
-#: src/Widgets/Utils/SettingsDialog.vala:140
+#: src/Widgets/Utils/SettingsDialog.vala:141
 #, c-format
 msgid "Incorrect socket path \"%s\""
 msgstr ""
