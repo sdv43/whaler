@@ -136,6 +136,7 @@ class SocketPathEntry : Gtk.Box {
     }
 
     private async void button_check_handler () {
+        var settings = new Settings (APP_ID);
         var state = State.Root.get_instance ();
         var api_client = new Docker.ApiClient ();
         var err_msg = _ ("Incorrect socket path \"%s\"");
@@ -150,9 +151,13 @@ class SocketPathEntry : Gtk.Box {
             yield api_client.ping();
 
             //
+            var engine = settings.get_string ("docker-api-socket-path").contains ("podman.sock")
+                         ? "Podman"
+                         : "Docker";
+
             var docker_version_info = yield api_client.version ();
             this.notice = this.build_notice (
-                @"Docker v$(docker_version_info.version), API v$(docker_version_info.api_version)",
+                @"$engine v$(docker_version_info.version), API v$(docker_version_info.api_version)",
                 true
             );
 

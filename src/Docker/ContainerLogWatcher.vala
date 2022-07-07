@@ -50,11 +50,17 @@ namespace Docker {
         }
 
         public size_t add_memory_stream_data (void* buf, size_t size) {
+            var settings = new Settings (APP_ID);
             var buffer = new uint8[size];
 
             Posix.memcpy ((void*)buffer, buf, size);
             this.memory.add_data (buffer);
-            this.parse_frame ((int)size);
+
+            if (settings.get_string ("docker-api-socket-path").contains ("podman.sock")) {
+                this.parse_podman_frame ((int)size);
+            } else {
+                this.parse_frame ((int)size);
+            }
 
             return size;
         }
@@ -119,6 +125,21 @@ namespace Docker {
                         }
                     }
                 }
+            } catch (IOError error) {
+                warning (@"Frame parsing error: $(error.message)");
+            }
+        }
+
+        public void parse_podman_frame (int size) {
+            try {
+                uint8[] buff = new uint8[size];
+                var bytes_read = (int)this.data.read (buff);
+
+                if (bytes_read != size) {
+                    warning ("Frame has not been read but data is available");
+                }
+
+                this.new_line ((string)buff);
             } catch (IOError error) {
                 warning (@"Frame parsing error: $(error.message)");
             }
