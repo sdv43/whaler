@@ -18,6 +18,18 @@
     </p>
   </description>
   <releases>
+    <release version="1.2.0" date="2022-07-07">
+      <description>
+        <ul>
+          <li>Add sorting by container status</li>
+          <li>Add settings popup</li>
+          <li>Add Italian translation</li>
+          <li>Add French translation</li>
+          <li>Update to io.elementary.Platform 7</li>
+          <li>Few bug fixes and improvements</li>
+        </ul>
+      </description>
+    </release>
     <release version="1.1.0" date="2022-05-14">
       <description>
         <ul>
