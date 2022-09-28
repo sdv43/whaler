@@ -17,7 +17,7 @@ class Widgets.Screens.Main.ContainerCard : Gtk.FlowBoxChild {
         grid.attach (card_actions, 3, 1, 1, 2);
 
         this.get_style_context ().add_class ("docker-container");
-        this.add (grid);
+        this.child = grid;
 
         if (container.state == DockerContainerState.UNKNOWN) {
             this.sensitive = false;
@@ -69,7 +69,7 @@ class Widgets.Screens.Main.ContainerCard : Gtk.FlowBoxChild {
             icon_name = "docker-container-group-symbolic";
         }
 
-        var image = new Gtk.Image.from_icon_name (icon_name, Gtk.IconSize.DIALOG);
+        var image = new Gtk.Image.from_icon_name (icon_name);
         image.get_style_context ().add_class ("docker-container-preview-image");
         image.set_pixel_size (56);
 

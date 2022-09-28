@@ -14,7 +14,7 @@ class Widgets.Screens.Container.LogOutput : Gtk.ScrolledWindow {
         text_view.editable = false;
         text_view.cursor_visible = false;
         text_view.buffer = log_buffer;
-        this.add (text_view);
+        this.child = text_view;
 
         this.vadjustment.changed.connect (() => {
             if (state_docker_container.is_auto_scroll_enable) {

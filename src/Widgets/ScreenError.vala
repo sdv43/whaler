@@ -20,12 +20,12 @@ class Widgets.ScreenError : Gtk.Grid {
     //  }
 
     public void show_widget (Gtk.Widget widget) {
-        this.foreach ((child) => {
-            this.remove (child);
-        });
+        //  this.foreach ((child) => {
+        //      this.remove (child);
+        //  });
 
-        this.add (widget);
-        this.show_all ();
+        this.attach (widget, 1, 1);
+        //  this.show_all ();
     }
 
     public static Gtk.Widget build_error_docker_not_avialable (bool no_entry) {
@@ -46,18 +46,18 @@ class Widgets.ScreenError : Gtk.Grid {
             );
         }
 
-        var alert = new Granite.Widgets.AlertView (
-            _ ("The app cannot connect to Docker API"),
-            description,
-            "dialog-error"
-        );
+        //  var alert = new Granite.Widgets.AlertView (
+        //      _ ("The app cannot connect to Docker API"),
+        //      description,
+        //      "dialog-error"
+        //  );
 
-        alert.get_style_context ().add_class ("alert");
-        alert.show_action (_ ("Open settings"));
-        alert.action_activated.connect (() => {
-            new Utils.SettingsDialog ();
-        });
+        //  alert.get_style_context ().add_class ("alert");
+        //  alert.show_action (_ ("Open settings"));
+        //  alert.action_activated.connect (() => {
+        //      new Utils.SettingsDialog ();
+        //  });
 
-        return alert;
+        return new Gtk.Label ("akert widget");
     }
 }

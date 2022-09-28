@@ -32,12 +32,12 @@ public class Whaler : Gtk.Application {
         Intl.bindtextdomain (APP_ID, LOCALE_DIR);
 
         window.set_titlebar (new HeaderBar ());
-        window.add (ScreenManager.get_instance ());
+        window.child = ScreenManager.get_instance ();
 
         this.styles (window);
         this.window_state (window);
 
-        window.show_all ();
+        //  window.show_all ();
 
         State.Root.get_instance ().init.begin ();
     }
@@ -46,28 +46,28 @@ public class Whaler : Gtk.Application {
         var settings = new Settings (APP_ID);
         int window_x, window_y, window_width, window_height;
 
-        settings.get ("window-position", "(ii)", out window_x, out window_y);
+        //  settings.get ("window-position", "(ii)", out window_x, out window_y);
         settings.get ("window-size", "(ii)", out window_width, out window_height);
 
         window.set_default_size (window_width, window_height);
 
         if (window_x != -1 || window_y != -1) {
-            window.move (window_x, window_y);
+            //  window.move (window_x, window_y);
         } else {
-            window.set_position (Gtk.WindowPosition.CENTER);
+            //  window.set_position (Gtk.WindowPosition.CENTER);
         }
 
         if (settings.get_boolean ("window-is-maximized")) {
             window.maximize ();
         }
 
-        window.delete_event.connect (event => {
-            settings.set_boolean ("window-is-maximized", window.is_maximized);
+        window.close_request.connect (event => {
+            settings.set_boolean ("window-is-maximized", window.is_maximized ());
 
-            window.get_position (out window_x, out window_y);
-            window.get_size (out window_width, out window_height);
+            //  window.get_position (out window_x, out window_y);
+            //  window.get_size (out window_width, out window_height);
 
-            settings.set ("window-position", "(ii)", window_x, window_y);
+            //  settings.set ("window-position", "(ii)", window_x, window_y);
             settings.set ("window-size", "(ii)", window_width, window_height);
 
             return false;
@@ -77,13 +77,13 @@ public class Whaler : Gtk.Application {
     private void styles (Gtk.Window window) {
         var settings_granite = Granite.Settings.get_default ();
         var theme = new Utils.Theme ();
-        var icon_theme = Gtk.IconTheme.get_default ();
+        var icon_theme = Gtk.IconTheme.get_for_display (window.display);
 
-        theme.apply_styles (window.screen);
+        theme.apply_styles (window.display);
         icon_theme.add_resource_path (@"$RESOURCE_BASE/icons");
 
         settings_granite.notify["prefers-color-scheme"].connect (() => {
-            theme.apply_styles (window.screen);
+            theme.apply_styles (window.display);
         });
     }
 }

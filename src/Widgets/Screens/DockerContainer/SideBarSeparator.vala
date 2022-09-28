@@ -13,6 +13,6 @@ class Widgets.Screens.Container.SideBarSeparator : Gtk.ListBoxRow {
         label.ellipsize = Pango.EllipsizeMode.END;
         label.halign = Gtk.Align.START;
 
-        this.add (label);
+        this.child = label;
     }
 }

@@ -2,8 +2,8 @@ using Utils.Constants;
 
 class Widgets.HeaderBar : Gtk.HeaderBar {
     public HeaderBar () {
-        this.show_close_button = true;
-        this.title = APP_NAME;
+        //  this.show_close_button = true;
+        //  this.title = APP_NAME;
 
         this.pack_start (this.build_button_back ());
         this.pack_end (this.build_button_settings ());
@@ -33,7 +33,7 @@ class Widgets.HeaderBar : Gtk.HeaderBar {
 
     private Gtk.Widget build_button_refresh () {
         var state = State.Root.get_instance ();
-        var button_refresh = new Gtk.Button.from_icon_name ("view-refresh-symbolic", Gtk.IconSize.MENU);
+        var button_refresh = new Gtk.Button.from_icon_name ("view-refresh-symbolic");
 
         button_refresh.valign = Gtk.Align.CENTER;
         button_refresh.focus_on_click = false;
@@ -80,7 +80,7 @@ class Widgets.HeaderBar : Gtk.HeaderBar {
     }
 
     private Gtk.Widget build_button_settings () {
-        var button_settings = new Gtk.Button.from_icon_name ("open-menu-symbolic", Gtk.IconSize.MENU);
+        var button_settings = new Gtk.Button.from_icon_name ("open-menu-symbolic");
 
         button_settings.valign = Gtk.Align.CENTER;
         button_settings.focus_on_click = false;

@@ -8,8 +8,8 @@ class Widgets.Screens.Main.ContainerCardActions : Gtk.Box {
         this.orientation = Gtk.Orientation.HORIZONTAL;
         this.spacing = 0;
         this.get_style_context ().add_class ("docker-container-actions");
-        this.pack_start (this.build_button_main_action (), false, false);
-        this.pack_start (this.build_button_menu_action (), false, false);
+        this.prepend (this.build_button_main_action ());
+        this.prepend (this.build_button_menu_action ());
     }
 
     private Gtk.Widget build_button_main_action () {
@@ -19,7 +19,7 @@ class Widgets.Screens.Main.ContainerCardActions : Gtk.Box {
             icon_name = "media-playback-stop-symbolic";
         }
 
-        var button = new Gtk.Button.from_icon_name (icon_name, Gtk.IconSize.MENU);
+        var button = new Gtk.Button.from_icon_name (icon_name);
         button.valign = Gtk.Align.CENTER;
         button.clicked.connect (() => {
             this.sensitive = false;
@@ -36,7 +36,7 @@ class Widgets.Screens.Main.ContainerCardActions : Gtk.Box {
     private Gtk.Widget build_button_menu_action () {
         var menu = ContainerCardActions.build_menu (this.container, this);
 
-        var button = new Gtk.Button.from_icon_name ("view-more-symbolic", Gtk.IconSize.BUTTON);
+        var button = new Gtk.Button.from_icon_name ("view-more-symbolic");
         button.valign = Gtk.Align.CENTER;
         button.clicked.connect ((widget) => {
             menu.popup_at_widget (

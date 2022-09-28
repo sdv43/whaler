@@ -49,14 +49,14 @@ class Utils.Theme : Object {
         return is_dark;
     }
 
-    public void apply_styles (Gdk.Screen screen) {
+    public void apply_styles (Gdk.Display display) {
         var stylesheet = this.get_stylesheet ();
         var mode = this.is_dark_mode () ? "dark" : "light";
 
         this.style_provider.load_from_resource (@"$RESOURCE_BASE/style/dist/$stylesheet-$mode.css");
 
-        Gtk.StyleContext.add_provider_for_screen (
-            screen,
+        Gtk.StyleContext.add_provider_for_display (
+            display,
             this.style_provider,
             Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
         );

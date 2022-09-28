@@ -33,7 +33,7 @@ class Widgets.Screens.Main.ContainersGrid : Gtk.Stack {
     private Gtk.Widget build_grid () {
         var state = State.Root.get_instance ();
         var state_main = state.screen_main;
-        var root = new Gtk.ScrolledWindow (null, null);
+        var root = new Gtk.ScrolledWindow ();
 
         var flow_box = new Gtk.FlowBox ();
         flow_box.get_style_context ().add_class ("docker-containers-grid");
@@ -47,18 +47,18 @@ class Widgets.Screens.Main.ContainersGrid : Gtk.Stack {
             state.screen_docker_container.container = state_main.containers_prepared[child.get_index ()];
             state.next_screen (Widgets.ScreenDockerContainer.CODE);
         });
-        root.add (flow_box);
+        root.child = flow_box;
 
         this.container_cards_updated.connect (() => {
-            flow_box.foreach ((child) => {
-                flow_box.remove (child);
-            });
+            //  flow_box.foreach ((child) => {
+            //      flow_box.remove (child);
+            //  });
 
             foreach (var container in state_main.containers_prepared) {
-                flow_box.add (new ContainerCard (container));
+                flow_box.append (new ContainerCard (container));
             }
 
-            flow_box.show_all ();
+            //  flow_box.show_all ();
         });
 
         return root;

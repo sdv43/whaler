@@ -6,41 +6,41 @@ class Widgets.Utils.SettingsDialog : Granite.Dialog {
         this.default_height = 300;
         this.transient_for = Whaler.get_instance ().active_window;
         this.transient_for.sensitive = false;
-        this.skip_taskbar_hint = true;
+        //  this.skip_taskbar_hint = true;
         this.get_style_context ().add_class ("dialog-settings");
         this.add_button (_ ("Close"), Gtk.ResponseType.CANCEL);
-        this.get_content_area ().add (this.build_content_area ());
+        this.get_content_area ().prepend (this.build_content_area ());
 
         this.response.connect ((resp_id) => {
             this.transient_for.sensitive = true;
             this.destroy ();
         });
 
-        this.show_all ();
+        //  this.show_all ();
     }
 
     private Gtk.Widget build_content_area () {
         var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-        box.expand = true;
+        //  box.expand = true;
 
         var title = new Gtk.Label (_ ("Settings"));
         title.get_style_context ().add_class ("h4");
         title.get_style_context ().add_class ("dialog-settings-title");
 
-        box.pack_start (title, false);
-        box.pack_end (this.build_section (), true);
+        box.prepend (title);
+        box.append (this.build_section ());
 
         return box;
     }
 
     private Gtk.Widget build_section () {
-        var scrolled_window = new Gtk.ScrolledWindow (null, null);
+        var scrolled_window = new Gtk.ScrolledWindow ();
 
         var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         box.get_style_context ().add_class ("dialog-settings-section");
-        box.pack_start (this.build_row_with_widget (_ ("API socket path:"), new SocketPathEntry ()), false);
+        box.prepend (this.build_row_with_widget (_ ("API socket path:"), new SocketPathEntry ()));
 
-        scrolled_window.add (box);
+        scrolled_window.child = box;
 
         return scrolled_window;
     }
@@ -49,8 +49,8 @@ class Widgets.Utils.SettingsDialog : Granite.Dialog {
         var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
 
         box.get_style_context ().add_class ("dialog-settings-row");
-        box.pack_start (this.build_label (label), false);
-        box.pack_start (value, false);
+        box.prepend (this.build_label (label));
+        box.prepend (value);
 
         return box;
     }
@@ -65,7 +65,7 @@ class Widgets.Utils.SettingsDialog : Granite.Dialog {
         label.halign = Gtk.Align.END;
         label.valign = Gtk.Align.START;
 
-        box.pack_end (label, false);
+        box.append (label);
 
         return box;
     }
@@ -80,8 +80,8 @@ class SocketPathEntry : Gtk.Box {
         this.orientation = Gtk.Orientation.VERTICAL;
         this.spacing = 0;
 
-        this.pack_start (this.build_entry (), false);
-        this.pack_start (this.build_button_check (), false);
+        this.prepend (this.build_entry ());
+        this.prepend (this.build_button_check ());
     }
 
     private Gtk.Widget build_entry () {
@@ -111,7 +111,7 @@ class SocketPathEntry : Gtk.Box {
                 button.sensitive = true;
             });
         });
-        box.pack_start (button, false);
+        box.prepend (button);
 
         return box;
     }
@@ -124,13 +124,13 @@ class SocketPathEntry : Gtk.Box {
         var title = new Gtk.Label (successful ? _ ("Success") : _ ("Error"));
         title.get_style_context ().add_class ("h4");
         title.halign = Gtk.Align.START;
-        box.pack_start (title, false);
+        box.prepend (title);
 
         var msg = new Gtk.Label (message);
         msg.halign = Gtk.Align.START;
         msg.wrap = true;
 
-        box.pack_end (msg, false);
+        box.append (msg);
 
         return box;
     }
@@ -166,8 +166,8 @@ class SocketPathEntry : Gtk.Box {
         } catch (Docker.ApiClientError error) {
             this.notice = this.build_notice (err_msg.printf (this.entry_socket_path.text), false);
         } finally {
-            this.pack_start (this.notice, false);
-            this.show_all ();
+            this.prepend (this.notice);
+            //  this.show_all ();
         }
     }
 }

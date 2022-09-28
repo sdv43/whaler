@@ -1,13 +1,13 @@
 class Widgets.ScreenManager : Gtk.Overlay {
     private static ScreenManager? instance;
     private ScreenError screen_error;
-    private Granite.Widgets.OverlayBar overlay_bar;
+    private Granite.OverlayBar overlay_bar;
     private bool overlay_bar_visible = false;
 
     private ScreenManager () {
         var state = State.Root.get_instance ();
 
-        this.overlay_bar = new Granite.Widgets.OverlayBar (this);
+        this.overlay_bar = new Granite.OverlayBar (this);
         this.overlay_bar.active = true;
 
         this.screen_error = new ScreenError ();
@@ -31,7 +31,7 @@ class Widgets.ScreenManager : Gtk.Overlay {
             this.overlay_bar.visible = this.overlay_bar_visible;
         });
 
-        this.add (stack);
+        this.child = stack;
     }
 
     public static ScreenManager get_instance () {
@@ -67,7 +67,7 @@ class Widgets.ScreenManager : Gtk.Overlay {
         );
 
         message_dialog.transient_for = Whaler.get_instance ().active_window;
-        message_dialog.run ();
+        //  message_dialog.run ();
         message_dialog.destroy ();
     }
 

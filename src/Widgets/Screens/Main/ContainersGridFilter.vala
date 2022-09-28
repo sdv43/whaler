@@ -12,8 +12,8 @@ class Widgets.Screens.Main.ContainersGridFilter : Gtk.Box {
         this.spacing = 0;
 
         this.get_style_context ().add_class ("docker-containers-filter");
-        this.pack_start (search_entry, false, false);
-        this.pack_end (this.build_sorting_combobox (), false, false);
+        this.prepend (search_entry);
+        this.append (this.build_sorting_combobox ());
 
         state.notify["containers"].connect (() => {
             this.sensitive = state.containers.size > 0;
@@ -51,13 +51,13 @@ class Widgets.Screens.Main.ContainersGridFilter : Gtk.Box {
         var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
 
         var label = new Gtk.Label (_ ("Sort by:"));
-        box.pack_start (label, false, false, 12);
+        box.prepend (label);
 
         var combo = new Gtk.ComboBoxText ();
         foreach (var sorting in sortings) {
             combo.append_text (sorting.name);
         }
-        box.pack_end (combo, false, false);
+        box.append (combo);
 
         combo.changed.connect ((combo) => {
             state.screen_main.sorting = sortings[combo.active];

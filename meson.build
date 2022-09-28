@@ -24,11 +24,11 @@ executable(
     sources,
     dependencies: [
         dependency('gio-2.0'),
-        dependency('gtk+-3.0'),
+        dependency('gtk4'),
         dependency('gee-0.8'),        
         dependency('gdk-pixbuf-2.0'),
         dependency('json-glib-1.0'),
-        dependency('granite'),
+        dependency('granite-7'),
         meson.get_compiler('vala').find_library('posix'),
         meson.get_compiler('vala').find_library('libcurl', dirs: vapi_dir),
         meson.get_compiler('c').find_library('libcurl', dirs: vapi_dir),

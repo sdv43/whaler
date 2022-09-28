@@ -6,15 +6,15 @@ class Widgets.ScreenDockerContainer : Gtk.Box {
         this.spacing = 0;
 
         this.get_style_context ().add_class ("screen-docker-container");
-        this.pack_start (new Screens.Container.SideBar (), false);
-        this.pack_end (this.build_log_output (), true, true);
+        this.prepend (new Screens.Container.SideBar ());
+        this.append (this.build_log_output ());
     }
 
     private Gtk.Widget build_log_output () {
         var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
 
-        box.pack_start (new Screens.Container.TopBar (), false);
-        box.pack_end (new Screens.Container.Log (), true, true);
+        box.prepend (new Screens.Container.TopBar ());
+        box.append (new Screens.Container.Log ());
 
         return box;
     }
