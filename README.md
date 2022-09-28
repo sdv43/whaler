@@ -21,6 +21,13 @@ The solution is perfect for those who are looking for a simple tool to perform s
 
 <a href="https://flathub.org/apps/details/com.github.sdv43.whaler" target="_blank"><img src="https://flathub.org/assets/badges/flathub-badge-i-en.svg" width="160px" alt="Get it from Flathub!"></a>
 
+## Usage with Podman
+
+1. Open Whaler
+2. An error-screen should appear
+3. Click on the "Open Settings" button
+4. Replace the `API socket path` with something like `/run/user/1000/podman/podman.sock`
+
 ## Building
 
 You'll need the following dependencies:
