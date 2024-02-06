@@ -18,7 +18,16 @@
     </p>
   </description>
   <releases>
-    <release version="1.2.1" date="2022-04-05">
+    <release version="1.2.2" date="2024-02-06">
+      <description>
+        <ul>
+          <li>Update flatpak runtime version</li>
+          <li>Fix app crashing with huge logs</li>
+          <li>Add Czech translation</li>
+        </ul>
+      </description>
+    </release>
+    <release version="1.2.1" date="2023-04-05">
       <description>
         <ul>
           <li>Update flatpak runtime version</li>
