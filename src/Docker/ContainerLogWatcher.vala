@@ -148,12 +148,13 @@ namespace Docker {
         private async void curl_request () throws HttpClientError {
             var settings = new Settings (APP_ID);
             var curl = new Curl.EasyHandle ();
+            var tail = this.since == "0" ? "1000" : "all";
 
             Curl.Code r;
 
             r = curl.setopt (Curl.Option.VERBOSE, false);
             assert_true (r == Curl.Code.OK);
-            r = curl.setopt (Curl.Option.URL, @"http://localhost/v$(DOCKER_ENIGINE_API_VERSION)/containers/$(this.container.id)/logs?stdout=true&stderr=true&follow=true&since=$(this.since)");
+            r = curl.setopt (Curl.Option.URL, @"http://localhost/v$(DOCKER_ENIGINE_API_VERSION)/containers/$(this.container.id)/logs?stdout=true&stderr=true&follow=true&since=$(this.since)&tail=$(tail)");
             assert_true (r == Curl.Code.OK);
             r = curl.setopt (Curl.Option.UNIX_SOCKET_PATH, settings.get_string ("docker-api-socket-path"));
             assert_true (r == Curl.Code.OK);
