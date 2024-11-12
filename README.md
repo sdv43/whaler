@@ -1,10 +1,7 @@
 # Whaler 
 
 <div align="center">
- <div>
-  
- </div>
- <img src="data/images/logo/64.svg" alt="Whaler"/>
+ <img src="data/images/logo/64.png" alt="Whaler"/>
 </div>
 
 ![List of Docker containers](data/images/screenshots/screenshot-1.png?raw=true)

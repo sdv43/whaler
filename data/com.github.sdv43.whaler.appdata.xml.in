@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop">
   <id>com.github.sdv43.whaler</id>
+  <launchable type="desktop-id">com.github.sdv43.whaler.desktop</launchable>
   <name>Whaler</name>
   <summary>Docker Container Management</summary>
   <metadata_license>CC0</metadata_license>
@@ -8,16 +9,27 @@
   <developer_name>Selivestrov Dmitriy</developer_name>
   <description>
     <p>
-      Whaler provides basic functionality for managing Docker containers. 
-      The app can start and stop both standalone containers and docker-compose applications. 
+      Whaler provides basic functionality for managing Docker containers.
+      The app can start and stop both standalone containers and docker-compose applications.
       Also, it supports viewing container logs.
     </p>
     <p>
-      The solution is perfect for those who are looking for a simple tool to perform some basic actions. 
+      The solution is perfect for those who are looking for a simple tool to perform some basic
+      actions.
       For the app to run correctly, make sure that Docker is installed on your system.
     </p>
   </description>
   <releases>
+    <release version="1.2.3" date="2024-11-12">
+      <description>
+        <ul>
+          <li>Add license file</li>
+          <li>Fix logs reading when tty is enabled</li>
+          <li>Update flatpak runtime version</li>
+          <li>Update Italian translation</li>
+        </ul>
+      </description>
+    </release>
     <release version="1.2.2" date="2024-02-06">
       <description>
         <ul>
@@ -69,17 +81,25 @@
         </ul>
       </description>
     </release>
-    <release version="1.0.0" date="2022-04-13"/>
+    <release version="1.0.0" date="2022-04-13" />
   </releases>
   <screenshots>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/sdv43/whaler/master/data/images/screenshots/screenshot-1.png</image>
+      <image>
+        https://raw.githubusercontent.com/sdv43/whaler/master/data/images/screenshots/screenshot-1.png</image>
+      <caption>Containers list</caption>
     </screenshot>
     <screenshot>
-      <image>https://raw.githubusercontent.com/sdv43/whaler/master/data/images/screenshots/screenshot-2.png</image>
+      <image>
+        https://raw.githubusercontent.com/sdv43/whaler/master/data/images/screenshots/screenshot-2.png</image>
+      <caption>Docker compose app</caption>
+
     </screenshot>
     <screenshot>
-      <image>https://raw.githubusercontent.com/sdv43/whaler/master/data/images/screenshots/screenshot-3.png</image>
+      <image>
+        https://raw.githubusercontent.com/sdv43/whaler/master/data/images/screenshots/screenshot-3.png</image>
+      <caption>Single container app</caption>
+
     </screenshot>
   </screenshots>
   <url type="homepage">https://github.com/sdv43/whaler</url>

@@ -1,7 +1,7 @@
 project(
     'com.github.sdv43.whaler', 'vala', 'c',
     meson_version : '>= 0.49',
-    version: '1.2.1'
+    version: '1.2.3'
 )
 
 #
