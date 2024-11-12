@@ -1,15 +1,15 @@
 # ITALIAN TRANSLATION FOR WHALER.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the com.github.sdv43.whaler package.
-# ALBANO BATTISTELLA <ALBANO_BATTISTELLA@HOTMAIL.COM>, 2022.
+# ALBANO BATTISTELLA <ALBANO_BATTISTELLA@GMAIL.COM>, 2022,2024.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.sdv43.whaler\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-07-04 08:24+0300\n"
-"PO-Revision-Date: 2022-05-17 19:26+0100\n"
-"Last-Translator: Albano Battistella <albano_battistella@hotmail.com>\n"
+"PO-Revision-Date: 2024-02-06 21:26+0100\n"
+"Last-Translator: Albano Battistella <albanobattistella@gmail.com>\n"
 "Language-Team: Italian <LL@li.org>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
@@ -62,60 +62,60 @@ msgstr "Tipo"
 #: src/Widgets/Utils/SettingsDialog.vala:11
 #: src/Widgets/Utils/ContainerInfoDialog.vala:13
 msgid "Close"
-msgstr ""
+msgstr "Chiudi"
 
 #: src/Widgets/Utils/SettingsDialog.vala:26
 msgid "Settings"
-msgstr ""
+msgstr "Impostazioni"
 
 #: src/Widgets/Utils/SettingsDialog.vala:41
 msgid "API socket path:"
-msgstr ""
+msgstr "Percorso del socket API:"
 
 #: src/Widgets/Utils/SettingsDialog.vala:104
 msgid "Check connection"
-msgstr ""
+msgstr "Controlla la connessione"
 
 #: src/Widgets/Utils/SettingsDialog.vala:124
 msgid "Success"
-msgstr ""
+msgstr "Successo"
 
 #: src/Widgets/Utils/SettingsDialog.vala:124
 msgid "Error"
-msgstr ""
+msgstr "Errore"
 
 #: src/Widgets/Utils/SettingsDialog.vala:141
 #, c-format
 msgid "Incorrect socket path \"%s\""
-msgstr ""
+msgstr "Percorso socket errato \"%s\""
 
 #: src/Widgets/Utils/DockerContainerStatusLabel.vala:11
 msgid "Running"
-msgstr ""
+msgstr "In esecuzione"
 
 #: src/Widgets/Utils/DockerContainerStatusLabel.vala:16
 msgid "Paused"
-msgstr ""
+msgstr "In pausa"
 
 #: src/Widgets/Utils/DockerContainerStatusLabel.vala:21
 msgid "Stopped"
-msgstr ""
+msgstr "Fermato"
 
 #: src/Widgets/Utils/DockerContainerStatusLabel.vala:26
 msgid "Unknown"
-msgstr ""
+msgstr "Sconosciuto"
 
 #: src/Widgets/Utils/ContainerInfoDialog.vala:53
 msgid "Image"
-msgstr ""
+msgstr "Immagine"
 
 #: src/Widgets/Utils/ContainerInfoDialog.vala:54
 msgid "Status"
-msgstr ""
+msgstr "Stato"
 
 #: src/Widgets/Utils/ContainerInfoDialog.vala:57
 msgid "Ports"
-msgstr ""
+msgstr "Porte"
 
 #: src/Widgets/Utils/ContainerInfoDialog.vala:61
 msgid "Binds"
@@ -135,7 +135,7 @@ msgstr "Aggiorna elenco docker container"
 
 #: src/Widgets/HeaderBar.vala:87 src/Widgets/ScreenError.vala:56
 msgid "Open settings"
-msgstr ""
+msgstr "Apri le impostazioni"
 
 #: src/Widgets/ScreenError.vala:33
 msgid ""
