@@ -87,7 +87,11 @@ class State.Root : Object {
 
             if (container.label_project == null) {
                 // single container
-                this.containers.add (new DockerContainer.from_docker_api_container (container));
+                var docker_container = new DockerContainer.from_docker_api_container (container);
+                var info = yield this.container_inspect (docker_container);
+
+                docker_container.is_tty = info[docker_container].is_tty;
+                this.containers.add (docker_container);
             } else {
                 // if the container has already been processed
                 if (container.label_project in projects) {
@@ -125,6 +129,9 @@ class State.Root : Object {
                         is_all_running = is_all_running && s.state == DockerContainerState.RUNNING;
                         is_all_paused = is_all_paused && s.state == DockerContainerState.PAUSED;
                         is_all_stopped = is_all_stopped && s.state == DockerContainerState.STOPPED;
+
+                        var info = yield this.container_inspect (s);
+                        s.is_tty = info[s].is_tty;
 
                         container_group.services.add (s);
                     }
