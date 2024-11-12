@@ -30,6 +30,7 @@ namespace Utils {
         public string id;
         public string name;
         public string image;
+        public bool is_tty;
         public DockerContainerType type;
         public DockerContainerState state;
 
@@ -44,6 +45,7 @@ namespace Utils {
             this.image = container.image;
             this.type = DockerContainerType.CONTAINER;
             this.state = this.get_state (container.state);
+            this.is_tty = false;
         }
 
         public string format_name (string name) {

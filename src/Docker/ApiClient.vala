@@ -35,6 +35,7 @@ namespace Docker {
         public string name;
         public string image;
         public string status;
+        public bool is_tty;
         public string[]? binds;
         public string[]? envs;
         public string[]? ports;
@@ -289,6 +290,7 @@ namespace Docker {
                 assert_nonnull (config_object);
 
                 container_info.image = config_object.get_string_member_with_default ("Image", _ ("Unknown"));
+                container_info.is_tty = config_object.get_boolean_member_with_default ("Tty", false);
 
                 //
                 var env_array = config_object.get_array_member ("Env");

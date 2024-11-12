@@ -23,6 +23,7 @@ namespace Docker {
         public MemoryInputStream memory;
         public Container container;
         public bool is_reading;
+        public bool is_tty;
         public string since;
         public int prev_unparsed_data_size;
         public Cancellable reading_cancel;
@@ -32,6 +33,7 @@ namespace Docker {
         public FrameReader (Container container) {
             this.since = "0";
             this.is_reading = false;
+            this.is_tty = false;
             this.current_frame = null;
             this.prev_unparsed_data_size = 0;
             this.container = container;
@@ -67,7 +69,9 @@ namespace Docker {
             Posix.memcpy ((void*)buffer, buf, size);
             this.memory.add_data (buffer);
 
-            if (settings.get_string ("docker-api-socket-path").contains ("podman.sock")) {
+            var is_podman = settings.get_string ("docker-api-socket-path").contains ("podman.sock");
+
+            if (is_podman || this.is_tty) {
                 this.parse_podman_frame ((int)size);
             } else {
                 this.parse_frame ((int)size);
@@ -325,6 +329,8 @@ namespace Docker {
             assert_true (container.api_container != null);
 
             var reader = new FrameReader (container.api_container);
+            reader.is_tty = container.is_tty;
+
             var label = is_label_visible ? @"$(container.name): " : "";
 
             reader.new_line.connect ((line) => {
