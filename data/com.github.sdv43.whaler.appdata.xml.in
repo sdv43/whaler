@@ -20,6 +20,13 @@
     </p>
   </description>
   <releases>
+    <release version="1.2.4" date="2025-05-12">
+      <description>
+        <ul>
+          <li>Update flatpak runtime version</li>
+        </ul>
+      </description>
+    </release>
     <release version="1.2.3" date="2024-11-12">
       <description>
         <ul>
