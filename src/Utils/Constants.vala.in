@@ -16,5 +16,5 @@ namespace Utils.Constants {
     const string RESOURCE_BASE = "/com/github/sdv43/whaler";
     const string LOCALE_DIR = @LOCALE_DIR@;
     const string DOCKER_ENGINE_SOCKET_PATH = "/run/docker.sock";
-    const string DOCKER_ENIGINE_API_VERSION = "1.41";
+    const string DOCKER_ENIGINE_API_VERSION = "1.44";
 }
