@@ -19,7 +19,13 @@
       For the app to run correctly, make sure that Docker is installed on your system.
     </p>
   </description>
-  <releases>
+  <releases><release version="1.2.6" date="2026-04-10">
+      <description>
+        <ul>
+          <li>Update flatpak runtime version</li>
+        </ul>
+      </description>
+    </release>
     <release version="1.2.5" date="2025-10-13">
       <description>
         <ul>
