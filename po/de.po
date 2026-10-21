@@ -1,0 +1,275 @@
+# GERMAN TRANSLATION FOR WHALER.
+# Copyright (C) 2026 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the com.github.sdv43.whaler package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: com.github.sdv43.whaler\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-07-04 08:24+0300\n"
+"PO-Revision-Date: 2026-10-20 23:35-0300\n"
+"Last-Translator: Alexander <aalexander.email@protonmail.com>\n"
+"Language-Team: German\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: data/com.github.sdv43.whaler.desktop.in:5
+msgid "Manage your Docker containers"
+msgstr "Verwalten Sie Ihre Docker-Container"
+
+#: data/com.github.sdv43.whaler.desktop.in:11
+msgid "Docker;Virtualizaton;Development;"
+msgstr "Docker;Virtualisierung;Entwicklung;"
+
+#: data/com.github.sdv43.whaler.appdata.xml.in:5
+msgid "Docker Container Management"
+msgstr "Docker-Container-Verwaltung"
+
+#: data/com.github.sdv43.whaler.appdata.xml.in:10
+msgid ""
+"Whaler provides basic functionality for managing Docker containers. The app "
+"can start and stop both standalone containers and docker-compose "
+"applications. Also, it supports viewing container logs."
+msgstr ""
+"Whaler bietet grundlegende Funktionen zur Verwaltung von Docker-Containern. "
+"Die Anwendung kann sowohl eigenständige Container als auch Docker-Compose-"
+"Anwendungen starten und stoppen. Zudem unterstützt sie das Anzeigen von "
+"Container-Protokollen."
+
+#: data/com.github.sdv43.whaler.appdata.xml.in:15
+msgid ""
+"The solution is perfect for those who are looking for a simple tool to "
+"perform some basic actions. For the app to run correctly, make sure that "
+"Docker is installed on your system."
+msgstr ""
+"Die ideale Lösung für alle, die ein einfaches Werkzeug für grundlegende "
+"Aktionen suchen. Damit die Anwendung ordnungsgemäß funktioniert, stellen Sie "
+"sicher, dass Docker auf Ihrem System installiert ist."
+
+#: src/Utils/Sorting/SortingName.vala:12
+#: src/Widgets/Utils/ContainerInfoDialog.vala:52
+msgid "Name"
+msgstr "Name"
+
+#: src/Utils/Sorting/SortingType.vala:10
+msgid "Type"
+msgstr "Typ"
+
+#: src/Widgets/Utils/SettingsDialog.vala:11
+#: src/Widgets/Utils/ContainerInfoDialog.vala:13
+msgid "Close"
+msgstr "Schließen"
+
+#: src/Widgets/Utils/SettingsDialog.vala:26
+msgid "Settings"
+msgstr "Einstellungen"
+
+#: src/Widgets/Utils/SettingsDialog.vala:41
+msgid "API socket path:"
+msgstr "API-Socket-Pfad:"
+
+#: src/Widgets/Utils/SettingsDialog.vala:104
+msgid "Check connection"
+msgstr "Verbindung prüfen"
+
+#: src/Widgets/Utils/SettingsDialog.vala:124
+msgid "Success"
+msgstr "Erfolg"
+
+#: src/Widgets/Utils/SettingsDialog.vala:124
+msgid "Error"
+msgstr "Fehler"
+
+#: src/Widgets/Utils/SettingsDialog.vala:141
+#, c-format
+msgid "Incorrect socket path \"%s\""
+msgstr "Ungültiger Socket-Pfad \"%s\""
+
+#: src/Widgets/Utils/DockerContainerStatusLabel.vala:11
+msgid "Running"
+msgstr "Aktiv"
+
+#: src/Widgets/Utils/DockerContainerStatusLabel.vala:16
+msgid "Paused"
+msgstr "Pausiert"
+
+#: src/Widgets/Utils/DockerContainerStatusLabel.vala:21
+msgid "Stopped"
+msgstr "Angehalten"
+
+#: src/Widgets/Utils/DockerContainerStatusLabel.vala:26
+msgid "Unknown"
+msgstr "Unbekannt"
+
+#: src/Widgets/Utils/ContainerInfoDialog.vala:53
+msgid "Image"
+msgstr "Image"
+
+#: src/Widgets/Utils/ContainerInfoDialog.vala:54
+msgid "Status"
+msgstr "Status"
+
+#: src/Widgets/Utils/ContainerInfoDialog.vala:57
+msgid "Ports"
+msgstr "Ports"
+
+#: src/Widgets/Utils/ContainerInfoDialog.vala:61
+msgid "Binds"
+msgstr "Bind-Mounts"
+
+#: src/Widgets/Utils/ContainerInfoDialog.vala:65
+msgid "Env"
+msgstr "Umgebungsvariablen"
+
+#: src/Widgets/HeaderBar.vala:15
+msgid "Back"
+msgstr "Zurück"
+
+#: src/Widgets/HeaderBar.vala:40
+msgid "Update docker container list"
+msgstr "Docker-Container-Liste aktualisieren"
+
+#: src/Widgets/HeaderBar.vala:87 src/Widgets/ScreenError.vala:56
+msgid "Open settings"
+msgstr "Einstellungen öffnen"
+
+#: src/Widgets/ScreenError.vala:33
+msgid ""
+"It looks like Docker requires root rights to use it. Thus, the application "
+"cannot connect to Docker Engine API. Find out how to run docker without root "
+"rights in <a href=\"https://docs.docker.com/engine/install/linux-postinstall/"
+"\">Docker Manuals</a>, otherwise the application cannot work correctly. Or "
+"check your socket path to Docker API in Settings."
+msgstr ""
+"Es scheint, dass Docker Root-Rechte erfordert. Daher kann sich die Anwendung "
+"nicht mit der Docker Engine API verbinden. Erfahren Sie in den <a href="
+"\"https://docs.docker.com/engine/install/linux-postinstall/\">Docker-"
+"Handbüchern</a>, wie Sie Docker ohne Root-Rechte ausführen können. Andernfalls "
+"kann die Anwendung nicht ordnungsgemäß funktionieren. Oder überprüfen Sie "
+"Ihren Socket-Pfad zur Docker-API in den Einstellungen."
+
+#: src/Widgets/ScreenError.vala:42
+msgid ""
+"It looks like Docker is not installed on your system. To find out how to "
+"install it, see <a href=\"https://docs.docker.com/engine/install/\">Docker "
+"Manuals</a>. Or check your socket path to Docker API in Settings."
+msgstr ""
+"Es scheint, dass Docker nicht auf Ihrem System installiert ist. Wie Sie es "
+"installieren können, erfahren Sie in den <a href=\"https://docs.docker.com/"
+"engine/install/\">Docker-Handbüchern</a>. Oder überprüfen Sie Ihren Socket-Pfad "
+"zur Docker-API in den Einstellungen."
+
+#: src/Widgets/ScreenError.vala:50
+msgid "The app cannot connect to Docker API"
+msgstr "Die Anwendung kann keine Verbindung zur Docker-API herstellen"
+
+#: src/Widgets/Screens/DockerContainer/Log.vala:39
+msgid "Autoscroll"
+msgstr "Automatischer Bildlauf"
+
+#: src/Widgets/Screens/DockerContainer/Log.vala:51
+msgid "Enable autoscroll to bottom border"
+msgstr "Automatischen Bildlauf zum unteren Rand aktivieren"
+
+#: src/Widgets/Screens/DockerContainer/TopBarActions.vala:19
+msgid "Start"
+msgstr "Starten"
+
+#: src/Widgets/Screens/DockerContainer/TopBarActions.vala:23
+msgid "Stop"
+msgstr "Stoppen"
+
+#: src/Widgets/Screens/DockerContainer/TopBarActions.vala:25
+msgid "Unpause"
+msgstr "Fortsetzen"
+
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:56
+msgid "Pause"
+msgstr "Pausieren"
+
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:59
+msgid "Container pause error"
+msgstr "Fehler beim Pausieren des Containers"
+
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:74
+msgid "Restart"
+msgstr "Neustarten"
+
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:76
+msgid "Container restart error"
+msgstr "Fehler beim Neustarten des Containers"
+
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:79
+msgid "Restarting container"
+msgstr "Container wird neu gestartet"
+
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:94
+msgid "Remove"
+msgstr "Entfernen"
+
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:97
+msgid "Do you really want to remove container?"
+msgstr "Möchten Sie diesen Container wirklich entfernen?"
+
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:98
+msgid "Yes, remove"
+msgstr "Ja, entfernen"
+
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:99
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:105
+msgid "Container remove error"
+msgstr "Fehler beim Entfernen des Containers"
+
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:107
+msgid "Removing container"
+msgstr "Container wird entfernt"
+
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:127
+msgid "Info"
+msgstr "Info"
+
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:129
+msgid "Cannot get information"
+msgstr "Informationen können nicht abgerufen werden"
+
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:152
+msgid "Container action error"
+msgstr "Container-Aktionsfehler"
+
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:157
+msgid "Container stop error"
+msgstr "Fehler beim Stoppen des Containers"
+
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:158
+msgid "Stopping container"
+msgstr "Container wird gestoppt"
+
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:163
+msgid "Container start error"
+msgstr "Fehler beim Starten des Containers"
+
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:164
+msgid "Starting container"
+msgstr "Container wird gestartet"
+
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:169
+msgid "Container unpause error"
+msgstr "Fehler beim Fortsetzen des Containers"
+
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:174
+msgid "Container state is unknown"
+msgstr "Container-Status ist unbekannt"
+
+#: src/Widgets/Screens/Main/ContainersGrid.vala:81
+msgid "No containers"
+msgstr "Keine Container"
+
+#: src/Widgets/Screens/Main/ContainersGridFilter.vala:53
+msgid "Sort by:"
+msgstr "Sortieren nach:"
