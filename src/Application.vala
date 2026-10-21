@@ -34,6 +34,11 @@ public class Whaler : Gtk.Application {
     }
 
     protected override void activate () {
+        if (this.active_window != null) {
+            this.active_window.present ();
+            return;
+        }
+
         var window = new Gtk.ApplicationWindow (this) {
             default_height = 800,
             default_width = 1200,
@@ -75,11 +80,13 @@ public class Whaler : Gtk.Application {
         window.delete_event.connect (event => {
             settings.set_boolean ("window-is-maximized", window.is_maximized);
 
-            window.get_position (out window_x, out window_y);
-            window.get_size (out window_width, out window_height);
+            if (!window.is_maximized) {
+                window.get_position (out window_x, out window_y);
+                window.get_size (out window_width, out window_height);
 
-            settings.set ("window-position", "(ii)", window_x, window_y);
-            settings.set ("window-size", "(ii)", window_width, window_height);
+                settings.set ("window-position", "(ii)", window_x, window_y);
+                settings.set ("window-size", "(ii)", window_width, window_height);
+            }
 
             return false;
         });

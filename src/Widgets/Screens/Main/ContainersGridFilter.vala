@@ -71,7 +71,9 @@ class Widgets.Screens.Main.ContainersGridFilter : Gtk.Box {
         box.pack_end (combo, false, false);
 
         combo.changed.connect ((combo) => {
-            state.screen_main.sorting = sortings[combo.active];
+            if (combo.active >= 0 && combo.active < sortings.length) {
+                state.screen_main.sorting = sortings[combo.active];
+            }
         });
 
         var settings = new Settings (APP_ID);

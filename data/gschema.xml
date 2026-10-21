@@ -27,7 +27,7 @@
     </key>
     <key name="docker-api-socket-path" type="s">
       <default>"/run/docker.sock"</default>
-      <summary>Search entry value</summary>
+      <summary>Docker or Podman API socket path</summary>
     </key>
   </schema>
 </schemalist>
