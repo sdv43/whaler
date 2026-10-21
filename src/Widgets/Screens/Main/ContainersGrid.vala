@@ -55,8 +55,11 @@ class Widgets.Screens.Main.ContainersGrid : Gtk.Stack {
         flow_box.selection_mode = Gtk.SelectionMode.NONE;
         flow_box.activate_on_single_click = true;
         flow_box.child_activated.connect ((child) => {
-            state.screen_docker_container.container = state_main.containers_prepared[child.get_index ()];
-            state.next_screen (Widgets.ScreenDockerContainer.CODE);
+            var index = child.get_index ();
+            if (index >= 0 && index < state_main.containers_prepared.size) {
+                state.screen_docker_container.container = state_main.containers_prepared[index];
+                state.next_screen (Widgets.ScreenDockerContainer.CODE);
+            }
         });
         root.add (flow_box);
 

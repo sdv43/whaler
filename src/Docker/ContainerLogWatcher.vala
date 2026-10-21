@@ -48,17 +48,30 @@ namespace Docker {
             return reader.add_memory_stream_data (buf, size * nmemb);
         }
 
+        public static int progress_callback (void* clientp, double dltotal, double dlnow, double ultotal, double ulnow) {
+            unowned var reader = (FrameReader)clientp;
+
+            return reader.reading_cancel.is_cancelled () ? 1 : 0;
+        }
+
         public async void read () throws FrameReaderError {
             try {
                 if (this.is_reading) {
                     return;
                 }
 
+                if (this.reading_cancel.is_cancelled ()) {
+                    this.reading_cancel = new Cancellable ();
+                }
+
                 this.is_reading = true;
                 yield this.curl_request ();
-                this.is_reading = false;
             } catch (HttpClientError error) {
-                throw new FrameReaderError.ERROR (@"Http request error: $(error.message)");
+                if (!this.reading_cancel.is_cancelled ()) {
+                    throw new FrameReaderError.ERROR (@"Http request error: $(error.message)");
+                }
+            } finally {
+                this.is_reading = false;
             }
         }
 
@@ -118,6 +131,7 @@ namespace Docker {
 
                     if (this.current_frame.is_finish_reading ()) {
                         // all frame data has been read
+                        this.current_frame.data.append_val (0);
                         this.new_line ((string)this.current_frame.data.data);
                         this.since = (new DateTime.now_local ()).to_unix ().to_string ();
                         this.current_frame = null;
@@ -137,6 +151,7 @@ namespace Docker {
                         } else {
                             // error: frame has not been read but data is available
                             warning ("Frame has not been read but data is available");
+                            break;
                         }
                     }
                 }
@@ -147,13 +162,14 @@ namespace Docker {
 
         public void parse_podman_frame (int size) {
             try {
-                uint8[] buff = new uint8[size];
-                var bytes_read = (int)this.data.read (buff);
+                uint8[] buff = new uint8[size + 1];
+                var bytes_read = (int)this.data.read (buff[0:size]);
 
                 if (bytes_read != size) {
                     warning ("Frame has not been read but data is available");
                 }
 
+                buff[bytes_read] = 0;
                 this.new_line ((string)buff);
             } catch (IOError error) {
                 warning (@"Frame parsing error: $(error.message)");
@@ -169,6 +185,12 @@ namespace Docker {
 
             r = curl.setopt (Curl.Option.VERBOSE, false);
             assert_true (r == Curl.Code.OK);
+            r = curl.setopt (Curl.Option.NOPROGRESS, 0);
+            assert_true (r == Curl.Code.OK);
+            r = curl.setopt (Curl.Option.PROGRESSDATA, (void*)this);
+            assert_true (r == Curl.Code.OK);
+            r = curl.setopt (Curl.Option.PROGRESSFUNCTION, FrameReader.progress_callback);
+            assert_true (r == Curl.Code.OK);
             r = curl.setopt (Curl.Option.URL, @"http://localhost/v$(DOCKER_ENIGINE_API_VERSION)/containers/$(this.container.id)/logs?stdout=true&stderr=true&follow=true&since=$(this.since)&tail=$(tail)");
             assert_true (r == Curl.Code.OK);
             r = curl.setopt (Curl.Option.UNIX_SOCKET_PATH, settings.get_string ("docker-api-socket-path"));
@@ -182,7 +204,7 @@ namespace Docker {
 
             r = yield this.curl_perform (curl);
 
-            if (r != Curl.Code.OK) {
+            if (r != Curl.Code.OK && !this.reading_cancel.is_cancelled ()) {
                 throw new HttpClientError.ERROR (Curl.Global.strerror (r));
             }
 
@@ -213,12 +235,14 @@ namespace Docker {
                 unowned var cl_curl = (Curl.EasyHandle)curl;
 
                 var cl_r = cl_curl.perform ();
-                task.return_int (cl_r);
+                if (!task.get_cancellable ().is_cancelled ()) {
+                    task.return_int (cl_r);
+                }
             });
 
             yield;
 
-            if (err_msg != null) {
+            if (err_msg != null && !this.reading_cancel.is_cancelled ()) {
                 throw new HttpClientError.ERROR (@"Curl perform error: $err_msg");
             }
 
@@ -255,18 +279,19 @@ namespace Docker {
         }
 
         public int read_body () throws IOError {
-            uint8[] buff = new uint8[this.size - this.data.length];
-
             var bytes_read_total = 0;
-            var bytes_read = 0;
 
-            while ((bytes_read = (int)this.stream.read (buff)) != 0) {
-                this.data.append_vals (buff, bytes_read);
-                bytes_read_total += bytes_read;
+            while (this.data.length < this.size) {
+                var remaining = this.size - this.data.length;
+                uint8[] buff = new uint8[remaining];
+                var bytes_read = (int)this.stream.read (buff);
 
-                if (this.data.length == this.size) {
+                if (bytes_read <= 0) {
                     break;
                 }
+
+                this.data.append_vals (buff, bytes_read);
+                bytes_read_total += bytes_read;
             }
 
             return bytes_read_total;
@@ -304,9 +329,13 @@ namespace Docker {
             foreach (var container in this.containers) {
                 var reader = this.readers[container];
 
-                if (reader == null) {
+                if (reader == null || reader.reading_cancel.is_cancelled ()) {
                     reader = this.create_reader (container);
                     this.readers[container] = reader;
+                }
+
+                if (reader.is_reading) {
+                    continue;
                 }
 
                 reader.read.begin ((_, res) => {
@@ -321,7 +350,10 @@ namespace Docker {
 
         public void watching_stop () {
             foreach (var container in this.containers) {
-                this.readers[container].reading_cancel.cancel ();
+                var reader = this.readers[container];
+                if (reader != null) {
+                    reader.reading_cancel.cancel ();
+                }
             }
         }
 

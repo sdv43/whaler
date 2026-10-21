@@ -37,6 +37,19 @@ class Widgets.Screens.Container.LogOutput : Gtk.ScrolledWindow {
         DockerContainer? selected_container = null;
 
         state_docker_container.notify["service"].connect (() => {
+            if (state_docker_container.service == null) {
+                if (log_watcher != null) {
+                    log_watcher.watching_stop ();
+                    log_watcher = null;
+                }
+                selected_container = null;
+                return;
+            }
+
+            if (state_root.active_screen != ScreenDockerContainer.CODE) {
+                return;
+            }
+
             var is_container_changed = true;
 
             if (selected_container != null) {
@@ -53,8 +66,23 @@ class Widgets.Screens.Container.LogOutput : Gtk.ScrolledWindow {
 
                 log_watcher = new ContainerLogWatcher (selected_container, log_buffer);
                 log_watcher.watching_start ();
-            } else {
-                log_watcher.watching_start ();
+            }
+        });
+
+        state_root.notify["active-screen"].connect (() => {
+            if (state_root.active_screen != ScreenDockerContainer.CODE) {
+                if (log_watcher != null) {
+                    log_watcher.watching_stop ();
+                    log_watcher = null;
+                    selected_container = null;
+                }
+            } else if (state_docker_container.service != null) {
+                if (log_watcher == null) {
+                    log_buffer.text = "";
+                    selected_container = state_docker_container.service;
+                    log_watcher = new ContainerLogWatcher (selected_container, log_buffer);
+                    log_watcher.watching_start ();
+                }
             }
         });
     }
