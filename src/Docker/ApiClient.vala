@@ -158,7 +158,7 @@ namespace Docker {
                 var resp = yield this.http_client.r_post (@"/containers/$(container.id)/start");
 
                 if (resp.code == 304) {
-                    throw new ApiClientError.ERROR ("Container already started");
+                    return;
                 }
                 if (resp.code == 404) {
                     throw new ApiClientError.ERROR ("No such container");
@@ -176,7 +176,7 @@ namespace Docker {
                 var resp = yield this.http_client.r_post (@"/containers/$(container.id)/stop");
 
                 if (resp.code == 304) {
-                    throw new ApiClientError.ERROR ("Container already stopped");
+                    return;
                 }
                 if (resp.code == 404) {
                     throw new ApiClientError.ERROR ("No such container");
@@ -269,8 +269,12 @@ namespace Docker {
                 }
 
                 //
-                var json = yield resp.body_data_stream.read_line_utf8_async ();
-                assert_nonnull (json);
+                var json = "";
+                string? line = null;
+
+                while ((line = yield resp.body_data_stream.read_line_utf8_async ()) != null) {
+                    json += line;
+                }
 
                 var root_node = parse_json (json);
                 var root_object = root_node.get_object ();
@@ -322,12 +326,12 @@ namespace Docker {
                 var port_bindings_object = host_config_object.get_object_member ("PortBindings");
 
                 if (port_bindings_object != null) {
+                    container_info.ports = new string[0];
+
                     port_bindings_object.foreach_member ((obj, key, port_binding_node) => {
                         var port_binding_array = port_binding_node.get_array ();
 
                         if (port_binding_array != null && port_binding_array.get_length () > 0) {
-                            container_info.ports = new string[0];
-
                             foreach (var port_node in port_binding_array.get_elements ()) {
                                 var port_object = port_node.get_object ();
                                 assert_nonnull (port_object);
@@ -335,7 +339,8 @@ namespace Docker {
                                 var ip = port_object.get_string_member_with_default ("HostIp", "");
                                 var port = port_object.get_string_member_with_default ("HostPort", "-");
 
-                                container_info.ports += key + (ip.length > 0 ? @"$ip:" : ":") + port;
+                                var host_addr = ip.length > 0 ? ip : "0.0.0.0";
+                                container_info.ports += @"$host_addr:$port -> $key";
                             }
                         }
                     });
@@ -355,8 +360,12 @@ namespace Docker {
                 var resp = yield this.http_client.r_get ("/version");
 
                 //
-                var json = yield resp.body_data_stream.read_line_utf8_async ();
-                assert_nonnull (json);
+                var json = "";
+                string? line = null;
+
+                while ((line = yield resp.body_data_stream.read_line_utf8_async ()) != null) {
+                    json += line;
+                }
 
                 var root_node = parse_json (json);
                 var root_object = root_node.get_object ();

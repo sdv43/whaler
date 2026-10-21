@@ -11,6 +11,10 @@
 
 namespace Utils {
     string ucfirst (string str) {
+        if (str.length == 0) {
+            return str;
+        }
+
         return str.up (1) + str.substring (1);
     }
 }
