@@ -21,7 +21,7 @@ msgid "Manage your Docker containers"
 msgstr "Gestiona tus contenedores Docker"
 
 #: data/com.github.sdv43.whaler.desktop.in:11
-msgid "Docker;Virtualizaton;Development;"
+msgid "Docker;Virtualization;Development;"
 msgstr "Docker;Virtualización;Desarrollo;"
 
 #: data/com.github.sdv43.whaler.appdata.xml.in:5
