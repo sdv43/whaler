@@ -125,7 +125,6 @@ class State.Root : Object {
                 var is_all_running = true;
                 var is_all_paused = true;
                 var is_all_stopped = true;
-                var has_running = false;
 
                 for (var j = i; j < api_containers.length; j++) {
                     var service = api_containers[j];
@@ -137,9 +136,6 @@ class State.Root : Object {
                         is_all_running = is_all_running && s.state == DockerContainerState.RUNNING;
                         is_all_paused = is_all_paused && s.state == DockerContainerState.PAUSED;
                         is_all_stopped = is_all_stopped && s.state == DockerContainerState.STOPPED;
-                        if (s.state == DockerContainerState.RUNNING) {
-                            has_running = true;
-                        }
 
                         try {
                             var info = yield this.container_inspect (s);
@@ -166,8 +162,6 @@ class State.Root : Object {
                     container_group.state = DockerContainerState.PAUSED;
                 } else if (is_all_stopped) {
                     container_group.state = DockerContainerState.STOPPED;
-                } else if (has_running) {
-                    container_group.state = DockerContainerState.RUNNING;
                 }
 
                 container_group.image = string.joinv (", ", services);

@@ -326,12 +326,14 @@ namespace Docker {
                 var port_bindings_object = host_config_object.get_object_member ("PortBindings");
 
                 if (port_bindings_object != null) {
-                    container_info.ports = new string[0];
-
                     port_bindings_object.foreach_member ((obj, key, port_binding_node) => {
                         var port_binding_array = port_binding_node.get_array ();
 
                         if (port_binding_array != null && port_binding_array.get_length () > 0) {
+                            if (container_info.ports == null) {
+                                container_info.ports = new string[0];
+                            }
+
                             foreach (var port_node in port_binding_array.get_elements ()) {
                                 var port_object = port_node.get_object ();
                                 assert_nonnull (port_object);
