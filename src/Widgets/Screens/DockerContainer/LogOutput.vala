@@ -66,6 +66,8 @@ class Widgets.Screens.Container.LogOutput : Gtk.ScrolledWindow {
 
                 log_watcher = new ContainerLogWatcher (selected_container, log_buffer);
                 log_watcher.watching_start ();
+            } else if (log_watcher != null) {
+                log_watcher.watching_start ();
             }
         });
 

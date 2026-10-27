@@ -55,15 +55,11 @@ namespace Docker {
         }
 
         public async void read () throws FrameReaderError {
+            if (this.is_reading || this.reading_cancel.is_cancelled ()) {
+                return;
+            }
+
             try {
-                if (this.is_reading) {
-                    return;
-                }
-
-                if (this.reading_cancel.is_cancelled ()) {
-                    this.reading_cancel = new Cancellable ();
-                }
-
                 this.is_reading = true;
                 yield this.curl_request ();
             } catch (HttpClientError error) {
@@ -204,7 +200,11 @@ namespace Docker {
 
             r = yield this.curl_perform (curl);
 
-            if (r != Curl.Code.OK && !this.reading_cancel.is_cancelled ()) {
+            if (this.reading_cancel.is_cancelled ()) {
+                return;
+            }
+
+            if (r != Curl.Code.OK) {
                 throw new HttpClientError.ERROR (Curl.Global.strerror (r));
             }
 
@@ -229,15 +229,12 @@ namespace Docker {
                 }
             });
 
-            task.set_return_on_cancel (true);
             task.set_task_data (curl, null);
             task.run_in_thread ((task, http_client, curl, cancellable) => {
                 unowned var cl_curl = (Curl.EasyHandle)curl;
 
                 var cl_r = cl_curl.perform ();
-                if (!task.get_cancellable ().is_cancelled ()) {
-                    task.return_int (cl_r);
-                }
+                task.return_int (cl_r);
             });
 
             yield;
