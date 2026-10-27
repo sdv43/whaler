@@ -179,7 +179,10 @@ class SocketPathEntry : Gtk.Box {
             yield state.containers_load ();
             state.active_screen = Widgets.ScreenMain.CODE;
         } catch (Docker.ApiClientError error) {
-            var msg = error.message.length > 0 ? error.message : err_msg.printf (this.entry_socket_path.text);
+            var msg = err_msg.printf (this.entry_socket_path.text);
+            if (error.message.length > 0) {
+                msg = @"$msg ($(error.message))";
+            }
             this.notice = this.build_notice (msg, false);
         } finally {
             this.pack_start (this.notice, false);
