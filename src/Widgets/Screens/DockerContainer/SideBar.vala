@@ -23,17 +23,24 @@ class Widgets.Screens.Container.SideBar : Gtk.ScrolledWindow {
         list_box.activate_on_single_click = false;
         list_box.selection_mode = Gtk.SelectionMode.SINGLE;
         list_box.row_selected.connect ((row) => {
-            if (row.get_index () == -1) {
+            if (row == null || row.get_index () == -1) {
                 return;
             }
 
             var side_bar_item = row as SideBarItem;
-            assert_nonnull (side_bar_item);
+            if (side_bar_item == null) {
+                return;
+            }
 
             state.service = side_bar_item.service;
         });
 
         state.notify["container"].connect (() => {
+            if (state.container == null) {
+                this.visible = false;
+                return;
+            }
+
             this.visible = state.container.type == DockerContainerType.GROUP;
 
             if (!this.visible) {
@@ -53,13 +60,15 @@ class Widgets.Screens.Container.SideBar : Gtk.ScrolledWindow {
 
             var selected_item = main_container_item;
 
-            foreach (var service in state.container.services) {
-                var item = new SideBarItem (service);
+            if (state.container.services != null) {
+                foreach (var service in state.container.services) {
+                    var item = new SideBarItem (service);
 
-                list_box.add (item);
+                    list_box.add (item);
 
-                if (state.service != null && state.service.id == service.id) {
-                    selected_item = item;
+                    if (state.service != null && state.service.id == service.id) {
+                        selected_item = item;
+                    }
                 }
             }
 
