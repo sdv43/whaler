@@ -113,7 +113,7 @@ class Widgets.Utils.ContainerInfoDialog : Granite.Dialog {
         var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
 
         foreach (var value in values) {
-            box.pack_end (this.build_value (value), false);
+            box.pack_start (this.build_value (value), false);
         }
 
         return box;

@@ -16,14 +16,18 @@ class Widgets.Utils.SettingsDialog : Granite.Dialog {
         this.default_width = 500;
         this.default_height = 300;
         this.transient_for = Whaler.get_instance ().active_window;
-        this.transient_for.sensitive = false;
+        if (this.transient_for != null) {
+            this.transient_for.sensitive = false;
+        }
         this.skip_taskbar_hint = true;
         this.get_style_context ().add_class ("dialog-settings");
         this.add_button (_ ("Close"), Gtk.ResponseType.CANCEL);
         this.get_content_area ().add (this.build_content_area ());
 
         this.response.connect ((resp_id) => {
-            this.transient_for.sensitive = true;
+            if (this.transient_for != null) {
+                this.transient_for.sensitive = true;
+            }
             this.destroy ();
         });
 
@@ -162,7 +166,7 @@ class SocketPathEntry : Gtk.Box {
             yield api_client.ping();
 
             //
-            var engine = settings.get_string ("docker-api-socket-path").contains ("podman.sock")
+            var engine = this.entry_socket_path.text.contains ("podman.sock")
                          ? "Podman"
                          : "Docker";
 
@@ -175,7 +179,11 @@ class SocketPathEntry : Gtk.Box {
             yield state.containers_load ();
             state.active_screen = Widgets.ScreenMain.CODE;
         } catch (Docker.ApiClientError error) {
-            this.notice = this.build_notice (err_msg.printf (this.entry_socket_path.text), false);
+            var msg = err_msg.printf (this.entry_socket_path.text);
+            if (error.message.length > 0) {
+                msg = @"$msg ($(error.message))";
+            }
+            this.notice = this.build_notice (msg, false);
         } finally {
             this.pack_start (this.notice, false);
             this.show_all ();

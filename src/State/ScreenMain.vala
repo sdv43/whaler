@@ -25,9 +25,11 @@ class State.ScreenMain : Object {
         root.notify["containers"].connect (() => {
             this.containers_prepared.clear ();
             this.containers_prepared.add_all_iterator (root.containers.filter ((container) => {
-                return container.name.down (container.name.length).index_of (this.search_term, 0) > -1;
+                return container.name.down ().index_of (this.search_term.down (), 0) > -1;
             }));
-            this.containers_prepared.sort (this.sorting.compare);
+            if (this.sorting != null) {
+                this.containers_prepared.sort (this.sorting.compare);
+            }
 
             this.notify_property ("containers-prepared");
         });
@@ -35,17 +37,20 @@ class State.ScreenMain : Object {
         this.notify["search-term"].connect (() => {
             this.containers_prepared.clear ();
             this.containers_prepared.add_all_iterator (root.containers.filter ((container) => {
-                return container.name.down (container.name.length).index_of (this.search_term, 0) > -1;
+                return container.name.down ().index_of (this.search_term.down (), 0) > -1;
             }));
-            this.containers_prepared.sort (this.sorting.compare);
+            if (this.sorting != null) {
+                this.containers_prepared.sort (this.sorting.compare);
+            }
 
             this.notify_property ("containers-prepared");
         });
 
         this.notify["sorting"].connect (() => {
-            this.containers_prepared.sort (this.sorting.compare);
-
-            this.notify_property ("containers-prepared");
+            if (this.sorting != null) {
+                this.containers_prepared.sort (this.sorting.compare);
+                this.notify_property ("containers-prepared");
+            }
         });
     }
 }
