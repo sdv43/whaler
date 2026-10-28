@@ -273,3 +273,11 @@ msgstr "Keine Container"
 #: src/Widgets/Screens/Main/ContainersGridFilter.vala:53
 msgid "Sort by:"
 msgstr "Sortieren nach:"
+
+#: src/Utils/DockerContainer.vala:51
+msgid "Unnamed"
+msgstr "Unbenannt"
+
+#: src/Widgets/Screens/DockerContainer/SideBar.vala:49
+msgid "Services"
+msgstr "Dienste"

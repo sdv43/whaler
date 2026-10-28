@@ -37,15 +37,10 @@ class State.ScreenDockerContainer : Object {
         });
 
         this.notify["container"].connect (() => {
-            if (this.container == null) {
-                this.service = null;
-                return;
-            }
-
             if (this.container.type == DockerContainerType.GROUP) {
                 if (this.service == null) {
                     this.service = this.container;
-                } else if (this.container.services != null) {
+                } else {
                     var index = this.container.services.index_of (this.service);
 
                     if (index != -1) {
@@ -53,8 +48,6 @@ class State.ScreenDockerContainer : Object {
                     } else {
                         this.service = this.container;
                     }
-                } else {
-                    this.service = this.container;
                 }
             } else {
                 this.service = this.container;

@@ -44,7 +44,7 @@ namespace Utils {
 
             Curl.Code r;
 
-            r = curl.setopt (Curl.Option.VERBOSE, this.verbose ? 1 : 0);
+            r = curl.setopt (Curl.Option.VERBOSE, (long)(this.verbose ? 1 : 0));
             assert_true (r == Curl.Code.OK);
             r = curl.setopt (Curl.Option.URL, (this.base_url ?? "") + url);
             assert_true (r == Curl.Code.OK);
@@ -76,7 +76,10 @@ namespace Utils {
                 throw new HttpClientError.ERROR (Curl.Global.strerror (r));
             }
 
-            curl.getinfo (Curl.Info.RESPONSE_CODE, &response.code);
+            // curl writes a long
+            long response_code = 0;
+            curl.getinfo (Curl.Info.RESPONSE_CODE, &response_code);
+            response.code = (int)response_code;
 
             return response;
         }

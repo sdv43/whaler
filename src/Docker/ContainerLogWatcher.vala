@@ -18,34 +18,51 @@ namespace Docker {
     }
 
     class FrameReader : Object {
-        public Frame? current_frame;
-        public DataInputStream data;
-        public MemoryInputStream memory;
+        // Multiplexed stream frame header: stream type (1 byte), 3 zero bytes, payload size (uint32 big endian)
+        // https://docs.docker.com/engine/api/v1.44/#tag/Container/operation/ContainerAttach
+        private const uint FRAME_HEADER_SIZE = 8;
+
         public Container container;
         public bool is_reading;
-        public bool is_tty;
         public string since;
-        public int prev_unparsed_data_size;
         public Cancellable reading_cancel;
+
+        // Received data that does not form a complete frame yet
+        private ByteArray pending;
+        // TTY containers send raw output instead of multiplexed frames
+        private bool is_raw_stream;
 
         public signal void new_line (string line);
 
         public FrameReader (Container container) {
             this.since = "0";
             this.is_reading = false;
-            this.is_tty = false;
-            this.current_frame = null;
-            this.prev_unparsed_data_size = 0;
+            this.is_raw_stream = false;
             this.container = container;
             this.reading_cancel = new Cancellable ();
-            this.memory = new MemoryInputStream ();
-            this.data = new DataInputStream (this.memory);
+            this.pending = new ByteArray ();
+        }
+
+        public static size_t read_header_data (void* buf, size_t size, size_t nmemb, void* data) {
+            unowned var reader = (FrameReader)data;
+            var header = ((string)buf).substring (0, (long)(size * nmemb)).down ();
+
+            if (header.has_prefix ("content-type:") && header.contains ("application/vnd.docker.raw-stream")) {
+                reader.is_raw_stream = true;
+            }
+
+            return size * nmemb;
         }
 
         public static size_t read_body_data (void* buf, size_t size, size_t nmemb, void* data) {
             unowned var reader = (FrameReader)data;
 
-            return reader.add_memory_stream_data (buf, size * nmemb);
+            // returning less than received aborts the transfer
+            if (reader.reading_cancel.is_cancelled ()) {
+                return 0;
+            }
+
+            return reader.add_stream_data (buf, size * nmemb);
         }
 
         public static int progress_callback (void* clientp, double dltotal, double dlnow, double ultotal, double ulnow) {
@@ -71,105 +88,60 @@ namespace Docker {
             }
         }
 
-        public size_t add_memory_stream_data (void* buf, size_t size) {
-            var settings = new Settings (APP_ID);
-            var buffer = new uint8[size];
+        public size_t add_stream_data (void* buf, size_t size) {
+            unowned uint8[] chunk = (uint8[])buf;
+            chunk.length = (int)size;
 
-            Posix.memcpy ((void*)buffer, buf, size);
-            this.memory.add_data (buffer);
+            this.pending.append (chunk);
 
-            var is_podman = settings.get_string ("docker-api-socket-path").contains ("podman.sock");
-
-            if (is_podman || this.is_tty) {
-                this.parse_podman_frame ((int)size);
+            if (this.is_raw_stream) {
+                this.parse_raw ();
             } else {
-                this.parse_frame ((int)size);
+                this.parse_frames ();
             }
 
             return size;
         }
 
-        public void parse_frame (int size) {
-            if (!this.is_reading) {
-                return;
-            }
+        private void parse_frames () {
+            unowned uint8[] data = this.pending.data;
+            uint offset = 0;
 
-            // For the correct operation of the algorithm, at least 8 bytes of data are needed.
-            var data_size = this.prev_unparsed_data_size + size;
+            while (data.length - offset >= FRAME_HEADER_SIZE) {
+                var size = (uint)data[offset + 4] << 24 | (uint)data[offset + 5] << 16 | (uint)data[offset + 6] << 8 | (uint)data[offset + 7];
 
-            // We do not read data until there are 10 bytes
-            if (data_size < 10) {
-                this.prev_unparsed_data_size = data_size;
-
-                return;
-            } else {
-                this.prev_unparsed_data_size = 0;
-            }
-
-            try {
-                while (true) {
-                    var bytes_read = 0;
-
-                    // Creating a new frame
-                    if (this.current_frame == null) {
-                        this.current_frame = new Frame (this.data);
-
-                        bytes_read += this.current_frame.read_type ();
-                        bytes_read += this.current_frame.read_size ();
-
-                        //  debug ("create a new frame t:%d, s:%d", this.current_frame.type, this.current_frame.size);
-                    }
-
-                    // reading frame body
-                    bytes_read += this.current_frame.read_body ();
-
-                    //  debug ("bytes read: %d", bytes_read);
-
-                    if (this.current_frame.is_finish_reading ()) {
-                        // all frame data has been read
-                        this.current_frame.data.append_val (0);
-                        this.new_line ((string)this.current_frame.data.data);
-                        this.since = (new DateTime.now_local ()).to_unix ().to_string ();
-                        this.current_frame = null;
-
-                        if (bytes_read == data_size) {
-                            // no data in buffer
-                            break;
-                        } else {
-                            // there is still data in the buffer
-                            data_size -= bytes_read;
-                            continue;
-                        }
-                    } else {
-                        if (bytes_read == data_size) {
-                            // frame has not been read and no data left
-                            break;
-                        } else {
-                            // error: frame has not been read but data is available
-                            warning ("Frame has not been read but data is available");
-                            break;
-                        }
-                    }
+                if (data.length - offset - FRAME_HEADER_SIZE < size) {
+                    // wait for the rest of the frame
+                    break;
                 }
-            } catch (IOError error) {
-                warning (@"Frame parsing error: $(error.message)");
+
+                var line = new uint8[size + 1];
+                Memory.copy (line, &data[offset + FRAME_HEADER_SIZE], size);
+                line[size] = 0;
+
+                this.new_line ((string)line);
+                offset += FRAME_HEADER_SIZE + size;
+            }
+
+            if (offset > 0) {
+                this.pending.remove_range (0, offset);
+                this.update_since ();
             }
         }
 
-        public void parse_podman_frame (int size) {
-            try {
-                uint8[] buff = new uint8[size + 1];
-                var bytes_read = (int)this.data.read (buff[0:size]);
+        private void parse_raw () {
+            uint8[] nul = {0};
+            this.pending.append (nul);
 
-                if (bytes_read != size) {
-                    warning ("Frame has not been read but data is available");
-                }
+            this.new_line ((string)this.pending.data);
+            this.pending.set_size (0);
+            this.update_since ();
+        }
 
-                buff[bytes_read] = 0;
-                this.new_line ((string)buff);
-            } catch (IOError error) {
-                warning (@"Frame parsing error: $(error.message)");
-            }
+        private void update_since () {
+            // sub-second precision, otherwise lines of the last second are received again on resume
+            var now = new DateTime.now_utc ();
+            this.since = "%lld.%06d".printf (now.to_unix (), now.get_microsecond ());
         }
 
         private async void curl_request () throws HttpClientError {
@@ -177,11 +149,15 @@ namespace Docker {
             var curl = new Curl.EasyHandle ();
             var tail = this.since == "0" ? "1000" : "all";
 
+            // Podman does not multiplex the log stream
+            this.is_raw_stream = settings.get_string ("docker-api-socket-path").contains ("podman.sock");
+            this.pending.set_size (0);
+
             Curl.Code r;
 
-            r = curl.setopt (Curl.Option.VERBOSE, false);
+            r = curl.setopt (Curl.Option.VERBOSE, (long)0);
             assert_true (r == Curl.Code.OK);
-            r = curl.setopt (Curl.Option.NOPROGRESS, 0);
+            r = curl.setopt (Curl.Option.NOPROGRESS, (long)0);
             assert_true (r == Curl.Code.OK);
             r = curl.setopt (Curl.Option.PROGRESSDATA, (void*)this);
             assert_true (r == Curl.Code.OK);
@@ -192,6 +168,10 @@ namespace Docker {
             r = curl.setopt (Curl.Option.UNIX_SOCKET_PATH, settings.get_string ("docker-api-socket-path"));
             assert_true (r == Curl.Code.OK);
             r = curl.setopt (Curl.Option.CUSTOMREQUEST, "GET");
+            assert_true (r == Curl.Code.OK);
+            r = curl.setopt (Curl.Option.HEADERDATA, (void*)this);
+            assert_true (r == Curl.Code.OK);
+            r = curl.setopt (Curl.Option.HEADERFUNCTION, FrameReader.read_header_data);
             assert_true (r == Curl.Code.OK);
             r = curl.setopt (Curl.Option.WRITEDATA, (void*)this);
             assert_true (r == Curl.Code.OK);
@@ -208,11 +188,11 @@ namespace Docker {
                 throw new HttpClientError.ERROR (Curl.Global.strerror (r));
             }
 
-            var http_code = 0;
+            long http_code = 0;
 
             curl.getinfo (Curl.Info.RESPONSE_CODE, &http_code);
 
-            //  debug ("curl request http code: %d", http_code);
+            //  debug ("curl request http code: %ld", http_code);
         }
 
         private async Curl.Code curl_perform (Curl.EasyHandle curl) throws HttpClientError {
@@ -247,58 +227,6 @@ namespace Docker {
         }
     }
 
-    class Frame : Object {
-        public int type;
-        public int size;
-        public Array<uint8> data;
-        public DataInputStream stream;
-
-        public Frame (DataInputStream stream) {
-            this.type = -1;
-            this.size = 0;
-            this.data = new Array<uint8>();
-            this.stream = stream;
-        }
-
-        public int read_type () throws IOError {
-            // stream type https://docs.docker.com/engine/api/v1.41/#operation/ContainerAttach
-            this.stream.byte_order = DataStreamByteOrder.LITTLE_ENDIAN;
-            this.type = (int)this.stream.read_uint32 ();
-            this.stream.byte_order = DataStreamByteOrder.BIG_ENDIAN;
-
-            return 4;
-        }
-
-        public int read_size () throws IOError {
-            this.size = (int)this.stream.read_uint32 ();
-
-            return 4;
-        }
-
-        public int read_body () throws IOError {
-            var bytes_read_total = 0;
-
-            while (this.data.length < this.size) {
-                var remaining = this.size - this.data.length;
-                uint8[] buff = new uint8[remaining];
-                var bytes_read = (int)this.stream.read (buff);
-
-                if (bytes_read <= 0) {
-                    break;
-                }
-
-                this.data.append_vals (buff, bytes_read);
-                bytes_read_total += bytes_read;
-            }
-
-            return bytes_read_total;
-        }
-
-        public bool is_finish_reading () {
-            return this.size == this.data.length;
-        }
-    }
-
     class ContainerLogWatcher : Object {
         public Gee.ArrayList<DockerContainer> containers {get; construct set;}
         public Gtk.TextBuffer text_buffer {get; construct set;}
@@ -326,13 +254,9 @@ namespace Docker {
             foreach (var container in this.containers) {
                 var reader = this.readers[container];
 
-                if (reader == null || reader.reading_cancel.is_cancelled ()) {
+                if (reader == null) {
                     reader = this.create_reader (container);
                     this.readers[container] = reader;
-                }
-
-                if (reader.is_reading) {
-                    continue;
                 }
 
                 reader.read.begin ((_, res) => {
@@ -345,6 +269,7 @@ namespace Docker {
             }
         }
 
+        // A stopped watcher cannot be started again, create a new one instead
         public void watching_stop () {
             foreach (var container in this.containers) {
                 var reader = this.readers[container];
@@ -358,21 +283,28 @@ namespace Docker {
             assert_true (container.api_container != null);
 
             var reader = new FrameReader (container.api_container);
-            reader.is_tty = container.is_tty;
-
+            var reading_cancel = reader.reading_cancel;
             var label = is_label_visible ? @"$(container.name): " : "";
 
             reader.new_line.connect ((line) => {
-                this.buffer_append (label, line, line.length);
+                this.buffer_append (reading_cancel, label, line, line.length);
             });
 
             return reader;
         }
 
-        private void buffer_append (string label, string str, int length) {
+        private void buffer_append (Cancellable reading_cancel, string label, string str, int length) {
             Idle.add (() => {
-                text_buffer.insert_at_cursor (label, label.length);
-                text_buffer.insert_at_cursor (str, length);
+                // drop lines that were queued before the watcher was stopped
+                if (reading_cancel.is_cancelled ()) {
+                    return false;
+                }
+
+                // append to the end, the cursor can be moved by clicking in the log
+                Gtk.TextIter end;
+                text_buffer.get_end_iter (out end);
+                text_buffer.insert (ref end, label, label.length);
+                text_buffer.insert (ref end, str, length);
 
                 return false;
             }, Priority.DEFAULT_IDLE);

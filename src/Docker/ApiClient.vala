@@ -35,7 +35,6 @@ namespace Docker {
         public string name;
         public string image;
         public string status;
-        public bool is_tty;
         public string[]? binds;
         public string[]? envs;
         public string[]? ports;
@@ -56,21 +55,64 @@ namespace Docker {
             this.http_client.unix_socket_path = DOCKER_ENGINE_SOCKET_PATH;
         }
 
-        private static Json.Node parse_json (string data) throws ApiClientError {
+        private static Json.Node parse_json (HttpClientResponse resp) throws ApiClientError {
             try {
                 var parser = new Json.Parser ();
-                parser.load_from_data (data);
+                parser.load_from_stream (resp.body_data_stream);
 
                 var node = parser.get_root ();
 
                 if (node == null) {
-                    throw new ApiClientError.ERROR_JSON ("Cannot parse json from: %s", data);
+                    throw new ApiClientError.ERROR_JSON ("Empty json response");
                 }
 
                 return node;
             } catch (Error error) {
                 throw new ApiClientError.ERROR_JSON (error.message);
             }
+        }
+
+        private static Json.Object? get_object_member_or_null (Json.Object object, string member_name) {
+            var node = object.get_member (member_name);
+
+            if (node == null || node.get_node_type () != Json.NodeType.OBJECT) {
+                return null;
+            }
+
+            return node.get_object ();
+        }
+
+        // Formats port bindings like `docker ps` does: "0.0.0.0:8080 -> 80/tcp"
+        private static string[]? format_ports (Json.Object? bindings_object) {
+            if (bindings_object == null) {
+                return null;
+            }
+
+            string[] ports = {};
+
+            bindings_object.foreach_member ((obj, key, binding_node) => {
+                if (binding_node.get_node_type () != Json.NodeType.ARRAY) {
+                    return;
+                }
+
+                foreach (var port_node in binding_node.get_array ().get_elements ()) {
+                    var port_object = port_node.get_object ();
+                    assert_nonnull (port_object);
+
+                    var ip = port_object.get_string_member_with_default ("HostIp", "");
+                    var port = port_object.get_string_member_with_default ("HostPort", "");
+
+                    var host_addr = ip.length > 0 ? ip : "0.0.0.0";
+                    if (host_addr.contains (":")) {
+                        host_addr = @"[$host_addr]";
+                    }
+
+                    // the host port is empty when docker picks it on start
+                    ports += port.length > 0 ? @"$host_addr:$port -> $key" : @"$host_addr -> $key";
+                }
+            });
+
+            return ports.length > 0 ? ports : null;
         }
 
         public async Container[] list_containers () throws ApiClientError {
@@ -87,15 +129,7 @@ namespace Docker {
                 }
 
                 //
-                var json = "";
-                string? line = null;
-
-                while ((line = yield resp.body_data_stream.read_line_utf8_async ()) != null) {
-                    json += line;
-                }
-
-                //
-                var root_node = parse_json (json);
+                var root_node = parse_json (resp);
                 var root_array = root_node.get_array ();
                 assert_nonnull (root_array);
 
@@ -148,8 +182,6 @@ namespace Docker {
                 } else {
                     throw new ApiClientError.ERROR (error.message);
                 }
-            } catch (IOError error) {
-                throw new ApiClientError.ERROR (error.message);
             }
         }
 
@@ -269,14 +301,7 @@ namespace Docker {
                 }
 
                 //
-                var json = "";
-                string? line = null;
-
-                while ((line = yield resp.body_data_stream.read_line_utf8_async ()) != null) {
-                    json += line;
-                }
-
-                var root_node = parse_json (json);
+                var root_node = parse_json (resp);
                 var root_object = root_node.get_object ();
                 assert_nonnull (root_object);
 
@@ -294,7 +319,6 @@ namespace Docker {
                 assert_nonnull (config_object);
 
                 container_info.image = config_object.get_string_member_with_default ("Image", _ ("Unknown"));
-                container_info.is_tty = config_object.get_boolean_member_with_default ("Tty", false);
 
                 //
                 var env_array = config_object.get_array_member ("Env");
@@ -308,7 +332,7 @@ namespace Docker {
                 }
 
                 //
-                var host_config_object = root_object.get_object_member ("HostConfig");
+                var host_config_object = get_object_member_or_null (root_object, "HostConfig");
 
                 if (host_config_object != null) {
                     var binds_array = host_config_object.get_array_member ("Binds");
@@ -322,36 +346,19 @@ namespace Docker {
                     }
                 }
 
-                //
-                var port_bindings_object = host_config_object.get_object_member ("PortBindings");
+                // actual bindings of a running container, otherwise the configured ones
+                var network_settings_object = get_object_member_or_null (root_object, "NetworkSettings");
 
-                if (port_bindings_object != null) {
-                    port_bindings_object.foreach_member ((obj, key, port_binding_node) => {
-                        var port_binding_array = port_binding_node.get_array ();
+                if (network_settings_object != null) {
+                    container_info.ports = format_ports (get_object_member_or_null (network_settings_object, "Ports"));
+                }
 
-                        if (port_binding_array != null && port_binding_array.get_length () > 0) {
-                            if (container_info.ports == null) {
-                                container_info.ports = new string[0];
-                            }
-
-                            foreach (var port_node in port_binding_array.get_elements ()) {
-                                var port_object = port_node.get_object ();
-                                assert_nonnull (port_object);
-
-                                var ip = port_object.get_string_member_with_default ("HostIp", "");
-                                var port = port_object.get_string_member_with_default ("HostPort", "-");
-
-                                var host_addr = ip.length > 0 ? ip : "0.0.0.0";
-                                container_info.ports += @"$host_addr:$port -> $key";
-                            }
-                        }
-                    });
+                if (container_info.ports == null && host_config_object != null) {
+                    container_info.ports = format_ports (get_object_member_or_null (host_config_object, "PortBindings"));
                 }
 
                 return container_info;
             } catch (HttpClientError error) {
-                throw new ApiClientError.ERROR (error.message);
-            } catch (IOError error) {
                 throw new ApiClientError.ERROR (error.message);
             }
         }
@@ -362,14 +369,7 @@ namespace Docker {
                 var resp = yield this.http_client.r_get ("/version");
 
                 //
-                var json = "";
-                string? line = null;
-
-                while ((line = yield resp.body_data_stream.read_line_utf8_async ()) != null) {
-                    json += line;
-                }
-
-                var root_node = parse_json (json);
+                var root_node = parse_json (resp);
                 var root_object = root_node.get_object ();
                 assert_nonnull (root_object);
 
@@ -378,8 +378,6 @@ namespace Docker {
 
                 return version;
             } catch (HttpClientError error) {
-                throw new ApiClientError.ERROR (error.message);
-            } catch (IOError error) {
                 throw new ApiClientError.ERROR (error.message);
             }
         }

@@ -13,18 +13,22 @@ using Utils;
 using Docker;
 
 class Widgets.Screens.Container.LogOutput : Gtk.ScrolledWindow {
+    private Gtk.TextBuffer log_buffer;
+    private ContainerLogWatcher? log_watcher = null;
+    private DockerContainer? selected_container = null;
+
     public LogOutput () {
         var state_root = State.Root.get_instance ();
         var state_docker_container = state_root.screen_docker_container;
         var text_view = new Gtk.TextView ();
-        var log_buffer = new Gtk.TextBuffer (null);
 
+        this.log_buffer = new Gtk.TextBuffer (null);
         this.get_style_context ().add_class ("log-output");
 
         text_view.get_style_context ().add_class ("terminal");
         text_view.editable = false;
         text_view.cursor_visible = false;
-        text_view.buffer = log_buffer;
+        text_view.buffer = this.log_buffer;
         this.add (text_view);
 
         this.vadjustment.changed.connect (() => {
@@ -33,59 +37,40 @@ class Widgets.Screens.Container.LogOutput : Gtk.ScrolledWindow {
             }
         });
 
-        ContainerLogWatcher? log_watcher = null;
-        DockerContainer? selected_container = null;
+        // logs are streamed only while the screen is shown
+        this.map.connect (this.watching_start);
+        this.unmap.connect (this.watching_stop);
 
         state_docker_container.notify["service"].connect (() => {
-            if (state_docker_container.service == null) {
-                if (log_watcher != null) {
-                    log_watcher.watching_stop ();
-                    log_watcher = null;
-                }
-                selected_container = null;
-                return;
-            }
-
-            if (state_root.active_screen != ScreenDockerContainer.CODE) {
-                return;
-            }
-
-            var is_container_changed = true;
-
-            if (selected_container != null) {
-                is_container_changed = selected_container.id != state_docker_container.service.id;
-            }
-
-            selected_container = state_docker_container.service;
-
-            if (is_container_changed) {
-                if (log_watcher != null) {
-                    log_watcher.watching_stop ();
-                    log_buffer.text = "";
-                }
-
-                log_watcher = new ContainerLogWatcher (selected_container, log_buffer);
-                log_watcher.watching_start ();
-            } else if (log_watcher != null) {
-                log_watcher.watching_start ();
+            if (this.get_mapped ()) {
+                this.watching_start ();
             }
         });
+    }
 
-        state_root.notify["active-screen"].connect (() => {
-            if (state_root.active_screen != ScreenDockerContainer.CODE) {
-                if (log_watcher != null) {
-                    log_watcher.watching_stop ();
-                    log_watcher = null;
-                    selected_container = null;
-                }
-            } else if (state_docker_container.service != null) {
-                if (log_watcher == null) {
-                    log_buffer.text = "";
-                    selected_container = state_docker_container.service;
-                    log_watcher = new ContainerLogWatcher (selected_container, log_buffer);
-                    log_watcher.watching_start ();
-                }
-            }
-        });
+    private void watching_start () {
+        var service = State.Root.get_instance ().screen_docker_container.service;
+        assert_nonnull (service);
+
+        if (this.log_watcher != null && this.selected_container.id == service.id) {
+            // the same container was reloaded, e.g. restarted: resume the stream if it has ended
+            this.log_watcher.watching_start ();
+            return;
+        }
+
+        this.watching_stop ();
+        this.log_buffer.text = "";
+
+        this.selected_container = service;
+        this.log_watcher = new ContainerLogWatcher (service, this.log_buffer);
+        this.log_watcher.watching_start ();
+    }
+
+    private void watching_stop () {
+        if (this.log_watcher != null) {
+            this.log_watcher.watching_stop ();
+            this.log_watcher = null;
+            this.selected_container = null;
+        }
     }
 }

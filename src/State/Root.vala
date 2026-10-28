@@ -87,15 +87,7 @@ class State.Root : Object {
 
             if (container.label_project == null) {
                 // single container
-                var docker_container = new DockerContainer.from_docker_api_container (container);
-                try {
-                    var info = yield this.container_inspect (docker_container);
-                    docker_container.is_tty = info[docker_container].is_tty;
-                } catch (ApiClientError error) {
-                    docker_container.is_tty = false;
-                }
-
-                this.containers.add (docker_container);
+                this.containers.add (new DockerContainer.from_docker_api_container (container));
             } else {
                 // if the container has already been processed
                 if (container.label_project in projects) {
@@ -136,13 +128,6 @@ class State.Root : Object {
                         is_all_running = is_all_running && s.state == DockerContainerState.RUNNING;
                         is_all_paused = is_all_paused && s.state == DockerContainerState.PAUSED;
                         is_all_stopped = is_all_stopped && s.state == DockerContainerState.STOPPED;
-
-                        try {
-                            var info = yield this.container_inspect (s);
-                            s.is_tty = info[s].is_tty;
-                        } catch (ApiClientError error) {
-                            s.is_tty = false;
-                        }
 
                         container_group.services.add (s);
                     }

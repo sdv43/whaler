@@ -28,11 +28,8 @@ namespace Widgets.Screens.Container {
                     this.remove (child);
                 });
 
-                if (state_docker_container.service == null) {
-                    return;
-                }
-
                 this.container = state_docker_container.service;
+                assert_nonnull (this.container);
 
                 this.pack_start (this.build_container_block (), false);
                 this.pack_end (this.build_container_actions (), false);
