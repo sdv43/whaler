@@ -48,7 +48,11 @@ namespace Utils {
             this.is_tty = false;
         }
 
-        public string format_name (string name) {
+        public string format_name (string? name) {
+            if (name == null || name.length == 0) {
+                return _ ("Unnamed");
+            }
+
             var value = name;
 
             if (value[0] == '/') {
@@ -65,7 +69,7 @@ namespace Utils {
             if (state == "paused") {
                 return DockerContainerState.PAUSED;
             }
-            if (state == "exited") {
+            if (state == "exited" || state == "created") {
                 return DockerContainerState.STOPPED;
             }
 
@@ -73,6 +77,12 @@ namespace Utils {
         }
 
         public static bool equal (DockerContainer a, DockerContainer b) {
+            if (a == b) {
+                return true;
+            }
+            if (a == null || b == null) {
+                return false;
+            }
             return a.id == b.id;
         }
     }

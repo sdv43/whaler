@@ -88,9 +88,13 @@ class State.Root : Object {
             if (container.label_project == null) {
                 // single container
                 var docker_container = new DockerContainer.from_docker_api_container (container);
-                var info = yield this.container_inspect (docker_container);
+                try {
+                    var info = yield this.container_inspect (docker_container);
+                    docker_container.is_tty = info[docker_container].is_tty;
+                } catch (ApiClientError error) {
+                    docker_container.is_tty = false;
+                }
 
-                docker_container.is_tty = info[docker_container].is_tty;
                 this.containers.add (docker_container);
             } else {
                 // if the container has already been processed
@@ -101,12 +105,15 @@ class State.Root : Object {
                 // create group
                 var container_group = new DockerContainer ();
 
-                var full_config_path = Path.build_filename (
-                    container.label_workdir,
-                    Path.get_basename (container.label_config)
-                );
+                string? full_config_path = null;
+                if (container.label_workdir != null && container.label_config != null) {
+                    full_config_path = Path.build_filename (
+                        container.label_workdir,
+                        Path.get_basename (container.label_config)
+                    );
+                }
 
-                container_group.id = full_config_path;
+                container_group.id = full_config_path ?? container.label_project;
                 container_group.name = container_group.format_name (container.label_project);
                 container_group.image = "";
                 container_group.type = DockerContainerType.GROUP;
@@ -130,8 +137,12 @@ class State.Root : Object {
                         is_all_paused = is_all_paused && s.state == DockerContainerState.PAUSED;
                         is_all_stopped = is_all_stopped && s.state == DockerContainerState.STOPPED;
 
-                        var info = yield this.container_inspect (s);
-                        s.is_tty = info[s].is_tty;
+                        try {
+                            var info = yield this.container_inspect (s);
+                            s.is_tty = info[s].is_tty;
+                        } catch (ApiClientError error) {
+                            s.is_tty = false;
+                        }
 
                         container_group.services.add (s);
                     }
@@ -147,11 +158,9 @@ class State.Root : Object {
                 // state
                 if (is_all_running) {
                     container_group.state = DockerContainerState.RUNNING;
-                }
-                if (is_all_paused) {
+                } else if (is_all_paused) {
                     container_group.state = DockerContainerState.PAUSED;
-                }
-                if (is_all_stopped) {
+                } else if (is_all_stopped) {
                     container_group.state = DockerContainerState.STOPPED;
                 }
 

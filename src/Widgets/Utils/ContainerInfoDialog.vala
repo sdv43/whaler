@@ -64,7 +64,7 @@ class Widgets.Utils.ContainerInfoDialog : Granite.Dialog {
         box.pack_start (this.build_row (_ ("Image"), {info.image}), false);
         box.pack_start (this.build_row (_ ("Status"), {info.status}), false);
 
-        if (info.ports != null) {
+        if (info.ports != null && info.ports.length > 0) {
             box.pack_start (this.build_row (_ ("Ports"), info.ports), false);
         }
 
