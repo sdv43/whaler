@@ -19,7 +19,21 @@
       For the app to run correctly, make sure that Docker is installed on your system.
     </p>
   </description>
-  <releases><release version="1.2.6" date="2026-04-10">
+  <releases>
+    <release version="1.2.7" date="2026-11-02">
+      <description>
+        <ul>
+          <li>Add Spanish translation</li>
+          <li>Add German translation</li>
+          <li>Improve docker-compose support</li>
+          <li>Fix container logs streaming and crashes</li>
+          <li>Fix ports display in container info</li>
+          <li>Improve search, containers list ordering and window state restoration</li>
+          <li>Few bug fixes and improvements</li>
+        </ul>
+      </description>
+    </release>
+    <release version="1.2.6" date="2026-04-10">
       <description>
         <ul>
           <li>Update flatpak runtime version</li>
