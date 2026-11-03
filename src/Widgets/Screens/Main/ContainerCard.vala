@@ -28,6 +28,7 @@ class Widgets.Screens.Main.ContainerCard : Gtk.FlowBoxChild {
         grid.attach (card_actions, 3, 1, 1, 2);
 
         this.get_style_context ().add_class ("docker-container");
+        this.get_accessible ().set_name (container.name);
         this.add (grid);
 
         if (container.state == DockerContainerState.UNKNOWN) {

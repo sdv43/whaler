@@ -281,3 +281,8 @@ msgstr "Bez názvu"
 #: src/Widgets/Screens/DockerContainer/SideBar.vala:49
 msgid "Services"
 msgstr "Služby"
+
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:58
+#: src/Widgets/Screens/DockerContainer/TopBarActions.vala:67
+msgid "More actions"
+msgstr "Další akce"

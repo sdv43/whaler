@@ -49,6 +49,7 @@ class Widgets.HeaderBar : Gtk.HeaderBar {
         button_refresh.valign = Gtk.Align.CENTER;
         button_refresh.focus_on_click = false;
         button_refresh.set_tooltip_text (_ ("Update docker container list"));
+        button_refresh.get_accessible ().set_name (_ ("Update docker container list"));
         button_refresh.get_style_context ().add_class ("refresh-button");
 
         button_refresh.clicked.connect ((button) => {
@@ -96,6 +97,7 @@ class Widgets.HeaderBar : Gtk.HeaderBar {
         button_settings.valign = Gtk.Align.CENTER;
         button_settings.focus_on_click = false;
         button_settings.set_tooltip_text (_ ("Open settings"));
+        button_settings.get_accessible ().set_name (_ ("Open settings"));
 
         button_settings.clicked.connect ((button) => {
             new Utils.SettingsDialog ();
