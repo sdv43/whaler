@@ -176,16 +176,42 @@ class State.Root : Object {
     }
 
     public async void container_stop (DockerContainer container) throws ApiClientError {
+        string[] ids = {};
+
         if (container.type == DockerContainerType.GROUP) {
             foreach (var service in container.services) {
                 yield this.api_client.stop_container (service.api_container);
+                ids += service.id;
             }
         } else {
             assert_true (container.api_container != null);
             yield this.api_client.stop_container (container.api_container);
+            ids += container.id;
         }
 
+        yield this.wait_containers_not_running (ids);
         yield this.containers_load ();
+    }
+
+    // Docker can respond to "stop" before its container list shows the container as stopped
+    private async void wait_containers_not_running (string[] ids) throws ApiClientError {
+        for (var attempt = 0; attempt < 20; attempt++) {
+            var is_running = false;
+
+            foreach (var api_container in yield this.api_client.list_containers ()) {
+                if (api_container.id in ids && api_container.state == "running") {
+                    is_running = true;
+                    break;
+                }
+            }
+
+            if (!is_running) {
+                return;
+            }
+
+            Timeout.add (50, this.wait_containers_not_running.callback);
+            yield;
+        }
     }
 
     public async void container_restart (DockerContainer container) throws ApiClientError {

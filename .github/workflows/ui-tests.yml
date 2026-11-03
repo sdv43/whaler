@@ -25,6 +25,9 @@ jobs:
           meson setup build
           ninja -C build
 
+      - name: Docker version
+        run: docker version
+
       - name: Run UI tests
         env:
           PYTHON: /usr/bin/python3
