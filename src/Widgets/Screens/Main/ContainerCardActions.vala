@@ -25,13 +25,19 @@ class Widgets.Screens.Main.ContainerCardActions : Gtk.Box {
 
     private Gtk.Widget build_button_main_action () {
         var icon_name = "media-playback-start-symbolic";
+        var label_text = _ ("Start");
 
         if (this.container.state == DockerContainerState.RUNNING) {
             icon_name = "media-playback-stop-symbolic";
+            label_text = _ ("Stop");
+        } else if (this.container.state == DockerContainerState.PAUSED) {
+            label_text = _ ("Unpause");
         }
 
         var button = new Gtk.Button.from_icon_name (icon_name, Gtk.IconSize.MENU);
         button.valign = Gtk.Align.CENTER;
+        button.set_tooltip_text (label_text);
+        button.get_accessible ().set_name (label_text);
         button.clicked.connect (() => {
             this.sensitive = false;
 
@@ -49,6 +55,8 @@ class Widgets.Screens.Main.ContainerCardActions : Gtk.Box {
 
         var button = new Gtk.Button.from_icon_name ("view-more-symbolic", Gtk.IconSize.BUTTON);
         button.valign = Gtk.Align.CENTER;
+        button.set_tooltip_text (_ ("More actions"));
+        button.get_accessible ().set_name (_ ("More actions"));
         button.clicked.connect ((widget) => {
             menu.popup_at_widget (
                 widget,

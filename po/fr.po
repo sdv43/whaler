@@ -283,3 +283,8 @@ msgstr "Sans nom"
 #: src/Widgets/Screens/DockerContainer/SideBar.vala:49
 msgid "Services"
 msgstr "Services"
+
+#: src/Widgets/Screens/Main/ContainerCardActions.vala:58
+#: src/Widgets/Screens/DockerContainer/TopBarActions.vala:67
+msgid "More actions"
+msgstr "Plus d’actions"

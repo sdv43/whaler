@@ -5,3 +5,5 @@ build
 .vscode
 *.glade#
 *.glade~
+__pycache__
+tests/ui/artifacts

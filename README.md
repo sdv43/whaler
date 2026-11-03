@@ -58,3 +58,27 @@ In project root:
 flatpak-builder --force-clean --install --user build com.github.sdv43.whaler.yml
 flatpak run com.github.sdv43.whaler
 ```
+
+## UI tests
+
+The UI tests in `tests/ui` start the app on a virtual display and drive it through the accessibility
+tree (AT-SPI), like a user: they start, stop and remove containers and check the results in Docker.
+The tests create their own containers (named `wuit-*`) and remove them afterwards, and don't change
+your Whaler settings.
+
+You'll need Docker with the compose plugin and:
+* xvfb
+* dbus
+* at-spi2-core
+* gir1.2-atspi-2.0
+* python3-gi
+* python3-pytest
+* imagemagick (optional, for screenshots of failed tests)
+
+In project root, after building with Meson into `build`:
+```
+tests/ui/run.sh
+```
+
+Extra arguments are passed to pytest, e.g. `tests/ui/run.sh -k logs -x`. Screenshots and logs of
+failed tests are saved to `tests/ui/artifacts`.

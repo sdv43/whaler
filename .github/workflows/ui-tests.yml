@@ -1,0 +1,38 @@
+name: UI tests
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+jobs:
+  ui-tests:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            gcc meson valac gettext libgtk-3-dev libgee-0.8-dev libjson-glib-dev libgranite-dev libcurl4-openssl-dev \
+            xvfb dbus at-spi2-core gir1.2-atspi-2.0 python3-gi python3-pytest imagemagick
+
+      - name: Build
+        run: |
+          meson setup build
+          ninja -C build
+
+      - name: Run UI tests
+        env:
+          PYTHON: /usr/bin/python3
+        run: tests/ui/run.sh -v
+
+      - name: Upload screenshots and logs
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ui-test-artifacts
+          path: tests/ui/artifacts

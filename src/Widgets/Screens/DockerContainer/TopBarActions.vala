@@ -64,6 +64,8 @@ namespace Widgets.Screens.Container {
 
             button.get_style_context ().add_class ("button-menu");
             button.valign = Gtk.Align.FILL;
+            button.set_tooltip_text (_ ("More actions"));
+            button.get_accessible ().set_name (_ ("More actions"));
             button.clicked.connect ((widget) => {
                 menu.popup_at_widget (
                     widget,
